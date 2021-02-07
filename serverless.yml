@@ -46,9 +46,9 @@ inputs:
           cronExpression: "0 0 0-16/8,20 * * * *"
           enable: true
           argument: jd_joy_reward&jd_joy_steal&jd_necklace&jd_small_home&jd_live
-    - timer: #京东全民开红包 #进店领豆 #取关京东店铺商品 #注销京东会员卡 #京东抽奖机 #京东汽车 #京东秒秒币 #小鸽有礼 #小鸽有礼2
+    - timer: #京东全民开红包 #进店领豆 #取关京东店铺商品 #京东抽奖机 #京东汽车 #京东秒秒币 #小鸽有礼 #小鸽有礼2
         parameters:
-          name: redPacket_shop_unsubscribe_unbind_lotteryMachine_car_ms_xg
+          name: redPacket_shop_unsubscribe_lotteryMachine_car_ms_xg
           cronExpression: "0 10 0 * * * *"
           enable: true
           argument: jd_redPacket&jd_shop&jd_unsubscribe&jd_unbind&jd_lotteryMachine&jd_car&jd_ms&jd_xg&jd_xgyl
