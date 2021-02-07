@@ -7,7 +7,7 @@ name: jdscript # (必选) 组件实例名称。
 #组件参数配置
 inputs:
   name: scf-${name} # 云函数名称，默认为 ${name}-${stage}-${app}
-  enableRoleAuth: true # 默认会尝试创建 SCF_QcsRole 角色，如果不需要配置成 false 即可
+  enableRoleAuth: false # 默认会尝试创建 SCF_QcsRole 角色，如果不需要配置成 false 即可
   src: ./
   handler: index.main_handler #入口
   runtime: Nodejs12.16 # 运行环境 默认 Nodejs10.15
@@ -51,7 +51,7 @@ inputs:
           name: redPacket_shop_unsubscribe_lotteryMachine_car_ms_xg
           cronExpression: "0 10 0 * * * *"
           enable: true
-          argument: jd_redPacket&jd_shop&jd_unsubscribe&jd_unbind&jd_lotteryMachine&jd_car&jd_ms&jd_xg&jd_xgyl
+          argument: jd_redPacket&jd_shop&jd_unsubscribe&jd_lotteryMachine&jd_car&jd_ms&jd_xg&jd_xgyl
     - timer: #京东天天加速 #天天提鹅
         parameters:
           name: speed_dailyegg
