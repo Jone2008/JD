@@ -49,8 +49,8 @@ if ($.isNode()) {
 }
 const JD_API_HOST = 'https://api.m.jd.com/client.action';
 const inviteCodes = [
-  `oMZeXOZM8YkCBrczP-F2-Ru-IjBHfK31MgkFDXR7zPWSNhoj@oMZeXO9NqYkGUuA0NrJ1qy5TYAjfffsUrr73UVxt1z4SIB6j@oMZeXuIZpIlRA7FgPrh2rKxd6f5_bxA_KagEaMrB9U7NTCDM`,
-  `oMZeXOZM8YkCBrczP-F2-Ru-IjBHfK31MgkFDXR7zPWSNhoj@oMZeXO9NqYkGUuA0NrJ1qy5TYAjfffsUrr73UVxt1z4SIB6j@oMZeXuIZpIlRA7FgPrh2rKxd6f5_bxA_KagEaMrB9U7NTCDM`,
+  `oMZeXeJKo94DC7M4NLZy_70wCimaBxFoNSjC7fDqCrR7aXDs@oMZeDqEh0-kDXqdqfdEIs3n_mKlPzpEr99gPE-69Wl7rLLI`,
+  `oMZeXeJKo94DC7M4NLZy_70wCimaBxFoNSjC7fDqCrR7aXDs@oMZeDqEh0-kDXqdqfdEIs3n_mKlPzpEr99gPE-69Wl7rLLI`,
 ];
 !(async () => {
   await requireConfig();
