@@ -2,9 +2,6 @@
 50 23 */3 * * rm -rf /scripts/logs/*.log
 
 ##############短期活动##############
-# 年货节(活动时间：2021年1月9日-2021年2月9日)
-10 8 * * * node /scripts/jd_nh.js >> /scripts/logs/jd_nh.log 2>&1
-
 # 小鸽有礼(活动时间：2021年1月15日至2021年2月19日)
 5 7 * * * node /scripts/jd_xg.js >> /scripts/logs/jd_xg.log 2>&1
 # 小鸽有礼2(活动时间：2021年1月28日～2021年2月28日)
