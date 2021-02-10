@@ -7,6 +7,68 @@ jobs:
   build:
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
+    env:
+      JD_COOKIE: ${{ secrets.JD_COOKIE}}
+      JD_DEBUG: ${{ secrets.JD_DEBUG}}
+      JD_USER_AGENT: ${{ secrets.JD_USER_AGENT}}
+      TENCENTSCF_SOURCE_TYPE: ${{ secrets.TENCENTSCF_SOURCE_TYPE}}
+      TENCENTSCF_SOURCE_URL: ${{ secrets.TENCENTSCF_SOURCE_URL}}
+      PUSH_KEY: ${{ secrets.PUSH_KEY}}
+      BARK_PUSH: ${{ secrets.BARK_PUSH}}
+      BARK_SOUND: ${{ secrets.BARK_SOUND}}
+      TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN}}
+      TG_USER_ID: ${{ secrets.TG_USER_ID}}
+      DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN}}
+      DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET}}
+      QYWX_KEY: ${{ secrets.QYWX_KEY}}
+      IGOT_PUSH_KEY: ${{ secrets.IGOT_PUSH_KEY}}
+      QQ_SKEY: ${{ secrets.QQ_SKEY}}
+      QQ_MODE: ${{ secrets.QQ_MODE}}
+      PUSH_PLUS_TOKEN: ${{ secrets.PUSH_PLUS_TOKEN}}
+      PUSH_PLUS_USER: ${{ secrets.PUSH_PLUS_USER}}
+      TG_PROXY_HOST: ${{ secrets.TG_PROXY_HOST}}
+      TG_PROXY_PORT: ${{ secrets.TG_PROXY_PORT}}
+      FRUITSHARECODES: ${{ secrets.FRUITSHARECODES}}
+      PETSHARECODES: ${{ secrets.PETSHARECODES}}
+      PLANT_BEAN_SHARECODES: ${{ secrets.PLANT_BEAN_SHARECODES}}
+      SUPERMARKET_SHARECODES: ${{ secrets.SUPERMARKET_SHARECODES}}
+      DDFACTORY_SHARECODES: ${{ secrets.DDFACTORY_SHARECODES}}
+      DREAM_FACTORY_SHARE_CODES: ${{ secrets.DREAM_FACTORY_SHARE_CODES}}
+      JDZZ_SHARECODES: ${{ secrets.JDZZ_SHARECODES}}
+      JDJOY_SHARECODES: ${{ secrets.JDJOY_SHARECODES}}
+      BOOKSHOP_SHARECODES: ${{ secrets.BOOKSHOP_SHARECODES}}
+      JD_CASH_SHARECODES: ${{ secrets.JD_CASH_SHARECODES}}
+      JXNC_SHARECODES: ${{ secrets.JXNC_SHARECODES}}
+      JDSGMH_SHARECODES: ${{ secrets.JDSGMH_SHARECODES}}
+      JD_BEAN_STOP: ${{ secrets.JD_BEAN_STOP}}
+      JD_BEAN_SIGN_STOP_NOTIFY: ${{ secrets.JD_BEAN_SIGN_STOP_NOTIFY}}
+      JD_BEAN_SIGN_NOTIFY_SIMPLE: ${{ secrets.JD_BEAN_SIGN_NOTIFY_SIMPLE}}
+      PET_NOTIFY_CONTROL: ${{ secrets.PET_NOTIFY_CONTROL}}
+      FRUIT_NOTIFY_CONTROL: ${{ secrets.FRUIT_NOTIFY_CONTROL}}
+      JD_JOY_REWARD_NOTIFY: ${{ secrets.JD_JOY_REWARD_NOTIFY}}
+      JOY_FEED_COUNT: ${{ secrets.JOY_FEED_COUNT}}
+      JOY_HELP_FEED: ${{ secrets.JOY_HELP_FEED}}
+      JOY_RUN_FLAG: ${{ secrets.JOY_RUN_FLAG}}
+      JOY_TEAM_LEVEL: ${{ secrets.JOY_TEAM_LEVEL}}
+      JOY_RUN_NOTIFY: ${{ secrets.JOY_RUN_NOTIFY}}
+      JD_JOY_REWARD_NAME: ${{ secrets.JD_JOY_REWARD_NAME}}
+      MARKET_COIN_TO_BEANS: ${{ secrets.MARKET_COIN_TO_BEANS}}
+      MARKET_REWARD_NOTIFY: ${{ secrets.MARKET_REWARD_NOTIFY}}
+      JOIN_PK_TEAM: ${{ secrets.JOIN_PK_TEAM}}
+      SUPERMARKET_UPGRADE: ${{ secrets.SUPERMARKET_UPGRADE}}
+      BUSINESS_CIRCLE_JUMP: ${{ secrets.BUSINESS_CIRCLE_JUMP}}
+      SUPERMARKET_LOTTERY: ${{ secrets.SUPERMARKET_LOTTERY}}
+      FRUIT_BEAN_CARD: ${{ secrets.FRUIT_BEAN_CARD}}
+      UN_SUBSCRIBES: ${{ secrets.UN_SUBSCRIBES}}
+      JDJOY_HELPSELF: ${{ secrets.JDJOY_HELPSELF}}
+      JDJOY_APPLYJDBEAN: ${{ secrets.JDJOY_APPLYJDBEAN}}
+      BUY_JOY_LEVEL: ${{ secrets.BUY_JOY_LEVEL}}
+      MONEY_TREE_SELL_FRUIT: ${{ secrets.MONEY_TREE_SELL_FRUIT}}
+      FACTORAY_WANTPRODUCT_NAME: ${{ secrets.FACTORAY_WANTPRODUCT_NAME}}
+      JXNCTOKENS: ${{ secrets.JXNCTOKENS}}
+      DREAMFACTORY_FORBID_ACCOUNT: ${{ secrets.DREAMFACTORY_FORBID_ACCOUNT}}
+      JDFACTORY_FORBID_ACCOUNT: ${{ secrets.JDFACTORY_FORBID_ACCOUNT}}
+      
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -22,6 +84,8 @@ jobs:
         run: |
           npm install
           npm install tencentcloud-sdk-nodejs
+          npm install got
+          npm install tough-cookie
           npm install js-yaml
 
       - name: "将Secrets里面配置的变量添加到severless.yml里面作为环境变量"
@@ -88,70 +152,10 @@ jobs:
           if [ $JDFACTORY_FORBID_ACCOUNT ]; then sed -i "/variables/a\      JDFACTORY_FORBID_ACCOUNT: $JDFACTORY_FORBID_ACCOUNT" serverless.yml; fi;
           cat serverless.yml
           env
-        env: #因为直接读取secrets里面的值很多字符不会自动转译，导致写入serverless.yml异常，所以设置到环境变量，在读取环境变量转译过的值
-          JD_COOKIE: ${{ secrets.JD_COOKIE}}
-          JD_DEBUG: ${{ secrets.JD_DEBUG}}
-          JD_USER_AGENT: ${{ secrets.JD_USER_AGENT}}
-          TENCENTSCF_SOURCE_TYPE: ${{ secrets.TENCENTSCF_SOURCE_TYPE}}
-          TENCENTSCF_SOURCE_URL: ${{ secrets.TENCENTSCF_SOURCE_URL}}
-          PUSH_KEY: ${{ secrets.PUSH_KEY}}
-          BARK_PUSH: ${{ secrets.BARK_PUSH}}
-          BARK_SOUND: ${{ secrets.BARK_SOUND}}
-          TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN}}
-          TG_USER_ID: ${{ secrets.TG_USER_ID}}
-          DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN}}
-          DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET}}
-          QYWX_KEY: ${{ secrets.QYWX_KEY}}
-          IGOT_PUSH_KEY: ${{ secrets.IGOT_PUSH_KEY}}
-          QQ_SKEY: ${{ secrets.QQ_SKEY}}
-          QQ_MODE: ${{ secrets.QQ_MODE}}
-          PUSH_PLUS_TOKEN: ${{ secrets.PUSH_PLUS_TOKEN}}
-          PUSH_PLUS_USER: ${{ secrets.PUSH_PLUS_USER}}
-          TG_PROXY_HOST: ${{ secrets.TG_PROXY_HOST}}
-          TG_PROXY_PORT: ${{ secrets.TG_PROXY_PORT}}
-          FRUITSHARECODES: ${{ secrets.FRUITSHARECODES}}
-          PETSHARECODES: ${{ secrets.PETSHARECODES}}
-          PLANT_BEAN_SHARECODES: ${{ secrets.PLANT_BEAN_SHARECODES}}
-          SUPERMARKET_SHARECODES: ${{ secrets.SUPERMARKET_SHARECODES}}
-          DDFACTORY_SHARECODES: ${{ secrets.DDFACTORY_SHARECODES}}
-          DREAM_FACTORY_SHARE_CODES: ${{ secrets.DREAM_FACTORY_SHARE_CODES}}
-          JDZZ_SHARECODES: ${{ secrets.JDZZ_SHARECODES}}
-          JDJOY_SHARECODES: ${{ secrets.JDJOY_SHARECODES}}
-          BOOKSHOP_SHARECODES: ${{ secrets.BOOKSHOP_SHARECODES}}
-          JD_CASH_SHARECODES: ${{ secrets.JD_CASH_SHARECODES}}
-          JXNC_SHARECODES: ${{ secrets.JXNC_SHARECODES}}
-          JDSGMH_SHARECODES: ${{ secrets.JDSGMH_SHARECODES}}
-          JD_BEAN_STOP: ${{ secrets.JD_BEAN_STOP}}
-          JD_BEAN_SIGN_STOP_NOTIFY: ${{ secrets.JD_BEAN_SIGN_STOP_NOTIFY}}
-          JD_BEAN_SIGN_NOTIFY_SIMPLE: ${{ secrets.JD_BEAN_SIGN_NOTIFY_SIMPLE}}
-          PET_NOTIFY_CONTROL: ${{ secrets.PET_NOTIFY_CONTROL}}
-          FRUIT_NOTIFY_CONTROL: ${{ secrets.FRUIT_NOTIFY_CONTROL}}
-          JD_JOY_REWARD_NOTIFY: ${{ secrets.JD_JOY_REWARD_NOTIFY}}
-          JOY_FEED_COUNT: ${{ secrets.JOY_FEED_COUNT}}
-          JOY_HELP_FEED: ${{ secrets.JOY_HELP_FEED}}
-          JOY_RUN_FLAG: ${{ secrets.JOY_RUN_FLAG}}
-          JOY_TEAM_LEVEL: ${{ secrets.JOY_TEAM_LEVEL}}
-          JOY_RUN_NOTIFY: ${{ secrets.JOY_RUN_NOTIFY}}
-          JD_JOY_REWARD_NAME: ${{ secrets.JD_JOY_REWARD_NAME}}
-          MARKET_COIN_TO_BEANS: ${{ secrets.MARKET_COIN_TO_BEANS}}
-          MARKET_REWARD_NOTIFY: ${{ secrets.MARKET_REWARD_NOTIFY}}
-          JOIN_PK_TEAM: ${{ secrets.JOIN_PK_TEAM}}
-          SUPERMARKET_UPGRADE: ${{ secrets.SUPERMARKET_UPGRADE}}
-          BUSINESS_CIRCLE_JUMP: ${{ secrets.BUSINESS_CIRCLE_JUMP}}
-          SUPERMARKET_LOTTERY: ${{ secrets.SUPERMARKET_LOTTERY}}
-          FRUIT_BEAN_CARD: ${{ secrets.FRUIT_BEAN_CARD}}
-          UN_SUBSCRIBES: ${{ secrets.UN_SUBSCRIBES}}
-          JDJOY_HELPSELF: ${{ secrets.JDJOY_HELPSELF}}
-          JDJOY_APPLYJDBEAN: ${{ secrets.JDJOY_APPLYJDBEAN}}
-          BUY_JOY_LEVEL: ${{ secrets.BUY_JOY_LEVEL}}
-          MONEY_TREE_SELL_FRUIT: ${{ secrets.MONEY_TREE_SELL_FRUIT}}
-          FACTORAY_WANTPRODUCT_NAME: ${{ secrets.FACTORAY_WANTPRODUCT_NAME}}
-          JXNCTOKENS: ${{ secrets.JXNCTOKENS}}
-          DREAMFACTORY_FORBID_ACCOUNT: ${{ secrets.DREAMFACTORY_FORBID_ACCOUNT}}
-          JDFACTORY_FORBID_ACCOUNT: ${{ secrets.JDFACTORY_FORBID_ACCOUNT}}
 
       - name: "压缩文件夹"
         run: zip -r myfile.zip ./*
+        
       - name: "部署到腾讯云函数"
         run: node tencentscf.js
         env:
@@ -161,3 +165,6 @@ jobs:
           TENCENT_SECRET_KEY: ${{ secrets.TENCENT_SECRET_KEY }}
           TENCENT_REGION: ${{ secrets.SCF_REGION }}
           TENCENT_FUNCTION_NAME: ${{ secrets.TENCENT_FUNCTION_NAME }}
+        
+      - name: "部署失败通知"
+        run: node action.js
