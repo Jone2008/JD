@@ -2,6 +2,7 @@
 const tencentcloud = require("tencentcloud-sdk-nodejs");
 const fs = require('fs')
 const yaml = require('js-yaml');
+process.env.action = 0;
 
 const ScfClient = tencentcloud.scf.v20180416.Client;
 
@@ -28,47 +29,64 @@ const sleep = ms => new Promise(res => setTimeout(res, ms));
       const file_buffer  = fs.readFileSync('./myfile.zip');
       const contents_in_base64 = file_buffer.toString('base64');
       if(func.length){
-        console.log(`函数已存在，去更新函数`)
-        // 更新代码
+        console.log(`更新函数`)
+        // 更新代码，删除后重建
         params = {
-          "Handler": "index.main_handler",
           "FunctionName": process.env.TENCENT_FUNCTION_NAME,
-          "ZipFile": contents_in_base64
+
         };
-        await client.UpdateFunctionCode(params).then(
+        await client.DeleteFunction(params).then(
           (data) => {
             console.log(data);
           },
           (err) => {
             console.error("error", err);
+            process.env.action ++;
           }
         );
-      } else{
-        console.log(`函数不存在，去创建函数`)
+        await sleep(1000*50) // 等待50秒
+      }
+        console.log(`创建函数`)
+        let inputYML = ".github/workflows/deploy_tencent_scf.yml";
+        let obj = yaml.load(fs.readFileSync(inputYML, { encoding: "utf-8" }));
         params = {
           "Code": {
             "ZipFile": contents_in_base64
           },
           "FunctionName": process.env.TENCENT_FUNCTION_NAME,
-          "Runtime": "Nodejs12.16"
+          "Runtime": "Nodejs12.16",
+          "Timeout": 900,
+          "Environment": {
+            "Variables": []
+          }
         };
+        for (let key in obj.jobs.build.env) {
+                if (process.env[key].length > 0) {
+                  params.Environment.Variables.push({
+                    Key: key,
+                    Value: process.env[key]
+                  });
+                }
+              }
         await client.CreateFunction(params).then(
           (data) => {
             console.log(data);
           },
           (err) => {
             console.error("error", err);
+            process.env.action ++;
           }
         );
-        await sleep(1000*100) // 等待100秒
-      }
+        await sleep(1000*50) // 等待50秒
+      
     },
     (err) => {
       console.error("error", err);
+      process.env.action ++;
     }
   );
 
-  console.log(`更新环境变量`)
+/*  console.log(`更新环境变量`)
   // 更新环境变量
   let inputYML = '.github/workflows/deploy_tencent_scf.yml';
   let obj = yaml.load(fs.readFileSync(inputYML, {encoding: 'utf-8'}))
@@ -122,11 +140,11 @@ const sleep = ms => new Promise(res => setTimeout(res, ms));
         console.error("error", err);
       }
     );
-  }
+  }*/
   // 更新触发器
   console.log(`去更新触发器`)
-  inputYML = 'serverless.yml';
-  obj = yaml.load(fs.readFileSync(inputYML, {encoding: 'utf-8'}))
+  let inputYML = 'serverless.yml';
+  let obj = yaml.load(fs.readFileSync(inputYML, {encoding: 'utf-8'}))
   for(let vo of obj.inputs.events){
     let param = {
       "FunctionName": process.env.TENCENT_FUNCTION_NAME,
@@ -142,6 +160,7 @@ const sleep = ms => new Promise(res => setTimeout(res, ms));
       },
       (err) => {
         console.error("error", err);
+        process.env.action ++;
       }
     );
   }
@@ -149,4 +168,13 @@ const sleep = ms => new Promise(res => setTimeout(res, ms));
 })()
   .catch((e) => console.log(e))
   .finally(async () => {
+    if (process.env.GITHUB_ACTIONS == "true") {
+    fs.writeFile('action.js', `var action = `+process.env.action+`;action > 0 ? require("./sendNotify").sendNotify("云函数部署异常！请重试","点击通知，登入后查看详情",{ url: process.env.GITHUB_SERVER_URL + "/" + process.env.GITHUB_REPOSITORY + "/actions/runs/" + process.env.GITHUB_RUN_ID + "?check_suite_focus=true" }): ""`,'utf8',function(error){
+        if(error){
+            console.log(error);
+            return false;
+        }
+        console.log('写入成功');
+    })
+    }
   })

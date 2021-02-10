@@ -160,6 +160,12 @@ function isJDCoupon(title) {
     return true
   else if (title.indexOf('京贴') > -1)
     return true
+  else if (title.indexOf('全品类') > -1)
+    return true
+  else if (title.indexOf('话费') > -1)
+    return true
+  else if (title.indexOf('小鸽有礼') > -1)
+    return true
   else if (title.indexOf('旗舰店') > -1)
     return false
   else if (title.indexOf('生鲜') > -1)

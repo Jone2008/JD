@@ -7,7 +7,7 @@ name: jdscript # (必选) 组件实例名称。
 #组件参数配置
 inputs:
   name: scf-${name} # 云函数名称，默认为 ${name}-${stage}-${app}
-  enableRoleAuth: false # 默认会尝试创建 SCF_QcsRole 角色，如果不需要配置成 false 即可
+  enableRoleAuth: true # 默认会尝试创建 SCF_QcsRole 角色，如果不需要配置成 false 即可
   src: ./
   handler: index.main_handler #入口
   runtime: Nodejs12.16 # 运行环境 默认 Nodejs10.15
@@ -51,7 +51,7 @@ inputs:
           name: redPacket_shop_unsubscribe_lotteryMachine_car_ms_xg
           cronExpression: "0 10 0 * * * *"
           enable: true
-          argument: jd_redPacket&jd_shop&jd_unsubscribe&jd_lotteryMachine&jd_car&jd_ms&jd_xg&jd_xgyl
+          argument: jd_redPacket&jd_shop&jd_unsubscribe&jd_unbind&jd_lotteryMachine&jd_car&jd_ms&jd_xg&jd_xgyl
     - timer: #京东天天加速 #天天提鹅
         parameters:
           name: speed_dailyegg
@@ -64,12 +64,12 @@ inputs:
           cronExpression: "0 15 * * * * *"
           enable: true
           argument: jd_superMarket
-    - timer: #京豆变动通知 #疯狂的joy #京东排行榜 #领京豆额外奖励 #闪购盲盒 #京东年货节
+    - timer: #京豆变动通知 #疯狂的joy #京东排行榜 #领京豆额外奖励 #闪购盲盒
         parameters:
-          name: beanchange_crazyjoy_rankingList_beanhome_sgmh_nh
+          name: beanchange_crazyjoy_rankingList_beanhome_sgmh
           cronExpression: "0 30 7 * * * *"
           enable: true
-          argument: jd_bean_change&jd_crazy_joy&jd_rankingList&jd_bean_home&jd_sgmh&jd_nh
+          argument: jd_bean_change&jd_crazy_joy&jd_rankingList&jd_bean_home&jd_sgmh
     - timer: #金融养猪 #十元街 #京东快递 #京东赚赚 #签到领现金 #京喜签到
         parameters:
           name: pigPet_syj_kd_jdzz_cash_sign
