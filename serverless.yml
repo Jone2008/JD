@@ -40,18 +40,18 @@ inputs:
           cronExpression: "0 3 */1 * * * *"
           enable: true
           argument: jd_joy_feedPets&jd_joy&jd_moneyTree&jd_plantBean&jd_dreamFactory&jd_jdfactory
-    - timer: #宠汪汪积分兑换奖品 #宠汪汪偷好友积分与狗粮 #点点券 #东东小窝 #京东直播18豆
+    - timer: #宠汪汪偷好友积分与狗粮 #点点券 #东东小窝 #京东直播18豆
         parameters:
-          name: joyreward_joysteal_necklace_smallhome_live
+          name: joysteal_necklace_smallhome_live
           cronExpression: "0 0 0-16/8,20 * * * *"
           enable: true
-          argument: jd_joy_reward&jd_joy_steal&jd_necklace&jd_small_home&jd_live
+          argument: jd_joy_steal&jd_necklace&jd_small_home&jd_live
     - timer: #京东全民开红包 #进店领豆 #取关京东店铺商品 #京东抽奖机 #京东汽车 #京东秒秒币 #小鸽有礼 #小鸽有礼2
         parameters:
           name: redPacket_shop_unsubscribe_lotteryMachine_car_ms_xg
           cronExpression: "0 10 0 * * * *"
           enable: true
-          argument: jd_redPacket&jd_shop&jd_unsubscribe&jd_lotteryMachine&jd_car&jd_ms&jd_xg&jd_xgyl
+          argument: jd_redPacket&jd_shop&jd_unsubscribe&jd_unbind&jd_lotteryMachine&jd_car&jd_ms&jd_xg&jd_xgyl
     - timer: #京东天天加速 #天天提鹅
         parameters:
           name: speed_dailyegg
@@ -61,7 +61,7 @@ inputs:
     - timer: #东东超市
         parameters:
           name: superMarket
-          cronExpression: "0 15 * * * * *"
+          cronExpression: "0 15 */6 * * * *"
           enable: true
           argument: jd_superMarket
     - timer: #京豆变动通知 #疯狂的joy #京东排行榜 #领京豆额外奖励 #闪购盲盒

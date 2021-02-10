@@ -47,24 +47,24 @@
 |15|[jd_family.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_family.js)|京东家庭号|玩一玩-家庭号|
 |16|[jd_fruit.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_fruit.js)|东东农场|京东APP我的-更多工具-东东农场|
 |17|[jd_get_share_code.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_get_share_code.js)|获取互助码|我的->游戏与互动->查看更多开启`|
-|18|[jd_jdfactory.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_jdfactory.js)|东东工厂|京东APP首页-数码电器-东东工厂|
-|19|[jd_jdzz.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_jdzz.js)|京东赚赚|京东赚赚小程序|
-|20|[jd_joy.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_joy.js)|宠汪汪|京东APP我的-更多工具-宠汪汪|
-|21|[jd_joy_feedPets.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_joy_feedPets.js)|宠汪汪🐕喂食|京东APP我的-更多工具-宠汪汪|
-|22|[jd_joy_help.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_joy_help.js)|宠汪汪强制为别人助力|京东APP我的-更多工具-宠汪汪|
-|23|[jd_joy_reward.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_joy_reward.js)|宠汪汪积分兑换奖品|京东APP我的-更多工具-宠汪汪|
-|24|[jd_joy_run.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_joy_run.js)|宠汪汪赛跑|京东APP我的-更多工具-宠汪汪|
-|25|[jd_joy_steal.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_joy_steal.js)|宠汪汪偷好友积分与狗粮|京东APP我的-更多工具-宠汪汪|
-|26|[jd_jxnc.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_jxnc.js)|京喜农场|京喜APP我的-京喜农场|
-|27|[jd_kd.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_kd.js)|京东快递签到|[活动地址](https://jingcai-h5.jd.com/#/)|
-|28|[jd_live.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_live.js)|京东直播|京东APP首页-京东直播|
-|29|[jd_lotteryMachine.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_lotteryMachine.js)|京东抽奖机|京东APP中各种抽奖活动的汇总|
-|30|[jd_moneyTree.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_moneyTree.js)|京东摇钱树|京东APP我的-更多工具-摇钱树|
-|31|[jd_ms.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_ms.js)|京东秒秒币|京东app-京东秒杀-签到领红包|
-|32|[jd_necklace.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_necklace.js)|点点券|京东APP-领券中心/券后9.9-领点点券|
-|33|[jd_newYearMoney.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_newYearMoney.js)|京东压岁钱|京东APP我的-压岁钱|
-|34|[jd_newYearMoney_lottery.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_newYearMoney_lottery.js)|京东压岁钱抢百元卡|京东APP我的-压岁钱|
-|35|[jd_nh.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_nh.js)|京东年货节|[活动地址](https://lzdz-isv.isvjcloud.com/dingzhi/vm/template/activity/940531?activityId=dzvm210168869301)|
+|18|[jd_global.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_global.js)|环球挑战赛|京东app搜索京东国际-环球挑战赛|
+|19|[jd_jdfactory.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_jdfactory.js)|东东工厂|京东APP首页-数码电器-东东工厂|
+|20|[jd_jdzz.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_jdzz.js)|京东赚赚|京东赚赚小程序|
+|21|[jd_joy.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_joy.js)|宠汪汪|京东APP我的-更多工具-宠汪汪|
+|22|[jd_joy_feedPets.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_joy_feedPets.js)|宠汪汪🐕喂食|京东APP我的-更多工具-宠汪汪|
+|23|[jd_joy_help.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_joy_help.js)|宠汪汪强制为别人助力|京东APP我的-更多工具-宠汪汪|
+|24|[jd_joy_reward.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_joy_reward.js)|宠汪汪积分兑换奖品|京东APP我的-更多工具-宠汪汪|
+|25|[jd_joy_run.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_joy_run.js)|宠汪汪赛跑|京东APP我的-更多工具-宠汪汪|
+|26|[jd_joy_steal.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_joy_steal.js)|宠汪汪偷好友积分与狗粮|京东APP我的-更多工具-宠汪汪|
+|27|[jd_jxnc.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_jxnc.js)|京喜农场|京喜APP我的-京喜农场|
+|28|[jd_kd.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_kd.js)|京东快递签到|[活动地址](https://jingcai-h5.jd.com/#/)|
+|29|[jd_live.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_live.js)|京东直播|京东APP首页-京东直播|
+|30|[jd_lotteryMachine.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_lotteryMachine.js)|京东抽奖机|京东APP中各种抽奖活动的汇总|
+|31|[jd_moneyTree.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_moneyTree.js)|京东摇钱树|京东APP我的-更多工具-摇钱树|
+|32|[jd_ms.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_ms.js)|京东秒秒币|京东app-京东秒杀-签到领红包|
+|33|[jd_necklace.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_necklace.js)|点点券|京东APP-领券中心/券后9.9-领点点券|
+|34|[jd_newYearMoney.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_newYearMoney.js)|京东压岁钱|京东APP我的-压岁钱|
+|35|[jd_newYearMoney_lottery.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_newYearMoney_lottery.js)|京东压岁钱抢百元卡|京东APP我的-压岁钱|
 |36|[jd_pet.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_pet.js)|东东萌宠|京东APP我的-更多工具-东东萌宠|
 |37|[jd_pigPet.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_pigPet.js)|金融养猪|京东金融养猪猪|
 |38|[jd_plantBean.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_plantBean.js)|京东种豆得豆|京东APP我的-更多工具-种豆得豆|
