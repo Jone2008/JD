@@ -105,7 +105,7 @@ echo "当前分钟:${current_min}"
 echo "当前小时:${current_h}"
 
 
-remainder_h=`expr $current_h % 8`
+remainder_h=`expr $current_h % 8` || echo
 
 
 case ${remainder_h} in
