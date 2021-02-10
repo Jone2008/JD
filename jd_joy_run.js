@@ -32,7 +32,7 @@ hostname = draw.jdfcloud.com
 [Script]
 cron "15 10 * * *" script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_joy_run.js, tag=宠汪汪邀请助力与赛跑助力
 http-response ^https:\/\/draw\.jdfcloud\.com(\/mirror)?\/\/api\/user\/addUser\?code= script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_joy_run.js, requires-body=true, timeout=10, tag=宠汪汪助力更新Token
-http-request ^https:\/\/draw\.jdfcloud\.com(\/mirror)?\/\/api\/user\/user\/detail\?openId= script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_joy_run.js, timeout=10, tag=宠汪汪助力获取Token
+http-request ^https:\/\/draw\.jdfcloud\.com(\/mirror)?\/\/api\/user\/user\/detail\?openId= script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_joy_run.js, timeout=3600, tag=宠汪汪助力获取Token
  **/
 const isRequest = typeof $request != "undefined"
 const $ = new Env('宠汪汪赛跑');

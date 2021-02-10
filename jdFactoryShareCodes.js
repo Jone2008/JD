@@ -10,6 +10,13 @@ let shareCodes = [
   '',//账号一的好友shareCode,不同好友中间用@符号隔开
   '',//账号二的好友shareCode，不同好友中间用@符号隔开
 ]
+
+// 从日志获取互助码
+const logShareCodes = require('./utils/jdShareCodes');
+if (logShareCodes.DDFACTORY_SHARECODES.length > 0 && !process.env.DDFACTORY_SHARECODES) {
+  process.env.DDFACTORY_SHARECODES = logShareCodes.DDFACTORY_SHARECODES.join('&');
+}
+
 // 判断github action里面是否有东东工厂互助码
 if (process.env.DDFACTORY_SHARECODES) {
   if (process.env.DDFACTORY_SHARECODES.indexOf('&') > -1) {
