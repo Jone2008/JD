@@ -16,6 +16,7 @@
     "5 6-18/6 * * * https://gitee.com/lxk0301/jd_scripts/raw/master/jd_fruit.js, tag=东东农场, img-url=https://raw.githubusercontent.com/58xinian/icon/master/jdnc.png, enabled=true",
     "20 13 * * 6 https://gitee.com/lxk0301/jd_scripts/raw/master/jd_get_share_code.js, tag=获取互助码, img-url=https://raw.githubusercontent.com/Orz-3/task/master/jd.png, enabled=true",
     "0 9,12,20,21 2-22 2 * https://gitee.com/lxk0301/jd_scripts/raw/master/jd_global.js, tag=环球挑战赛, img-url=https://raw.githubusercontent.com/yogayyy/Scripts/main/Icon/lxk0301/jd_global.png, enabled=true",
+    "0 9,12,20,21 * * * https://gitee.com/lxk0301/jd_scripts/raw/master/jd_global_mh.js, tag=京东国际盲盒, img-url=https://raw.githubusercontent.com/yogayyy/Scripts/main/Icon/lxk0301/jd_global_mh.png, enabled=true",
     "10 * * * * https://gitee.com/lxk0301/jd_scripts/raw/master/jd_jdfactory.js, tag=东东工厂, img-url=https://raw.githubusercontent.com/58xinian/icon/master/jd_factory.png, enabled=true",
     "10 0 * * * https://gitee.com/lxk0301/jd_scripts/raw/master/jd_jdzz.js, tag=京东赚赚, img-url=https://raw.githubusercontent.com/58xinian/icon/master/jdzz.png, enabled=true",
     "15 0-23/2 * * * https://gitee.com/lxk0301/jd_scripts/raw/master/jd_joy.js, tag=京东宠汪汪, img-url=https://raw.githubusercontent.com/58xinian/icon/master/jdcww.png, enabled=true",
