@@ -22,12 +22,12 @@ inputs:
           cronExpression: "0 0 0 * * * *"
           enable: true
           argument: jd_bean_sign
-    - timer: #东东超市兑换奖品 #摇京豆 #京东汽车兑换
+    - timer: #东东超市兑换奖品 #摇京豆 #京东汽车兑换 #环球挑战赛 #京东国际盲盒
         parameters:
-          name: blueCoin_clublottery_carexchange
+          name: blueCoin_clublottery_carexchange_global_globalmh
           cronExpression: "0 0 0 * * * *"
           enable: true
-          argument: jd_blueCoin&jd_club_lottery&jd_car_exchange
+          argument: jd_blueCoin&jd_club_lottery&jd_car_exchange&jd_global&jd_global_mh
     - timer: #东东农场 #东东萌宠 #口袋书店 #京喜农场
         parameters:
           name: fruit_pet_bookshop_jxnc
