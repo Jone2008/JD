@@ -6,12 +6,10 @@
 5 7 * * * node /scripts/jd_xg.js >> /scripts/logs/jd_xg.log 2>&1
 # 小鸽有礼2(活动时间：2021年1月28日～2021年2月28日)
 34 9 * * * node /scripts/jd_xgyl.js >> /scripts/logs/jd_jd_xgyl.log 2>&1
-# 京东压岁钱(活动时间：2021-2-1至2021-2-11)
-20 * 1-11 2 * node /scripts/jd_newYearMoney.js >> /scripts/logs/jd_newYearMoney.log 2>&1
+
 #环球挑战赛 活动时间：2021-02-02 至 2021-02-22
 0 9,12,20,21 2-22 2 * node /scripts/jd_global.js >> /scripts/logs/jd_global.log 2>&1
 
-0 9,12,20,21 2-15 2 * node /scripts/jd_global_mh.js >> /scripts/logs/jd_global_mh.log 2>&1
 
 ##############长期活动##############
 # 签到
