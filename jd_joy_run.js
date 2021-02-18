@@ -124,15 +124,15 @@ async function getToken() {
       count ++;
       console.log(`count: ${count}`)
       $.setdata(`${count}`, 'countFlag');
-      if ($.getdata('countFlag') * 1 >= 2) {
+      if ($.getdata('countFlag') * 1 === 2) {
         count = 0;
         $.setdata(`${count}`, 'countFlag');
         $.msg($.name, '更新Token: 成功🎉', ``);
-        console.log(`开始上传Token`)
+        console.log(`开始上传Token，${LKYLToken}\n`)
         await $.http.get({url: `http://jd.turinglabs.net/api/v2/jd/joy/create/${LKYLToken}/`}).then((resp) => {
           if (resp.statusCode === 200) {
             let { body } = resp;
-            console.log(`Token提交结果:${body}`)
+            console.log(`Token提交结果:${body}\n`)
             body = JSON.parse(body);
             console.log(`${body.message}`)
           }
