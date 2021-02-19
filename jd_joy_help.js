@@ -46,7 +46,9 @@ try {
   console.log(`url:${url}`);
   let friendPin = encodeURI(friendsArr[randomNumber(0, friendsArr.length)]) //强制为对方助力,可成为好友关系
   const timestamp = new Date().getTime()
-  newUrl = url.replace(/friendPin=.*?$/i, "friendPin=" + friendPin).replace(/invitePin=.*?$/i, "invitePin=" + friendPin).replace(/inviteTimeStamp=.*?$/i, "inviteTimeStamp=" + timestamp + "&").replace(/common\//, '')
+  const lks = url.match(/lks=.*?$/g)[0];
+  newUrl = url.replace(/friendPin=.*?$/i, "friendPin=" + friendPin).replace(/invitePin=.*?$/i, "invitePin=" + friendPin).replace(/inviteTimeStamp=.*?$/i, "inviteTimeStamp=" + timestamp + "&")
+  newUrl += `&${lks}`;
   console.log(`newUrl:${newUrl}`);
 } catch (e) {
   console.log(e);

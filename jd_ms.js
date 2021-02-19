@@ -255,7 +255,7 @@ function taskPostUrl(function_id, body = {}, extra = '', function_id2) {
   }
   return {
     url,
-    body: `functionId=${function_id}&body=${escape(JSON.stringify(body))}&client=wh5&clientVersion=9.3.2&${extra}`,
+    body: `functionId=${function_id}&body=${escape(JSON.stringify(body))}&client=wh5&clientVersion=1.0.0&${extra}`,
     headers: {
       "Cookie": cookie,
       "origin": "https://h5.m.jd.com",

@@ -27,8 +27,8 @@
         }
       ],
       "icons": [
-        "https://raw.githubusercontent.com/Orz-3/mini/master/jd.png",
-        "https://raw.githubusercontent.com/Orz-3/task/master/jd.png"
+        "https://raw.githubusercontent.com/Orz-3/mini/master/Alpha/jd.png",
+        "https://raw.githubusercontent.com/Orz-3/mini/master/Color/jd.png"
       ],
       "author": "@dompling",
       "repo": "https://github.com/dompling/Script",
@@ -56,8 +56,8 @@
       "author": "@lxk0301",
       "repo": "https://gitee.com/lxk0301/jd_scripts/tree/master",
       "icons": [
-        "https://raw.githubusercontent.com/Orz-3/mini/master/jd.png",
-        "https://raw.githubusercontent.com/Orz-3/task/master/jd.png"
+        "https://raw.githubusercontent.com/Orz-3/mini/master/Alpha/jd.png",
+        "https://raw.githubusercontent.com/Orz-3/mini/master/Color/jd.png"
       ]
     },
     {
@@ -68,12 +68,10 @@
         "jd_fruit1",
         "jd_fruit2",
         "jd_fruit3",
-        "jd_fruit4",
         "jd2_fruit_name",
         "jd2_fruit1",
         "jd2_fruit2",
-        "jd2_fruit3",
-        "jd2_fruit4"
+        "jd2_fruit3"
       ],
       "descs_html": [
         "<h4 align=\"center\">获取Cookie请查看NobyDa京东签到脚本说明<a href=\"https://raw.githubusercontent.com/NobyDa/Script/master/JD-DailyBonus/JD_DailyBonus.js\">脚本注释</a></h4>"
@@ -122,13 +120,6 @@
           "desc": "京东水果互助码.这是别人的shareCode,你帮别人助力."
         },
         {
-          "id": "jd_fruit4",
-          "name": "账号一的互助码4",
-          "val": "",
-          "type": "text",
-          "desc": "京东水果互助码.这是别人的shareCode,你帮别人助力."
-        },
-        {
           "id": "jd2_fruit_name",
           "name": "京东账号二昵称",
           "val": "",
@@ -152,13 +143,6 @@
         {
           "id": "jd2_fruit3",
           "name": "账号二的互助码3",
-          "val": "",
-          "type": "text",
-          "desc": "京东水果互助码.这是别人的shareCode,你帮别人助力."
-        },
-        {
-          "id": "jd2_fruit4",
-          "name": "账号二的互助码4",
           "val": "",
           "type": "text",
           "desc": "京东水果互助码.这是别人的shareCode,你帮别人助力."
@@ -672,46 +656,8 @@
       "repo": "https://gitee.com/lxk0301/jd_scripts/tree/master",
       "script": "https://gitee.com/lxk0301/jd_scripts/raw/master/jd_unsubscribe.js",
       "icons": [
-        "https://raw.githubusercontent.com/Orz-3/mini/master/jd.png",
-        "https://raw.githubusercontent.com/Orz-3/task/master/jd.png"
-      ]
-    },
-    {
-      "id": "jd_unbind",
-      "name": "注销京东会员卡",
-      "keys": [
-        "UN_BIND_CARD_NUM",
-        "UN_BIND_STOP_CARD"
-      ],
-      "settings": [
-        {
-          "id": "jdUnbindCardNotify",
-          "name": "静默运行",
-          "val": false,
-          "type": "boolean",
-          "desc": "运行脚本时不发出系统弹窗通知"
-        },
-        {
-          "id": "UN_BIND_CARD_NUM",
-          "name": "注销京东店铺会员卡的数量",
-          "val": 200,
-          "type": "number",
-          "desc": "运行一次脚本注销多少个店铺会员卡（默认200个,输入0表示不注销会员卡）"
-        },
-        {
-          "id": "UN_BIND_STOP_CARD",
-          "name": "注销京东店铺会员卡(白名单)",
-          "val": "",
-          "type": "text",
-          "desc": "不想注销的店铺会员卡名称"
-        }
-      ],
-      "author": "@lxk0301",
-      "repo": "https://gitee.com/lxk0301/jd_scripts/tree/master",
-      "script": "https://gitee.com/lxk0301/jd_scripts/raw/master/jd_unbind.js",
-      "icons": [
-        "https://raw.githubusercontent.com/58xinian/icon/master/jd_unbind_mini.png",
-        "https://raw.githubusercontent.com/58xinian/icon/master/jd_unbind.png"
+        "https://raw.githubusercontent.com/Orz-3/mini/master/Alpha/jd.png",
+        "https://raw.githubusercontent.com/Orz-3/mini/master/Color/jd.png"
       ]
     },
     {
@@ -897,33 +843,6 @@
       "icons": [
         "https://raw.githubusercontent.com/58xinian/icon/master/jd_factory_mini.png",
         "https://raw.githubusercontent.com/58xinian/icon/master/jd_factory.png"
-      ]
-    },
-    {
-      "id": "jd_immortal",
-      "name": "神仙书院",
-      "keys": [
-        "IMMORTAL_LATLON"
-      ],
-      "descs_html": [
-        "地理位置示例如下",
-        "{\"lat\":33.1, \"lng\":118.1}"
-      ],
-      "settings": [
-        {
-          "id": "IMMORTAL_LATLON",
-          "name": "地理位置",
-          "val": "",
-          "type": "text",
-          "desc": "示例：{\"lat\":33.1, \"lng\":118.1}"
-        }
-      ],
-      "author": "@lxk0301",
-      "repo": "https://gitee.com/lxk0301/jd_scripts/tree/master",
-      "script": "https://gitee.com/lxk0301/jd_scripts/raw/master/jd_immortal.js",
-      "icons": [
-        "https://m.360buyimg.com/babel/jfs/t1/165970/14/3741/2184/600585feE6fb250f8/77db4ca560e006be.png",
-        "https://m.360buyimg.com/babel/jfs/t1/165970/14/3741/2184/600585feE6fb250f8/77db4ca560e006be.png"
       ]
     },
     {
