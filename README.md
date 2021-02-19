@@ -63,21 +63,22 @@
 |31|[jd_moneyTree.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_moneyTree.js)|京东摇钱树|京东APP我的-更多工具-摇钱树|
 |32|[jd_ms.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_ms.js)|京东秒秒币|京东app-京东秒杀-签到领红包|
 |33|[jd_necklace.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_necklace.js)|点点券|京东APP-领券中心/券后9.9-领点点券|
-|34|[jd_pet.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_pet.js)|东东萌宠|京东APP我的-更多工具-东东萌宠|
-|35|[jd_pigPet.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_pigPet.js)|金融养猪|京东金融养猪猪|
-|36|[jd_plantBean.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_plantBean.js)|京东种豆得豆|京东APP我的-更多工具-种豆得豆|
-|37|[jd_rankingList.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_rankingList.js)|京东排行榜|京东APP首页-更多频道-排行榜-悬浮按钮|
-|38|[jd_redPacket.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_redPacket.js)|京东全民开红包|京东APP首页-领券-锦鲤红包|
-|39|[jd_sgmh.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_sgmh.js)|闪购盲盒|京东APP首页-闪购-闪购盲盒|
-|40|[jd_shop.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_shop.js)|进店领豆|京东APP首页-领京豆-进店领豆|
-|41|[jd_small_home.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_small_home.js)|东东小窝|京东APP我的-游戏与更多-东东小窝|
-|42|[jd_speed.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_speed.js)|✈️天天加速|京东APP我的-更多工具-天天加速|
-|43|[jd_superMarket.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_superMarket.js)|东东超市|京东APP首页-京东超市-底部东东超市|
-|44|[jd_syj.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_syj.js)|赚京豆|赚京豆(微信小程序)-赚京豆-签到领京豆|
-|45|[jd_unsubscribe.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_unsubscribe.js)|取关京东店铺和商品||
-|46|[jd_xg.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_xg.js)|小鸽有礼|[活动地址](https://snsdesign.jd.com/babelDiy/Zeus/4N5phvUAqZsGWBNGVJWmufXoBzpt/index.html?channel=lingsns003&scope=0&sceneid=9001&btnTips=&hideApp=0)|
-|47|[jd_xgyl.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_xgyl.js)|小鸽有礼2|[活动地址](https://jingcai-h5.jd.com/#/dialTemplate?activityCode=1354740864131276800)|
-|48|[jx_sign.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jx_sign.js)|京喜签到||
+|34|[jd_nzmh.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_nzmh.js)|女装盲盒抽京豆|京东app-女装馆-赢京豆|
+|35|[jd_pet.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_pet.js)|东东萌宠|京东APP我的-更多工具-东东萌宠|
+|36|[jd_pigPet.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_pigPet.js)|金融养猪|京东金融养猪猪|
+|37|[jd_plantBean.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_plantBean.js)|京东种豆得豆|京东APP我的-更多工具-种豆得豆|
+|38|[jd_rankingList.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_rankingList.js)|京东排行榜|京东APP首页-更多频道-排行榜-悬浮按钮|
+|39|[jd_redPacket.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_redPacket.js)|京东全民开红包|京东APP首页-领券-锦鲤红包|
+|40|[jd_sgmh.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_sgmh.js)|闪购盲盒|京东APP首页-闪购-闪购盲盒|
+|41|[jd_shop.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_shop.js)|进店领豆|京东APP首页-领京豆-进店领豆|
+|42|[jd_small_home.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_small_home.js)|东东小窝|京东APP我的-游戏与更多-东东小窝|
+|43|[jd_speed.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_speed.js)|✈️天天加速|京东APP我的-更多工具-天天加速|
+|44|[jd_superMarket.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_superMarket.js)|东东超市|京东APP首页-京东超市-底部东东超市|
+|45|[jd_syj.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_syj.js)|赚京豆|赚京豆(微信小程序)-赚京豆-签到领京豆|
+|46|[jd_unsubscribe.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_unsubscribe.js)|取关京东店铺和商品||
+|47|[jd_xg.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_xg.js)|小鸽有礼|[活动地址](https://snsdesign.jd.com/babelDiy/Zeus/4N5phvUAqZsGWBNGVJWmufXoBzpt/index.html?channel=lingsns003&scope=0&sceneid=9001&btnTips=&hideApp=0)|
+|48|[jd_xgyl.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jd_xgyl.js)|小鸽有礼2|[活动地址](https://jingcai-h5.jd.com/#/dialTemplate?activityCode=1354740864131276800)|
+|49|[jx_sign.js](https://gitee.com/lxk0301/jd_scripts/raw/master/jx_sign.js)|京喜签到||
 <!-- 清单标记结束 -->
 <!-- 此表格由 update_list.sh 脚本自动生成，请不要人工修改。 -->
 <!-- 这是隐藏信息，用来给 update_list.sh 脚本提供标记信息的，用于自动生成上面的脚本清单，请勿删除这里的标记信息。 -->

@@ -159,7 +159,7 @@ function serverNotify(text, desp, timeout = 2100) {
       //微信server酱推送通知一个\n不会换行，需要两个\n才能换行，故做此替换
       desp = desp.replace(/[\n\r]/g, '\n\n');
       const options = {
-        url: `https://sc.ftqq.com/${SCKEY}.send`,
+        url: SCKEY.includes('SCT') ? `https://sctapi.ftqq.com/${SCKEY}.send` : `https://sc.ftqq.com/${SCKEY}.send`,
         body: `text=${text}&desp=${desp}`,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
@@ -173,7 +173,8 @@ function serverNotify(text, desp, timeout = 2100) {
               console.log(err);
             } else {
               data = JSON.parse(data);
-              if (data.errno === 0) {
+              //server酱和Server酱·Turbo版的返回json格式不太一样
+              if (data.errno === 0 || data.data.errno === 0 ) {
                 console.log('server酱发送通知消息成功\n')
               } else if (data.errno === 1024) {
                 // 一分钟内发送相同的内容会触发
