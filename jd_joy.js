@@ -466,7 +466,7 @@ function scanMarket(type, body, cType = 'application/json') {
       method: "POST",
       data: body,
       credentials: "include",
-      header: {"content-type": "application/json"}
+      header: {"content-type": cType}
     }
     const url = "https:"+ taroRequest(opt)['url']
     if (cType === 'application/json') {
@@ -562,7 +562,7 @@ function followShop(shopId) {
       method: "POST",
       data: body,
       credentials: "include",
-      header: {"content-type": "application/json"}
+      header: {"content-type":"application/x-www-form-urlencoded"}
     }
     const url = "https:"+ taroRequest(opt)['url']
     $.post(taskPostUrl(url, body, reqSource, host,'application/x-www-form-urlencoded'), (err, resp, data) => {
