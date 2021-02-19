@@ -12,8 +12,6 @@ jdfruit="${logdDir}/jd_fruit.log"
 jdpet="${logdDir}/jd_pet.log"
 jdcrazyJoy="${logdDir}/jd_crazy_joy.log"
 
-echo -e >$sharecodeFile
-
 sed -n '/京东赚赚好友互助码】.*/'p $jdzzFile | awk '{print $4,$5}' | sort | uniq >>$sharecodeFile
 echo "提取京东赚赚助力码完成"
 
@@ -34,6 +32,12 @@ echo "提取东东萌宠助力码完成"
 
 sed -n '/crazyJoy任务好友互助码】.*/'p $jdcrazyJoy | awk '{print $4,$5}' | sort | uniq >>$sharecodeFile
 echo "提取crazyJoy任务助力码完成"
+
+cp $sharecodeFile ${sharecodeFile}.tmp
+sed -i 's/ //' ${sharecodeFile}.tmp
+cat ${sharecodeFile}.tmp | sort | uniq >$sharecodeFile
+rm ${sharecodeFile}.tmp
+echo "互助码排序和去重完成"
 
 echo "==========================================================================="
 echo "整理完成，具体结果请查看${sharecodeFile}文件"
