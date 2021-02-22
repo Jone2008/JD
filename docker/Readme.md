@@ -1,6 +1,7 @@
 ![Docker Pulls](https://img.shields.io/docker/pulls/lxk0301/jd_scripts?style=for-the-badge)
 ### Usage
 ```diff
++ 2021-02-21更新 https://gitee.com/lxk0301/jd_scripts仓库被迫私有，老用户重新更新一下镜像：https://hub.docker.com/r/lxk0301/jd_scripts)(docker-compose.yml的REPO_URL记得修改)后续可同步更新jd_script仓库最新脚本
 + 2021-02-10更新 docker-compose里面,填写环境变量 SHARE_CODE_FILE=/scripts/logs/sharecode.log, 多账号可实现自己互助(只限sharecode.log日志里面几个活动)
 + 2021-01-22更新 CUSTOM_LIST_FILE 参数支持远程定时任务列表 (⚠️务必确认列表中的任务在仓库里存在)
 + 例1:配置远程crontab_list.sh, 此处借用 shylocks 大佬的定时任务列表, 本仓库不包含列表中的任务代码, 仅作示范
@@ -195,6 +196,18 @@ jd_scripts
  `docker-compose stop` 停止容器；  
  `docker-compose restart` 重启容器；  
  `docker-compose down` 停止并删除容器；  
+
+- 你可能会用到的命令
+   
+   `docker exec -it jd_scripts /bin/sh -c 'git -C /scripts pull && node /scripts/jd_bean_change.js'`  手动运行一脚本
+   
+   `docker exec -it jd_scripts /bin/sh -c 'env'`  查看设置的环境变量
+   
+   `docker exec -it jd_scripts /bin/sh -c 'git pull'` 手动更新jd_scripts仓库最新脚本
+   
+   `docker exec -it jd_scripts /bin/sh` 仅进入容器命令
+   
+   `rm -rf  logs/*.log` 删除logs文件夹里面所有的日志文件
  
 - 如果是群晖用户，在docker注册表搜jd_scripts，双击下载映像。
 不需要docker-compose.yml，只需建个logs/目录，调整`jd_scripts.syno.json`里面对应的配置值，然后导入json配置新建容器。
