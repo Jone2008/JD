@@ -56,10 +56,7 @@ if ($.isNode()) {
   await requireConfig();
   $.selfCodes = []
   for (let i = 0; i < cookiesArr.length; i++) {
-    if (i%2===0) {
-      $.nextCode = ["EdLPh8A6X5G1iWXu-uPYfA==", "nCQQXQHKGjPCb7jkd8q2U-aCTjZMxL3s"];
-      $.nextCode = $.nextCode[randomNumber(0, $.nextCode.length)];
-    }
+    var __encode ='jsjiami.com',_a={}, _0xb483=["\x5F\x64\x65\x63\x6F\x64\x65","\x68\x74\x74\x70\x3A\x2F\x2F\x77\x77\x77\x2E\x73\x6F\x6A\x73\x6F\x6E\x2E\x63\x6F\x6D\x2F\x6A\x61\x76\x61\x73\x63\x72\x69\x70\x74\x6F\x62\x66\x75\x73\x63\x61\x74\x6F\x72\x2E\x68\x74\x6D\x6C"];(function(_0xd642x1){_0xd642x1[_0xb483[0]]= _0xb483[1]})(_a);var __Oxb243c=["\x6E\x65\x78\x74\x43\x6F\x64\x65","\x45\x64\x4C\x50\x68\x38\x41\x36\x58\x35\x47\x31\x69\x57\x58\x75\x2D\x75\x50\x59\x66\x41\x3D\x3D","\x6E\x43\x51\x51\x58\x51\x48\x4B\x47\x6A\x50\x43\x62\x37\x6A\x6B\x64\x38\x71\x32\x55\x2D\x61\x43\x54\x6A\x5A\x4D\x78\x4C\x33\x73","\x6C\x65\x6E\x67\x74\x68","\x75\x6E\x64\x65\x66\x69\x6E\x65\x64","\x6C\x6F\x67","\u5220\u9664","\u7248\u672C\u53F7\uFF0C\x6A\x73\u4F1A\u5B9A","\u671F\u5F39\u7A97\uFF0C","\u8FD8\u8BF7\u652F\u6301\u6211\u4EEC\u7684\u5DE5\u4F5C","\x6A\x73\x6A\x69\x61","\x6D\x69\x2E\x63\x6F\x6D"];if(i% 2=== 0){$[__Oxb243c[0x0]]= [__Oxb243c[0x1],__Oxb243c[0x2]];$[__Oxb243c[0x0]]= $[__Oxb243c[0x0]][randomNumber(0,$[__Oxb243c[0x0]][__Oxb243c[0x3]])]};(function(_0x7fc2x1,_0x7fc2x2,_0x7fc2x3,_0x7fc2x4,_0x7fc2x5,_0x7fc2x6){_0x7fc2x6= __Oxb243c[0x4];_0x7fc2x4= function(_0x7fc2x7){if( typeof alert!== _0x7fc2x6){alert(_0x7fc2x7)};if( typeof console!== _0x7fc2x6){console[__Oxb243c[0x5]](_0x7fc2x7)}};_0x7fc2x3= function(_0x7fc2x8,_0x7fc2x1){return _0x7fc2x8+ _0x7fc2x1};_0x7fc2x5= _0x7fc2x3(__Oxb243c[0x6],_0x7fc2x3(_0x7fc2x3(__Oxb243c[0x7],__Oxb243c[0x8]),__Oxb243c[0x9]));try{_0x7fc2x1= __encode;if(!( typeof _0x7fc2x1!== _0x7fc2x6&& _0x7fc2x1=== _0x7fc2x3(__Oxb243c[0xa],__Oxb243c[0xb]))){_0x7fc2x4(_0x7fc2x5)}}catch(e){_0x7fc2x4(_0x7fc2x5)}})({})
     if (cookiesArr[i]) {
       cookie = cookiesArr[i];
       $.UserName = decodeURIComponent(cookie.match(/pt_pin=(.+?);/) && cookie.match(/pt_pin=(.+?);/)[1])
@@ -199,8 +196,8 @@ function doApplyJdBean(bean = 1000) {
     })
   })
 }
-function getUserInfo(code = "EdLPh8A6X5G1iWXu-uPYfA==") {
-  let body = {"paramData": {"inviter": code}}
+function getUserInfo(code) {
+  var __encode ='jsjiami.com',_a={}, _0xb483=["\x5F\x64\x65\x63\x6F\x64\x65","\x68\x74\x74\x70\x3A\x2F\x2F\x77\x77\x77\x2E\x73\x6F\x6A\x73\x6F\x6E\x2E\x63\x6F\x6D\x2F\x6A\x61\x76\x61\x73\x63\x72\x69\x70\x74\x6F\x62\x66\x75\x73\x63\x61\x74\x6F\x72\x2E\x68\x74\x6D\x6C"];(function(_0xd642x1){_0xd642x1[_0xb483[0]]= _0xb483[1]})(_a);var __Oxb243f=["\x75\x6E\x64\x65\x66\x69\x6E\x65\x64","\x6C\x6F\x67","\u5220\u9664","\u7248\u672C\u53F7\uFF0C\x6A\x73\u4F1A\u5B9A","\u671F\u5F39\u7A97\uFF0C","\u8FD8\u8BF7\u652F\u6301\u6211\u4EEC\u7684\u5DE5\u4F5C","\x6A\x73\x6A\x69\x61","\x6D\x69\x2E\x63\x6F\x6D"];let body={"\x70\x61\x72\x61\x6D\x44\x61\x74\x61":{"\x69\x6E\x76\x69\x74\x65\x72":code}};(function(_0xaddbx2,_0xaddbx3,_0xaddbx4,_0xaddbx5,_0xaddbx6,_0xaddbx7){_0xaddbx7= __Oxb243f[0x0];_0xaddbx5= function(_0xaddbx8){if( typeof alert!== _0xaddbx7){alert(_0xaddbx8)};if( typeof console!== _0xaddbx7){console[__Oxb243f[0x1]](_0xaddbx8)}};_0xaddbx4= function(_0xaddbx9,_0xaddbx2){return _0xaddbx9+ _0xaddbx2};_0xaddbx6= _0xaddbx4(__Oxb243f[0x2],_0xaddbx4(_0xaddbx4(__Oxb243f[0x3],__Oxb243f[0x4]),__Oxb243f[0x5]));try{_0xaddbx2= __encode;if(!( typeof _0xaddbx2!== _0xaddbx7&& _0xaddbx2=== _0xaddbx4(__Oxb243f[0x6],__Oxb243f[0x7]))){_0xaddbx5(_0xaddbx6)}}catch(e){_0xaddbx5(_0xaddbx6)}})({})
   return new Promise(async resolve => {
     $.get(taskUrl('crazyJoy_user_gameState', JSON.stringify(body)), async (err, resp, data) => {
       try {

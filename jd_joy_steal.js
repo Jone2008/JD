@@ -139,7 +139,7 @@ async function jdJoySteal() {
           console.log(`偷好友积分 开始查询第${i}页好友\n`);
           await getFriends(i);
           $.allFriends = $.getFriendsData.datas;
-          await stealFriendCoinFun();
+          if ($.allFriends) await stealFriendCoinFun();
         }
         for (let i = 1; i <= new Array(lastPage).fill('').length; i++) {
           if ($.stealStatus === 'chance_full') {
@@ -149,7 +149,7 @@ async function jdJoySteal() {
             }
             break
           }
-          if (nowTimes.getHours() < 6 && nowTimes.getHours() > 0) {
+          if (nowTimes.getHours() < 6 && nowTimes.getHours() >= 0) {
             $.log('未到早餐时间, 暂不能偷好友狗粮\n')
             break
           }
@@ -168,7 +168,7 @@ async function jdJoySteal() {
           console.log(`偷好友狗粮 开始查询第${i}页好友\n`);
           await getFriends(i);
           $.allFriends = $.getFriendsData.datas;
-          await stealFriendsFood();
+          if ($.allFriends) await stealFriendsFood();
         }
         for (let i = 1; i <= new Array(lastPage).fill('').length; i++) {
           if ($.help_feed >= 200 || ($.helpFeedStatus && $.helpFeedStatus === 'chance_full')) {
@@ -188,7 +188,7 @@ async function jdJoySteal() {
           console.log(`帮好友喂食 开始查询第${i}页好友\n`);
           await getFriends(i);
           $.allFriends = $.getFriendsData.datas;
-          await helpFriendsFeed();
+          if ($.allFriends) await helpFriendsFeed();
         }
       }
     } else {
