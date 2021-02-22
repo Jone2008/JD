@@ -1,7 +1,7 @@
 /*
 超级直播间红包雨 仅2月23日
-cron 30,31 20-23/1 23 2 *
-*/
+圈x：30,31 20-23/1 23 2 * https://raw.githubusercontent.com/Jone2008/JD/main/live_redrain.js, tag=红包雨, img-url=https://raw.githubusercontent.com/Orz-3/task/master/jd.png, enabled=true
+*/ 
 const $ = new Env('超级直播间红包雨');
 let ids = {
 
