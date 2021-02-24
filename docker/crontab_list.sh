@@ -8,6 +8,8 @@
 #女装盲盒 活动时间：2021-2-19至2021-2-25
 5 7,23 19-25 2 * node /scripts/jd_nzmh.js >> /scripts/logs/jd_nzmh.log 2>&1
 
+#京东国际盲盒
+5 7,12,23 * * * node /scripts/jd_global_mh.js >> /scripts/logs/jd_global_mh.log 2>&1
 #京东极速版天天领红包 活动时间：2021-1-18至2021-3-3
 5 0,23 * * * node /scripts/jd_speed_redpocke.js >> /scripts/logs/jd_speed_redpocke.log 2>&1
 ##############长期活动##############
@@ -21,6 +23,8 @@
 5 6-18/6 * * * node /scripts/jd_fruit.js >> /scripts/logs/jd_fruit.log 2>&1
 # 宠汪汪
 15 */2 * * * node /scripts/jd_joy.js >> /scripts/logs/jd_joy.log 2>&1
+# 宠汪汪积分兑换京豆
+0 0-16/8 * * * node /scripts/jd_joy_reward.js >> /scripts/logs/jd_joy_reward.log 2>&1
 # 宠汪汪喂食
 15 */1 * * * node /scripts/jd_joy_feedPets.js >> /scripts/logs/jd_joy_feedPets.log 2>&1
 # 宠汪汪偷好友积分与狗粮
