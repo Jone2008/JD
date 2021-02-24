@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 ## Author: https://github.com/EvineDeng
-## Modified： 2021-01-31
-## Version： v1.0.2
+## Modified： 2021-02-23
+## Version： v1.0.3
 
 ## 网址、路径、文件、标记信息以及表头
 WorkDir=$(cd $(dirname $0); pwd)
@@ -22,8 +22,8 @@ cd $WorkDir
 Sheet=$SheetHead
 for ((i=0; i<${#JsList[*]}; i++)); do
   Name=$(grep "new Env" ${JsList[i]} | awk -F "'|\"" '{print $2}')
-  Entry=$(grep -E "活动入口" ${JsList[i]} | awk -F "：|: " '{print $2}')
-  [[ -z $Entry ]] || [[ $Entry == 暂无 ]] && Entry=$(grep -E "活动地址" ${JsList[i]} | awk -F "：|: " '{print $2}')
+  Entry=$(grep -E "^ *活动入口" ${JsList[i]} | awk -F "：|: " '{print $2}')
+  [[ -z $Entry ]] || [[ $Entry == 暂无 ]] && Entry=$(grep -E "^ *活动地址" ${JsList[i]} | awk -F "：|: " '{print $2}')
   [[ $Entry == http* ]] && Entry="[活动地址]($Entry)"
   Raw="$UrlRaw${JsList[i]}"
   Sheet="$Sheet\n|$(($i + 1))|[${JsList[i]}]($Raw)|$Name|$Entry|"

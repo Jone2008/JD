@@ -26,11 +26,11 @@ cron "20 8 * * *" script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd
 const $ = new Env('闪购盲盒');
 //Node.js用户请在jdCookie.js处填写京东ck;
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
-let appId = '1EFRRxA' , homeDataFunPrefix = 'interact_template', collectScoreFunPrefix = 'harmony', message = ''
+let appId = '1EFRXxg' , homeDataFunPrefix = 'interact_template', collectScoreFunPrefix = 'harmony', message = ''
 let lotteryResultFunPrefix = homeDataFunPrefix, browseTime = 6
 const inviteCodes = [
-  'T019-aknAFRllhyoQlyI46gCjVWmIaW5kRrbA@T027Zm_olqSxIOtH97BATGmKoWraLawCjVWmIaW5kRrbA',
-  'T019-aknAFRllhyoQlyI46gCjVWmIaW5kRrbA@T0225KkcRk1N_FeCJhv3xvdfcQCjVWmIaW5kRrbA'
+  'T019-aknAFRllhyoQlyI46gCjVQmoaT5kRrbA@T010_aU6SR8Q_QCjVQmoaT5kRrbA@T0225KkcRhcbp1CBJhv0wfZedQCjVQmoaT5kRrbA@T027Zm_olqSxIOtH97BATGmKoWraLawCjVQmoaT5kRrbA',
+  'T019-aknAFRllhyoQlyI46gCjVQmoaT5kRrbA@T010_aU6SR8Q_QCjVQmoaT5kRrbA@T027Zm_olqSxIOtH97BATGmKoWraLawCjVQmoaT5kRrbA@T0225KkcRk1N_FeCJhv3xvdfcQCjVQmoaT5kRrbA'
 ];
 const randomCount = $.isNode() ? 20 : 5;
 const notify = $.isNode() ? require('./sendNotify') : '';
@@ -104,8 +104,6 @@ function interact_template_getHomeData(timeout = 0) {
           data = JSON.parse(data);
           if (data.data.bizCode !== 0) {
             console.log(data.data.bizMsg);
-            merge.jdBeans.fail++;
-            merge.jdBeans.notify = `${data.data.bizMsg}`;
             return
           }
           scorePerLottery = data.data.result.userInfo.scorePerLottery||data.data.result.userInfo.lotteryMinusScore
@@ -114,7 +112,7 @@ function interact_template_getHomeData(timeout = 0) {
           for (let i = 0;i < data.data.result.taskVos.length;i ++) {
             console.log("\n" + data.data.result.taskVos[i].taskType + '-' + data.data.result.taskVos[i].taskName  + '-' + (data.data.result.taskVos[i].status === 1 ? `已完成${data.data.result.taskVos[i].times}-未完成${data.data.result.taskVos[i].maxTimes}` : "全部已完成"))
             //签到
-            if (data.data.result.taskVos[i].taskName === '邀人助力任务') {
+            if (data.data.result.taskVos[i].taskName === '邀请好友助力') {
               console.log(`您的好友助力码为:${data.data.result.taskVos[i].assistTaskDetailVo.taskToken}`)
               for (let code of $.newShareCodes) {
                 if (!code) continue

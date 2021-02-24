@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 ## Author: https://github.com/EvineDeng
-## Modified： 2021-01-22
-## Version： v1.0.1
+## Modified： 2021-02-23
+## Version： v1.0.2
 
 ## 路径与清单
 WorkDir=$(cd $(dirname $0); pwd)
@@ -44,4 +44,4 @@ done
 echo -e "  ]\n}" >> $FileQx
 echo -e $CommentsSurgeTail >> $FileSurge
 perl -0777 -i -pe "s|,(\s{1,2}  \])|\1|" $FileQx
-perl -0777 -i -pe "s|# .+\n{2}(# .+)|\1|g" $FileLoon
+perl -0777 -i -pe "s|(# .+\n{2}){1,}(# .+)|\1|g" $FileLoon

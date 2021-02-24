@@ -61,6 +61,32 @@
       ]
     },
     {
+      "id": "JS_UA",
+      "name": "自定义京东极速版脚本的UserAgent",
+      "keys": [
+        "JS_UA"
+      ],
+      "descs_html": [
+        "自行抓包京东极速版APP获得，UserAgent类似下面：",
+        "jdltapp;iPad;3.1.0;14.4;network/wifi;Mozilla/5.0 (iPad; CPU OS 14_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1"
+      ],
+      "settings": [
+        {
+          "id": "JS_UA",
+          "name": "自定义京东极速版脚本的UserAgent",
+          "val": "",
+          "type": "text",
+          "desc": "不懂不知不会UserAgent的请不要随意填写内容，如需填写使用建议使用京东APP的UserAgent"
+        }
+      ],
+      "author": "@lxk0301",
+      "repo": "https://gitee.com/lxk0301/jd_scripts/tree/master",
+      "icons": [
+        "https://raw.githubusercontent.com/Orz-3/mini/master/Alpha/jd.png",
+        "https://raw.githubusercontent.com/Orz-3/mini/master/Color/jd.png"
+      ]
+    },
+    {
       "id": "jd_fruit",
       "name": "东东农场",
       "keys": [
