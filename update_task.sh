@@ -44,4 +44,4 @@ done
 echo -e "  ]\n}" >> $FileQx
 echo -e $CommentsSurgeTail >> $FileSurge
 perl -0777 -i -pe "s|,(\s{1,2}  \])|\1|" $FileQx
-perl -0777 -i -pe "s|(# .+\n{2}){1,}(# .+)|\1|g" $FileLoon
+perl -0777 -i -pe "s|(# .+\n{2}){1,}(# .+)|\2|g" $FileLoon

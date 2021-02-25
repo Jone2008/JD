@@ -90,7 +90,7 @@ function getBonus() {
               $.log(`昨日获得京豆数量：${data.data.selfDayBonusBean}\n`)
               if (data.data.selfBonusJoy && data.data.selfDayBonusFlag) {
                 if ($.isNode()) await notify.sendNotify(`${$.name} - 账号${$.index} - ${$.nickName}`, `京东账号${$.index} ${$.nickName}\n${data.data.selfBonusJoy}只分红Joy获得京豆：${data.data.selfDayBonusBean}`)
-                $.msg($.name, `京东账号${$.index} ${$.nickName}\n${data.data.selfBonusJoy}只分红Joy获得京豆：${data.data.selfDayBonusBean}`);
+                $.msg($.name, '', `京东账号${$.index} ${$.nickName}\n${data.data.selfBonusJoy}只分红Joy获得京豆：${data.data.selfDayBonusBean}`);
               }
             }
           }
@@ -166,7 +166,11 @@ function TotalBean() {
               $.isLogin = false; //cookie过期
               return
             }
-            $.nickName = data['base'].nickname;
+            if (data['retcode'] === 0) {
+              $.nickName = data['base'].nickname;
+            } else {
+              $.nickName = $.UserName
+            }
           } else {
             console.log(`京东服务器返回空数据`)
           }
