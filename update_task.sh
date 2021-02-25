@@ -14,12 +14,12 @@ FileQxRe=$WorkDir/QuantumultX/lxk0301_cookies.conf
 FileSurge=$WorkDir/Surge/lxk0301_Task.sgmodule.sgmodule
 
 ## task清单顶部内容
-CommentsLoon="# IOS Loon Task&Cookies配置 By LXK9301\n# GitHub主页(https://gitee.com/lxk0301/jd_scripts/tree/master)\n# TG讨论组 (https://t.me/JD_fruit_pet)\n# TG通知频道 (https://t.me/jdfruit)\n# Loon的Task&Cookies脚本订阅链接: https://gitee.com/lxk0301/jd_scripts/raw/master/Loon/lxk0301_LoonTask.conf\n# 使用方法:打开APP，顶部的配置 -> 脚本 -> 订阅脚本- > 点击右上角+号 -> 添加url链接 (https://gitee.com/lxk0301/jd_scripts/raw/master/Loon/lxk0301_LoonTask.conf)\n\nhostname = api.m.jd.com, wq.jd.com, draw.jdfcloud.com, jdjoy.jd.com, account.huami.com"
+CommentsLoon="# IOS Loon Task&Cookies配置 By LXK9301\n# GitHub主页(https://gitee.com/lxk0301/jd_scripts/tree/master)\n# TG讨论组 (https://t.me/JD_fruit_pet)\n# TG通知频道 (https://t.me/jdfruit)\n# Loon的Task&Cookies脚本订阅链接: https://gitee.com/lxk0301/jd_scripts/raw/master/Loon/lxk0301_LoonTask.conf\n# 使用方法:打开APP，顶部的配置 -> 脚本 -> 订阅脚本- > 点击右上角+号 -> 添加url链接 (https://gitee.com/lxk0301/jd_scripts/raw/master/Loon/lxk0301_LoonTask.conf)\n\nhostname = me-api.jd.com, draw.jdfcloud.com, jdjoy.jd.com, account.huami.com"
 CommentsQx='{\n  "name": "LXK9301 task gallery",\n  "description": "https://gitee.com/lxk0301/jd_scripts/tree/master",\n  "task": ['
-CommentsQxRe="hostname = api.m.jd.com, draw.jdfcloud.com, jdjoy.jd.com, account.huami.com, wq.jd.com"
+CommentsQxRe="hostname = draw.jdfcloud.com, jdjoy.jd.com, account.huami.com, me-api.jd.com"
 
 CommentsSurgeHead="#!name=LXK9301 iOS Tasks&Cookies Module\n#!desc=iOS Tasks&Cookies 模块配置\n\n# Task&Cookies模块配置 By LXK9301\n# GitHub主页(https://gitee.com/lxk0301/jd_scripts/tree/master)\n# TG讨论组 (https://t.me/JD_fruit_pet)\n# TG通知频道 (https://t.me/jdfruit)\n# Surge的Task&Cookies脚本模块地址: https://gitee.com/lxk0301/jd_scripts/raw/master/Surge/lxk0301_Task.sgmodule.sgmodule\n\n[Script]"
-CommentsSurgeTail="\n[MITM]\nhostname = %APPEND% wq.jd.com, draw.jdfcloud.com, jdjoy.jd.com, account.huami.com, wq.jd.com"
+CommentsSurgeTail="\n[MITM]\nhostname = %APPEND% me-api.jd.com, draw.jdfcloud.com, jdjoy.jd.com, account.huami.com"
 
 
 ## 执行写入
