@@ -123,24 +123,38 @@ async function getToken() {
     const LKYLToken = body.data && body.data.token;
     if (LKYLToken) {
       $.log(`${$.name} token\n${LKYLToken}\n`);
-      count = $.getdata('countFlag') ? $.getdata('countFlag') * 1 : 0;
-      count ++;
-      console.log(`count: ${count}`)
-      $.setdata(`${count}`, 'countFlag');
-      if ($.getdata('countFlag') * 1 === 2) {
-        count = 0;
-        $.setdata(`${count}`, 'countFlag');
-        $.msg($.name, '更新Token: 成功🎉', ``);
-        console.log(`开始上传Token，${LKYLToken}\n`)
-        await $.http.get({url: `http://jd.turinglabs.net/api/v2/jd/joy/create/${LKYLToken}/`}).then((resp) => {
-          if (resp.statusCode === 200) {
+      $.msg($.name, '更新Token: 成功🎉', ``);
+      console.log(`\nToken，${LKYLToken}\n`)
+      $.http.get({url: `http://jd.turinglabs.net/api/v2/jd/joy/create/${LKYLToken}/`}).then((resp) => {
+        if (resp.statusCode === 200) {
+          try {
             let { body } = resp;
             console.log(`Token提交结果:${body}\n`)
             body = JSON.parse(body);
             console.log(`${body.message}`)
+          } catch (e) {
+            console.log(`更新Token异常:${e}`)
           }
-        });
-      }
+        }
+      });
+      // count = $.getdata('countFlag') ? $.getdata('countFlag') * 1 : 0;
+      // count ++;
+      // console.log(`count: ${count}`)
+      // $.setdata(`${count}`, 'countFlag');
+      // if ($.getdata('countFlag') * 1 === 2) {
+      //   count = 0;
+      //   $.setdata(`${count}`, 'countFlag');
+      //   $.msg($.name, '更新Token: 成功🎉', ``);
+      //   console.log(`开始上传Token，${LKYLToken}\n`)
+      //   await $.http.get({url: `http://jd.turinglabs.net/api/v2/jd/joy/create/${LKYLToken}/`}).then((resp) => {
+      //     if (resp.statusCode === 200) {
+      //       let { body } = resp;
+      //       console.log(`Token提交结果:${body}\n`)
+      //       body = JSON.parse(body);
+      //       console.log(`${body.message}`)
+      //     }
+      //   });
+      // }
       $.setdata(LKYLToken, 'jdJoyRunToken');
     }
     $.done({ body: JSON.stringify(body) })
