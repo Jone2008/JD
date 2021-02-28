@@ -23,6 +23,7 @@ if (process.env.JXNCTOKENS) {
 } else if (process.env.JD_COOKIE) {
   console.log(`由于您环境变量里面未提供 tokens，当种植 APP 种子时，将不能正常进行任务，请提供 token 或 种植非 APP 种子！`)
 }
+JxncTokens = [...new Set(JxncTokens.filter(item => !!item))]
 for (let i = 0; i < JxncTokens.length; i++) {
   const index = (i + 1 === 1) ? '' : (i + 1);
   exports['JXNCTOKEN' + index] = JxncTokens[i];
