@@ -1068,10 +1068,10 @@ async function joinLeaderTuan() {
     }
   }
 }
-function JoinTuan(tuanId) {
+function JoinTuan(tuanId, stk = '_time,activeId,tuanId') {
   return new Promise((resolve) => {
     const options = {
-      'url': `https://m.jingxi.com/dreamfactory/tuan/JoinTuan?activeId=${escape(tuanActiveId)}&tuanId=${escape(tuanId)}&_time=${Date.now()}&_=${Date.now()}&sceneval=2&g_login_type=1&_ste=1&h5st=${decrypt(Date.now())}`,
+      'url': `https://m.jingxi.com/dreamfactory/tuan/JoinTuan?activeId=${escape(tuanActiveId)}&tuanId=${escape(tuanId)}&_time=${Date.now()}&_=${Date.now()}&sceneval=2&g_login_type=1&_ste=1&h5st=${decrypt(Date.now(), stk)}`,
       "headers": {
         "Accept": "*/*",
         "Accept-Encoding": "gzip, deflate, br",
@@ -1526,7 +1526,7 @@ function jsonParse(str) {
 function decrypt(time, stk, type) {
   if (stk) {
     const random = 'pmUmA8IyRcDp';
-    const token = ``;
+    const token = `tk01wd4571d58a8nT0tkdXczeW94f5x4qjWs44kcPCTXeWKa2xXY+ZxHaOtbRxmyw6vrIF4RDFwwTUfwy1pIqNE0oyWW`;
     const fingerprint = 8410347712257161;
     const timestamp = new Date(time).Format("yyyyMMddhhmmssS");
     const appId = 10001;
@@ -1538,8 +1538,8 @@ function decrypt(time, stk, type) {
     })
     const hash2 = $.CryptoJS.HmacSHA256(st, hash1).toString($.CryptoJS.enc.Hex);
     console.log(`st:${st}\n`)
-    // console.log(`hash2:${hash2}\n`)
-    // console.log(`h5st:${h5st}\n`)
+    // console.log(`hash2:${JSON.stringify(["".concat(timestamp.toString()), "".concat(fingerprint.toString()), "".concat(appId.toString()), "".concat(token), "".concat(hash2)])}\n`)
+    console.log(`h5st:${["".concat(timestamp.toString()), "".concat(fingerprint.toString()), "".concat(appId.toString()), "".concat(token), "".concat(hash2)].join(";")}\n`)
     return ["".concat(timestamp.toString()), "".concat(fingerprint.toString()), "".concat(appId.toString()), "".concat(token), "".concat(hash2)].join(";")
   } else {
     return '20210121201915905;8410347712257161;10001;tk01wa5bd1b5fa8nK2drQ3o3azhyhItRUb1DBNK57SQnGlXj9kmaV/iQlhKdXuz1RME5H/+NboJj8FAS9N+FcoAbf6cB;3c567a551a8e1c905a8d676d69e873c0bc7adbd8277957f90e95ab231e1800f2'
