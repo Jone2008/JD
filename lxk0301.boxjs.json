@@ -884,7 +884,7 @@
         {
           "id": "jd_jxFactory",
           "name": "京喜工厂好友邀请码 列表",
-          "val": "V5LkjP4WRyjeCKR9VRwcRX0bBuTz7MEK0-E99EJ7u0k=@Bo-jnVs_m9uBvbRzraXcSA==\n\n-OvElMzqeyeGBWazWYjI1Q==",
+          "val": "",
           "type": "textarea",
           "autoGrow": true,
           "rows": 8,
@@ -898,6 +898,34 @@
       "author": "@lxk0301",
       "repo": "https://gitee.com/lxk0301/jd_scripts/tree/master",
       "script": "https://gitee.com/lxk0301/jd_scripts/raw/master/jd_dreamFactory.js"
+    },
+    {
+      "id": "jd_jxCFD",
+      "name": "京喜工厂",
+      "keys": ["jd_jxCFD"],
+      "descs_html": [
+        "请在输入框输入跟你互助的京喜财富岛的好友互助码",
+        "同一个京东账号的好友邀请码用@隔开,不同京东账号互助码用换行(return按键)隔开",
+        "下方输入框给出一个示例,自己使用时删除示例邀请码然后按示例填写即可"
+      ],
+      "settings": [
+        {
+          "id": "jd_jxFactory",
+          "name": "京喜财富岛好友邀请码 列表",
+          "val": "",
+          "type": "textarea",
+          "autoGrow": true,
+          "rows": 8,
+          "desc": "京喜财富岛邀请码,同一个京东账号的好友邀请码用@隔开,不同京东账号互助码用换行(return按键)隔开"
+        }
+      ],
+      "icons": [
+        "https://raw.githubusercontent.com/58xinian/icon/master/jxcfd_mini.png",
+        "https://raw.githubusercontent.com/58xinian/icon/master/jxcfd.png"
+      ],
+      "author": "@lxk0301",
+      "repo": "https://gitee.com/lxk0301/jd_scripts/tree/master",
+      "script": "https://gitee.com/lxk0301/jd_scripts/raw/master/jd_cfd.js"
     }
   ]
 }

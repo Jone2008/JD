@@ -604,7 +604,7 @@ function getCFD(showInvite = true) {
           strMyShareId,
           strPin,
         } = JSON.parse(data);
-        console.log(`【账号${$.index}（${$.nickName || $.UserName}）财富岛】${strMyShareId}`)
+        console.log(`【账号${$.index}（${$.nickName || $.UserName}）财富岛】${strMyShareId}(每次都变化,不影响)`)
       } catch (e) {
         $.logErr(e, resp);
       } finally {
