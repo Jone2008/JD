@@ -155,7 +155,7 @@ async function shaking() {
 }
 function showMsg() {
   if ($.prizeBeanCount) {
-    $.msg(`${$.name}`, `京东账号${$.index} ${$.nickName}`, `【获得】${$.prizeBeanCount}京豆\n【账号总计】${$.totalBeanCount}京豆`);
+    $.msg(`${$.name}`, `京东账号${$.index} ${$.nickName}`, `获得${$.prizeBeanCount}京豆`);
   }
 }
 //====================API接口=================

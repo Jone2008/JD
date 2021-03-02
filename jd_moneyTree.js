@@ -235,15 +235,28 @@ function harvest() {
     "source": 2,
     "sharePin": "",
     "userId": userInfo.userInfo,
-    "userToken": userInfo.userToken
+    "userToken": userInfo.userToken,
+    "shareType": 1,
+    "channel": "",
+    "riskDeviceParam": {
+      "eid": "",
+      "appType": 2,
+      "fp": "",
+      "jstub": "",
+      "sdkToken": "",
+      "token": ""
+    }
   }
+  data.riskDeviceParam = JSON.stringify(data.riskDeviceParam);
   return new Promise((rs, rj) => {
     request('harvest', data).then((harvestRes) => {
       if (harvestRes && harvestRes.resultCode === 0 && harvestRes.resultData.code === '200') {
-        console.log('收获金果')
+        console.log(`收获金果成功:${JSON.stringify(harvestRes)}\n`)
         let data = harvestRes.resultData.data;
         message += `【距离${data.treeInfo.level + 1}级摇钱树还差】${data.treeInfo.progressLeft}\n`;
         fruitTotal = data.treeInfo.fruit;
+      } else {
+        console.log(`收获金果异常:${JSON.stringify(harvestRes)}`)
       }
       rs()
       // gen.next();
@@ -658,7 +671,7 @@ function taskurl(function_id, body) {
       'Host' : `ms.jr.jd.com`,
       'Connection' : `keep-alive`,
       'User-Agent' : $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0"),
-      'Referer' : `https://uua.jr.jd.com/uc-fe-wxgrowing/moneytree/index/?channel=yxhd&lng=113.325896&lat=23.204600&sid=2d98e88cf7d182f60d533476c2ce777w&un_area=19_1601_50258_51885`,
+      'Referer' : `https://uua.jr.jd.com/uc-fe-wxgrowing/moneytree/index`,
       'Accept-Language' : `zh-cn`
     }
   }

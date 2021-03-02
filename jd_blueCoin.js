@@ -1,7 +1,7 @@
 /*
 东东超市兑换奖品 脚本地址：https://gitee.com/lxk0301/jd_scripts/raw/master/jd_blueCoin.js
 感谢@yangtingxiao提供PR
-更新时间：2021-2-27
+更新时间：2021-3-2
 活动入口：京东APP我的-更多工具-东东超市
 支持京东多个账号
 脚本兼容: QuantumultX, Surge, Loon, JSBox, Node.js
@@ -53,6 +53,7 @@ const JD_API_HOST = `https://api.m.jd.com/api?appid=jdsupermarket`;
       $.coincount = 0;
       $.beanscount = 0;
       $.blueCost = 0;
+      $.errBizCodeCount = 0;
       $.coinerr = "";
       $.beanerr = "";
       $.title = '';
@@ -284,10 +285,15 @@ function smtg_obtainPrize(prizeId, timeout = 0) {
           if (safeGet(data)) {
             data = JSON.parse(data);
             $.data = data;
-            if ($.data.data.bizCode !== 0) {
+            if ($.data.data.bizCode !== 0 && $.data.data.bizCode !== 106) {
               $.beanerr = `${$.data.data.bizMsg}`;
               //console.log(`【京东账号${$.index}】${$.nickName} 换取京豆失败：${$.data.data.bizMsg}`)
               return
+            }
+            if ($.data.data.bizCode === 106) {
+              $.errBizCodeCount ++;
+              console.log(`debug 兑换京豆活动火爆次数:${$.errBizCodeCount}`);
+              if ($.errBizCodeCount >= 20) return
             }
             if ($.data.data.bizCode === 0) {
               if (`${coinToBeans}` === '1000') {

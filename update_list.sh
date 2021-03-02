@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
 ## Author: https://github.com/EvineDeng
-## Modified： 2021-02-23
-## Version： v1.0.3
+## Modified： 2021-03-02
+## Version： v1.0.4
 
 ## 网址、路径、文件、标记信息以及表头
 WorkDir=$(cd $(dirname $0); pwd)
-JsList=($(cd $WorkDir; ls *.js | grep -E "j[drx]_"))
+JsList=($(cd $WorkDir; ls *.js | grep -E "j[drx]_" | perl -ne "{print unless /\.bak/}"))
 FileReadme=$WorkDir/README.md
 UrlRaw=https://gitee.com/lxk0301/jd_scripts/raw/master/
 SheetHead="| 序号 | 文件 | 名称 | 活动入口 |\n| :-: | - | - | - |"
