@@ -900,8 +900,8 @@
       "script": "https://gitee.com/lxk0301/jd_scripts/raw/master/jd_dreamFactory.js"
     },
     {
-      "id": "jd_jxCFD",
-      "name": "京喜工厂",
+      "id": "jd_jxCFD_invites",
+      "name": "京喜财富岛",
       "keys": ["jd_jxCFD"],
       "descs_html": [
         "请在输入框输入跟你互助的京喜财富岛的好友互助码",
@@ -910,7 +910,7 @@
       ],
       "settings": [
         {
-          "id": "jd_jxFactory",
+          "id": "jd_jxCFD",
           "name": "京喜财富岛好友邀请码 列表",
           "val": "",
           "type": "textarea",
