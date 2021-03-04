@@ -86,46 +86,50 @@ if ($.isNode()) {
           $.nickName || $.UserName
         }********\n`
       );
-      $.hasNext = true;
-      $.refundtotalamount = 0;
-      $.orderList = new Array();
-      $.applyMap = {};
-      // TODO
-      $.token = '';
-      $.feSt = 'f';
-      console.log(`💥 获得首页面，解析超参数`);
-      await getHyperParams();
-      // console.log($.HyperParam)
-      console.log(`----------`);
-      console.log(`🧾 获取所有价格保护列表，排除附件商品`);
-      for (let page = 1; $.hasNext; page++) {
-        await getApplyData(page);
-      }
-      console.log(`----------`);
-      console.log(`🗑 删除不符合订单`);
-      console.log(`----------`);
-      let taskList = [];
-      for (let order of $.orderList) {
-        taskList.push(historyResultQuery(order));
-      }
-      await Promise.all(taskList);
-      console.log(`----------`);
-      console.log(`📊 ${$.orderList.length}个商品即将申请价格保护！`);
-      console.log(`----------`);
-      for (let order of $.orderList) {
-        await skuApply(order);
-        await $.wait(300);
-      }
-      console.log(`----------`);
-      console.log(`⏳ 等待申请价格保护结果...`);
-      console.log(`----------`);
-      for (let i = 1; i <= 30 && Object.keys($.applyMap).length > 0; i++) {
-        await $.wait(1000);
-        if (i % 5 == 0) {
-          await getApplyResult();
+      try {
+        $.hasNext = true;
+        $.refundtotalamount = 0;
+        $.orderList = new Array();
+        $.applyMap = {};
+        // TODO
+        $.token = '';
+        $.feSt = 'f';
+        console.log(`💥 获得首页面，解析超参数`);
+        await getHyperParams();
+        // console.log($.HyperParam)
+        console.log(`----------`);
+        console.log(`🧾 获取所有价格保护列表，排除附件商品`);
+        for (let page = 1; $.hasNext; page++) {
+          await getApplyData(page);
         }
+        console.log(`----------`);
+        console.log(`🗑 删除不符合订单`);
+        console.log(`----------`);
+        let taskList = [];
+        for (let order of $.orderList) {
+          taskList.push(historyResultQuery(order));
+        }
+        await Promise.all(taskList);
+        console.log(`----------`);
+        console.log(`📊 ${$.orderList.length}个商品即将申请价格保护！`);
+        console.log(`----------`);
+        for (let order of $.orderList) {
+          await skuApply(order);
+          await $.wait(300);
+        }
+        console.log(`----------`);
+        console.log(`⏳ 等待申请价格保护结果...`);
+        console.log(`----------`);
+        for (let i = 1; i <= 30 && Object.keys($.applyMap).length > 0; i++) {
+          await $.wait(1000);
+          if (i % 5 == 0) {
+            await getApplyResult();
+          }
+        }
+        showMsg();
+      } catch (e) {
+        $.logErr(e)
       }
-      showMsg();
     }
   }
 })()

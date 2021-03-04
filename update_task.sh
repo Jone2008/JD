@@ -6,7 +6,7 @@
 
 ## 路径与清单
 WorkDir=$(cd $(dirname $0); pwd)
-JsList=$(cd $WorkDir; ls *.js | grep -Ei "j[drx]_")
+JsList=$(cd $WorkDir; ls *.js | grep -Ei "j[drx]_" | perl -ne "{print unless /\.bak/}")
 JsList="$JsList backUp/xmSports.js"
 FileLoon=$WorkDir/Loon/lxk0301_LoonTask.conf
 FileQx=$WorkDir/QuantumultX/lxk0301_gallery.json

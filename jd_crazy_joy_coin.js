@@ -3,10 +3,24 @@ crazy joy
 挂机领金币/宝箱专用
 活动入口：京东APP我的-更多工具-疯狂的JOY
 ⚠️建议云端使用。手机端不建议使用(会一直跑下去，永不停止)
-10 7 * * * https://gitee.com/lxk0301/jd_scripts/raw/master/jd_crazy_joy_coin.js
+
+脚本兼容: QuantumultX, Surge, Loon, JSBox, Node.js
+============Quantumultx===============
+[task_local]
+#crazyJoy挂机
+10 1,12 * * * https://gitee.com/lxk0301/jd_scripts/raw/master/jd_crazy_joy_coin.js, tag=crazyJoy挂机, img-url=https://raw.githubusercontent.com/58xinian/icon/master/jd_crazy_joy.png, enabled=true
+
+================Loon==============
+[Script]
+cron "10 1,12 * * *" script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_crazy_joy_coin.js,tag=crazyJoy挂机
+
+===============Surge=================
+crazyJoy挂机 = type=cron,cronexp="10 1,12 * * *",wake-system=1,timeout=20,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_crazy_joy_coin.js
+
+============小火箭=========
+crazyJoy挂机 = type=cron,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_crazy_joy_coin.js, cronexpr="10 1,12 * * *", timeout=200, enable=true
 
  */
-
 
 const $ = new Env('crazyJoy挂机');
 const JD_API_HOST = 'https://api.m.jd.com/';
