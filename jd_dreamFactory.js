@@ -150,7 +150,7 @@ function collectElectricity(facId = $.factoryId, help = false, master) {
     // if (help && master) {
     //   url = `/dreamfactory/generator/CollectCurrentElectricity?zone=dream_factory&factoryid=${facId}&master=${master}&sceneval=2&g_login_type=1`;
     // }
-    let body = `factoryid=${facId}&apptoken=&pgtimestamp=&phoneID=&doubleflag=1&_stk=_time,apptoken,doubleflag,factoryid,pgtimestamp,phoneID,timeStamp,zone`;
+    let body = `factoryid=${facId}&apptoken=&pgtimestamp=&phoneID=&doubleflag=1&_stk=_time,apptoken,doubleflag,factoryid,pgtimestamp,phoneID,zone&h5st=20210303175934018;4053152679023161;10001;tk01w99261c60a8nK3pmNkhWWC84pGME0hBXDBW0nQ60pffBUcvRVZXdjdDGQXi5lMXh8yLT/EKfpyovcQsyW1q+0pxx;ad8093ee2d38a61537df0e1138d48b763e257804f78adffdddabf8609ee6a747`;
     if (help && master) {
       body += `factoryid=${facId}&master=${master}`;
     }
@@ -169,7 +169,7 @@ function collectElectricity(facId = $.factoryId, help = false, master) {
                 message += `【帮助好友】帮助成功，获得 ${data.data['loginPinCollectElectricity']} 电力\n`
               } else {
                 $.ele += Number(data.data['CollectElectricity'])
-                console.log(`收取 ${data.data['CollectElectricity']} 电力`);
+                console.log(`收取电力成功: 共${data.data['CollectElectricity']} `);
                 message += `【收取发电站】收取成功，获得 ${data.data['CollectElectricity']} 电力\n`
               }
             } else {
