@@ -120,7 +120,8 @@ async function jdBeanHome() {
   await $.wait(1000)
   await getUserInfo()
   await $.wait(1000)
-  await getTaskList()
+  await getTaskList();
+  await receiveJd2();
   await showMsg();
 }
 
@@ -307,7 +308,7 @@ function help(shareCode, groupCode, isTask = 0) {
 
 function showMsg() {
   return new Promise(resolve => {
-    $.msg($.name, '', `【京东账号${$.index}】${$.nickName}\n${message}`);
+    if (message) $.msg($.name, '', `【京东账号${$.index}】${$.nickName}\n${message}`);
     resolve()
   })
 }
@@ -392,7 +393,7 @@ function award(source="home") {
               message += `领奖成功，获得 ${data.data.beanNum} 个京豆\n`
             } else {
               console.log(`领奖失败，${data.errorMessage}`)
-              message += `领奖失败，${data.errorMessage}\n`
+              // message += `领奖失败，${data.errorMessage}\n`
             }
           }
         }
@@ -404,7 +405,46 @@ function award(source="home") {
     })
   })
 }
-
+function receiveJd2() {
+  var headers = {
+    'Host': 'api.m.jd.com',
+    'content-type': 'application/x-www-form-urlencoded',
+    'accept': '*/*',
+    'user-agent': 'JD4iPhone/167515 (iPhone; iOS 14.2; Scale/3.00)',
+    'accept-language': 'zh-Hans-JP;q=1, en-JP;q=0.9, zh-Hant-TW;q=0.8, ja-JP;q=0.7, en-US;q=0.6',
+    'Cookie': cookie
+  };
+  var dataString = 'body=%7B%7D&build=167576&client=apple&clientVersion=9.4.3&openudid=53f4d9c70c1c81f1c8769d2fe2fef0190a3f60d2&osVersion=14.2&partner=TF&rfs=0000&scope=10&screen=1242%2A2208&sign=19c33b5b9ad4f02c53b6040fc8527119&st=1614701322170&sv=122'
+  var options = {
+    url: 'https://api.m.jd.com/client.action?functionId=sceneInitialize',
+    headers: headers,
+    body: dataString
+  };
+  return new Promise(resolve => {
+    $.post(options, (err, resp, data) => {
+      try {
+        if (err) {
+          console.log(`${JSON.stringify(err)}`)
+          console.log(`${$.name} API请求失败，请检查网路重试`)
+        } else {
+          if (safeGet(data)) {
+            data = JSON.parse(data);
+            if (data['code'] === '0' && data['data']) {
+              console.log(`强制开启新版领京豆成功,获得${data['data']['sceneLevelConfig']['beanNum']}京豆\n`);
+              $.msg($.name, '', `强制开启新版领京豆成功\n获得${data['data']['sceneLevelConfig']['beanNum']}京豆`);
+            } else {
+              console.log(`强制开启新版领京豆结果:${JSON.stringify(data)}\n`)
+            }
+          }
+        }
+      } catch (e) {
+        $.logErr(e, resp)
+      } finally {
+        resolve();
+      }
+    })
+  })
+}
 function taskGetUrl(function_id, body) {
   return {
     url: `${JD_API_HOST}client.action?functionId=${function_id}&body=${escape(JSON.stringify(body))}&appid=ld&clientVersion=9.2.0`,
