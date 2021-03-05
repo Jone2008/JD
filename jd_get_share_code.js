@@ -550,20 +550,14 @@ async function getSgmh(timeout = 0) {
           'Accept-Encoding' : `gzip, deflate, br`,
           'Accept-Language' : `zh-cn`
         },
-        body : `functionId=interact_template_getHomeData&body={"appId":"1EFRRxA","taskToken":""}&client=wh5&clientVersion=1.0.0`
+        body : `functionId=interact_template_getHomeData&body={"appId":"1EFRXxg","taskToken":""}&client=wh5&clientVersion=1.0.0`
       }
-
       $.post(url, async (err, resp, data) => {
         try {
-          if (safeGet(data)) {
-            data = JSON.parse(data);
-            if (data.data.bizCode === 0) {
-              for (let i = 0; i < data.data.result.taskVos.length; i++) {
-                if (data.data.result.taskVos[i].taskName === '邀人助力任务') {
-                  console.log(`【账号${$.index}（${$.nickName || $.UserName}）闪购盲盒】${data.data.result.taskVos[i].assistTaskDetailVo.taskToken}`)
-                }
-              }
-            }
+          data = JSON.parse(data);
+          if (data.data.bizCode === 0) {
+            const invites  = data.data.result.taskVos.filter(item => item['taskName'] === '邀请好友助力');
+            console.log(`【账号${$.index}（${$.nickName || $.UserName}）闪购盲盒】${invites && invites[0]['assistTaskDetailVo']['taskToken']}`)
           }
         } catch (e) {
           $.logErr(e, resp);
@@ -604,7 +598,7 @@ function getCFD(showInvite = true) {
           strMyShareId,
           strPin,
         } = JSON.parse(data);
-        console.log(`【账号${$.index}（${$.nickName || $.UserName}）财富岛】${strMyShareId}(每次都变化,不影响)`)
+        console.log(`【账号${$.index}（${$.nickName || $.UserName}）财富岛】${strMyShareId}`)
       } catch (e) {
         $.logErr(e, resp);
       } finally {
