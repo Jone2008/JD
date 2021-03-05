@@ -67,6 +67,7 @@ const JD_API_HOST = 'https://api.m.jd.com/client.action';
         continue
       }
       await clubLottery();
+      await shakeSign();
       await showMsg();
     }
   }
@@ -345,6 +346,51 @@ function shakeBean() {
         $.logErr(e, resp);
       } finally {
         resolve(data);
+      }
+    })
+  })
+}
+async function shakeSign() {
+  let body = {"floorToken": "df6e1996-0f6f-4c29-92b9-22416fc1f68a", "dataSourceCode": "popUpInfo", "argMap": {}};
+  const res = await pg_interact_interface_invoke(body);
+  if (res.success && res.data) {
+    if (res['data']['popUpRemainTimes'] > 0) {
+      //可签到
+      body = {"floorToken":"f1d574ec-b1e9-43ba-aa84-b7a757f27f0e","dataSourceCode":"signIn","argMap":{"currSignCursor": res['data']['dayBeanAmount']}}
+      const signRes = await pg_interact_interface_invoke(body);
+      console.log(`京东会员第${res['data']['dayBeanAmount']}天签到结果；${JSON.stringify(signRes)}`)
+      if (signRes.success && signRes['data']) {
+        console.log(`京东会员第${res['data']['dayBeanAmount']}天签到成功。获得${signRes['data']['rewardVos'] && signRes['data']['rewardVos'][0]['jingBeanVo'] && signRes['data']['rewardVos'][0]['jingBeanVo']['beanNum']}京豆\n`)
+      }
+    } else {
+      console.log(`京东会员第${res['data']['dayBeanAmount'] - 1}天已经签到了`)
+    }
+  }
+}
+function pg_interact_interface_invoke(body) {
+  return new Promise(resolve => {
+    const options = {
+      url: `https://api.m.jd.com/?appid=sharkBean&functionId=pg_interact_interface_invoke&body=${escape(JSON.stringify(body))}`,
+      headers: {
+        'Cookie': cookie,
+        'Host': 'api.m.jd.com',
+        'User-Agent': $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0"),
+        'Referer': 'https://spa.jd.com',
+        'origin': 'https://spa.jd.com'
+      }
+    }
+    $.post(options, (err, resp, data) => {
+      try {
+        if (err) {
+          console.log(`\n${$.name}: API查询请求失败 ‼️‼️`)
+          $.logErr(err);
+        } else {
+          data = JSON.parse(data);
+        }
+      } catch (e) {
+        $.logErr(e, resp);
+      } finally {
+        resolve(data || {});
       }
     })
   })
