@@ -5,7 +5,7 @@
 * @Last Modified time: 2020-11-23 12:27:09
 */
 /*
-活动入口：京东APP首页-领京豆-摇京豆
+活动入口：京东APP首页-领京豆-摇京豆/京东APP首页-我的-京东会员-摇京豆
 更新时间:2020-10-12
 Modified from https://github.com/Zero-S1/JD_tools/blob/master/JD_vvipclub.py
 已支持IOS双京东账号,Node.js支持N个京东账号
@@ -79,11 +79,15 @@ const JD_API_HOST = 'https://api.m.jd.com/client.action';
     })
 
 async function clubLottery() {
-  await doTasks();//做任务
-  await getFreeTimes();//获取摇奖次数
-  await vvipclub_receive_lottery_times();//新版：领取一次免费的机会
-  await vvipclub_shaking_info();//新版：查询多少次摇奖次数
-  await shaking();//开始摇奖
+  try {
+    await doTasks();//做任务
+    await getFreeTimes();//获取摇奖次数
+    await vvipclub_receive_lottery_times();//京东会员：领取一次免费的机会
+    await vvipclub_shaking_info();//京东会员：查询多少次摇奖次数
+    await shaking();//开始摇奖
+  } catch (e) {
+    $.logErr(e)
+  }
 }
 async function doTasks() {
   const browseTaskRes = await getTask('browseTask');
@@ -127,28 +131,33 @@ async function doTasks() {
 }
 async function shaking() {
   for (let i = 0; i < new Array($.leftShakingTimes).fill('').length; i++) {
-    console.log(`开始新版-摇奖`)
-    // await $.wait(500);
+    console.log(`开始 【京东会员】 摇奖`)
+    await $.wait(1000);
     const newShakeBeanRes = await vvipclub_shaking_lottery();
     if (newShakeBeanRes.success) {
-      console.log(`新版-剩余摇奖次数：${newShakeBeanRes.data.remainLotteryTimes}`)
+      console.log(`京东会员-剩余摇奖次数：${newShakeBeanRes.data.remainLotteryTimes}`)
       if (newShakeBeanRes.data && newShakeBeanRes.data.rewardBeanAmount) {
         $.prizeBeanCount += newShakeBeanRes.data.rewardBeanAmount;
-        console.log(`恭喜你，中奖了，获得${newShakeBeanRes.data.rewardBeanAmount}京豆\n`)
+        console.log(`恭喜你，京东会员中奖了，获得${newShakeBeanRes.data.rewardBeanAmount}京豆\n`)
       } else {
         console.log(`未中奖\n`)
       }
     }
   }
   for (let i = 0; i < new Array($.freeTimes).fill('').length; i++) {
-    console.log(`开始摇奖`)
+    console.log(`开始 【摇京豆】 摇奖`)
     await $.wait(1000);
     const shakeBeanRes = await shakeBean();
     if (shakeBeanRes.success) {
       console.log(`剩余摇奖次数：${shakeBeanRes.data.luckyBox.freeTimes}`)
       if (shakeBeanRes.data && shakeBeanRes.data.prizeBean) {
+        console.log(`恭喜你，中奖了，获得${shakeBeanRes.data.prizeBean.count}京豆\n`)
         $.prizeBeanCount += shakeBeanRes.data.prizeBean.count;
         $.totalBeanCount = shakeBeanRes.data.luckyBox.totalBeanCount;
+      } else if (shakeBeanRes.data && shakeBeanRes.data.prizeCoupon) {
+        console.log(`获得优惠券：${shakeBeanRes.data.prizeCoupon['limitStr']}\n`)
+      } else {
+        console.log(`摇奖其他未知结果：${JSON.stringify(shakeBeanRes)}\n`)
       }
     }
   }
@@ -184,7 +193,7 @@ function vvipclub_shaking_info() {
           data = JSON.parse(data);
           if (data.success) {
             $.leftShakingTimes = data.data.leftShakingTimes;//剩余抽奖次数
-            console.log(`新版——摇奖次数${$.leftShakingTimes}`);
+            console.log(`京东会员——摇奖次数${$.leftShakingTimes}`);
           }
         }
       } catch (e) {
@@ -195,7 +204,7 @@ function vvipclub_shaking_info() {
     })
   })
 }
-//新版摇奖API
+//京东会员摇奖API
 function vvipclub_shaking_lottery() {
   return new Promise(resolve => {
     const options = {
@@ -227,7 +236,7 @@ function vvipclub_shaking_lottery() {
     })
   })
 }
-//领取新版本摇一摇一次免费的次数
+//领取京东会员本摇一摇一次免费的次数
 function vvipclub_receive_lottery_times() {
   return new Promise(resolve => {
     const options = {
@@ -272,7 +281,7 @@ function getFreeTimes() {
           data = JSON.parse(data);
           if (data.success) {
             $.freeTimes = data.data.freeTimes;
-            console.log(`摇奖次数${$.freeTimes}`);
+            console.log(`摇京豆——摇奖次数${$.freeTimes}`);
           }
         }
       } catch (e) {
@@ -329,7 +338,7 @@ function shakeBean() {
           console.log(`\n${$.name}: API查询请求失败 ‼️‼️`)
           $.logErr(err);
         } else {
-          console.log(`摇奖结果:${data}`)
+          // console.log(`摇奖结果:${data}`)
           data = JSON.parse(data);
         }
       } catch (e) {
