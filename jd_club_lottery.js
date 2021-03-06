@@ -67,7 +67,7 @@ const JD_API_HOST = 'https://api.m.jd.com/client.action';
         continue
       }
       await clubLottery();
-      await shakeSign();
+      //await shakeSign();
       await showMsg();
     }
   }
