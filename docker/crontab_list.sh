@@ -108,3 +108,5 @@
 #20 9 * * 6 node /scripts/jd_delCoupon.js >> /scripts/logs/jd_delCoupon.log 2>&1
 #家庭号
 20 6,7 * * * node /scripts/jd_family.js >> /scripts/logs/jd_family.log 2>&1
+#京东直播（又回来了）
+10-20/5 12,23 * * * node /scripts/jd_live.js >> /scripts/logs/jd_live.log 2>&1
