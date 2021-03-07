@@ -2,27 +2,26 @@
 她的节，享京豆
 活动入口：
 活动地址：https://linggame.jd.com/babelDiy/Zeus/3Y7JfoyA2Nwoa4FRqgDY4WpVjfgP/index.html
-一天700积分，两天1400积分换35京豆，一共8天，可换140京豆，差不多一期种豆得豆
 已支持IOS双京东账号,Node.js支持N个京东账号
 脚本兼容: QuantumultX, Surge, Loon, JSBox, Node.js
 ============Quantumultx===============
 [task_local]
 #她的节享京豆
-0 8,21 1-8/1 3 * https://gitee.com/lxk0301/jd_scripts/raw/master/jd_firecrackers.js, tag=她的节享京豆, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/Color/jd.png, enabled=true
+10 8,21 * * * https://gitee.com/lxk0301/jd_scripts/raw/master/jd_firecrackers.js, tag=她的节享京豆, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/Color/jd.png, enabled=true
 
 ================Loon==============
 [Script]
-cron "0 8,21 1-8/1 3 *" script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_firecrackers.js,tag=她的节享京豆
+cron "10 8,21 * * *" script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_firecrackers.js,tag=她的节享京豆
 
 ===============Surge=================
-她的节享京豆 = type=cron,cronexp="0 8,21 1-8/1 3 *",wake-system=1,timeout=3600,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_firecrackers.js
+她的节享京豆 = type=cron,cronexp="10 8,21 * * *",wake-system=1,timeout=3600,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_firecrackers.js
 
 ============小火箭=========
-她的节享京豆 = type=cron,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_firecrackers.js, cronexpr="0 8,21 1-8/1 3 *", timeout=3600, enable=true
+她的节享京豆 = type=cron,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_firecrackers.js, cronexpr="10 8,21 * * *", timeout=3600, enable=true
  */
 const $ = new Env('她的节享京豆');
 const notify = $.isNode() ? require('./sendNotify') : '';
-let notifyBean = $.isNode() ? process.env.FIRECRACKERS_NOTITY_BEAN || 0 : 0; // 账号满足兑换多少京豆时提示 默认 0 不提示，格式：120 表示能兑换 120 豆子发出通知;
+let notifyBean = 35
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 //Node.js用户请在jdCookie.js处填写京东ck;
 //IOS等用户直接用NobyDa的jd cookie
@@ -88,13 +87,7 @@ function showMsg() {
       for (let item of $.prize) {
         if (notifyBean <= item.beansPerNum) { // 符合预定的京豆档位
           if ($.total >= item.prizerank) { // 当前鞭炮满足兑换
-            message += `【京豆】请手动兑换 ${item.beansPerNum} 个京豆，需消耗花费🧨 ${item.prizerank}`
-            $.msg($.name, subTitle, message);
-            if ($.isNode()) {
-              await notify.sendNotify(`${$.name} - 账号${$.index} - ${$.nickName}`, `${subTitle}\n${message}`);
-              resolve();
-              return;
-            }
+            await draw()
           }
         }
       }
@@ -185,6 +178,32 @@ function doTask(taskId) {
             return;
           } else {
             console.log(`任务完成失败，原因未知`)
+          }
+        }
+      } catch (e) {
+        $.logErr(e, resp)
+      } finally {
+        resolve(data);
+      }
+    })
+  })
+}
+
+function draw() {
+  let body = `level=2&type=2`
+  return new Promise(resolve => {
+    $.get(taskUrl('family_draw', body), async (err, resp, data) => {
+      try {
+        if (err) {
+          console.log(`${err},${jsonParse(resp.body)['message']}`)
+          console.log(`${$.name} API请求失败，请检查网路重试`)
+        } else {
+          data = JSON.parse(data.match(/query\((.*)\n/)[1])
+          if (data.ret === 0) {
+            message += '领奖成功\n'
+            console.log(`领奖成功`)
+          } else {
+            console.log(`领奖失败`)
           }
         }
       } catch (e) {
