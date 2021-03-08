@@ -64,9 +64,13 @@ if ($.isNode()) {
         }
         continue
       }
-      await jdMh()
-      await jdMh('https://anmp.jd.com/babelDiy/Zeus/gY7ymUmC8ZM74Zw3woiDDQU1naT/index.html?wxAppName=jd')
-      await jdMh('https://anmp.jd.com/babelDiy/Zeus/3UGPT8RMBu4kL2YAYN98MgkcDhRq/index.html?wxAppName=jd')
+      try {
+        await jdMh()
+        await jdMh('https://anmp.jd.com/babelDiy/Zeus/gY7ymUmC8ZM74Zw3woiDDQU1naT/index.html?wxAppName=jd')
+        // await jdMh('https://anmp.jd.com/babelDiy/Zeus/3UGPT8RMBu4kL2YAYN98MgkcDhRq/index.html?wxAppName=jd')
+      } catch (e) {
+        $.logErr(e)
+      }
     }
   }
 })()
@@ -78,15 +82,19 @@ if ($.isNode()) {
   })
 
 async function jdMh(url) {
-  await getInfo(url)
-  await getUserInfo()
-  await draw()
-  while ($.userInfo.bless >= $.userInfo.cost_bless_one_time) {
-    await draw()
+  try {
+    await getInfo(url)
     await getUserInfo()
-    await $.wait(500)
+    await draw()
+    while ($.userInfo.bless >= $.userInfo.cost_bless_one_time) {
+      await draw()
+      await getUserInfo()
+      await $.wait(500)
+    }
+    await showMsg();
+  } catch (e) {
+    $.logErr(e)
   }
-  await showMsg();
 }
 
 function showMsg() {
@@ -98,6 +106,7 @@ function showMsg() {
 }
 
 function getInfo(url = 'https://anmp.jd.com/babelDiy/Zeus/3DSHPs2xC66RgcCEB8YVLsudqfh5/index.html?wxAppName=jd') {
+  console.log(`url:${url}`)
   return new Promise(resolve => {
     $.get({
       url,
@@ -238,7 +247,7 @@ function TotalBean() {
               return
             }
             if (data['retcode'] === 0) {
-              $.nickName = data['base'].nickname;
+              $.nickName = (data['base'] && data['base'].nickname) || $.UserName;
             } else {
               $.nickName = $.UserName
             }
