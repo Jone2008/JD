@@ -2,7 +2,7 @@
  * @Author: lxk0301 https://github.com/lxk0301
  * @Date: 2020-08-16 18:54:16
  * @Last Modified by: lxk0301
- * @Last Modified time: 2021-2-27 21:22:37
+ * @Last Modified time: 2021-03-08 21:22:37
  */
 /*
 宠汪汪积分兑换奖品脚本, 目前脚本只兑换京豆，兑换京豆成功，才会发出通知提示，其他情况不通知。
@@ -98,10 +98,10 @@ async function joyReward() {
   if ($.getExchangeRewardsRes && $.getExchangeRewardsRes.success) {
     // console.log('success', $.getExchangeRewardsRes);
     const data = $.getExchangeRewardsRes.data;
-    const levelSaleInfos = data.levelSaleInfos;
-    const giftSaleInfos = levelSaleInfos.giftSaleInfos;
-    console.log(`当前积分 ${data.coin}\n`);
-    console.log(`宠物等级 ${data.level}\n`);
+    // const levelSaleInfos = data.levelSaleInfos;
+    // const giftSaleInfos = levelSaleInfos.giftSaleInfos;
+    // console.log(`当前积分 ${data.coin}\n`);
+    // console.log(`宠物等级 ${data.level}\n`);
     console.log(`京东昵称 ${$.nickName}\n`);
     let saleInfoId = '', giftValue = '', extInfo = '', leftStock = 0, salePrice = 0;
     let rewardNum = 0;
@@ -117,7 +117,18 @@ async function joyReward() {
     } else {
       rewardNum = joyRewardName;
     }
-    for (let item of giftSaleInfos) {
+    let giftSaleInfos = 'beanConfigs0';
+    let time = new Date($.getExchangeRewardsRes['currentTime']).getHours();
+    if (time >= 23 && time < 8) {
+      giftSaleInfos = 'beanConfigs0';
+    }
+    if (time >= 7 && time < 16) {
+      giftSaleInfos = 'beanConfigs8';
+    }
+    if (time >= 15 && time < 23) {
+      giftSaleInfos = 'beanConfigs16';
+    }
+    for (let item of data[giftSaleInfos]) {
       if (item.giftType === 'jd_bean' && item['giftValue'] === rewardNum) {
         saleInfoId = item.id;
         leftStock = item.leftStock;
@@ -130,14 +141,16 @@ async function joyReward() {
     // 兼容之前BoxJs兑换设置的数据
     if (rewardNum && (rewardNum === 1 || rewardNum === 20 || rewardNum === 50 || rewardNum === 100 || rewardNum === 500 || rewardNum === 1000)) {
       //开始兑换
-      if (data.coin >= salePrice) {
+      if (salePrice) {
         if (leftStock) {
           if (!saleInfoId) return
-          console.log(`当前账户积分:${data.coin}\n当前京豆库存:${leftStock}\n满足兑换条件,开始为您兑换京豆\n`);
+          // console.log(`当前账户积分:${data.coin}\n当前京豆库存:${leftStock}\n满足兑换条件,开始为您兑换京豆\n`);
+          console.log(`当前京豆库存:${leftStock}\n满足兑换条件,开始为您兑换京豆\n`);
           await exchange(saleInfoId, 'pet');
           if ($.exchangeRes && $.exchangeRes.success) {
             if ($.exchangeRes.errorCode === 'buy_success') {
-              console.log(`兑换${giftValue}成功,【宠物等级】${data.level}\n【消耗积分】${salePrice}个\n【剩余积分】${data.coin - salePrice}个\n`)
+              // console.log(`兑换${giftValue}成功,【宠物等级】${data.level}\n【消耗积分】${salePrice}个\n【剩余积分】${data.coin - salePrice}个\n`)
+              console.log(`兑换${giftValue}成功,【消耗积分】${salePrice}个`)
               if ($.isNode() && process.env.JD_JOY_REWARD_NOTIFY) {
                 $.ctrTemp = `${process.env.JD_JOY_REWARD_NOTIFY}` === 'false';
               } else if ($.getdata('jdJoyRewardNotify')) {
@@ -146,9 +159,9 @@ async function joyReward() {
                 $.ctrTemp = `${jdNotify}` === 'false';
               }
               if ($.ctrTemp) {
-                $.msg($.name, ``, `【京东账号${$.index}】${$.nickName}\n【${giftValue}京豆】兑换成功\n【宠物等级】${data.level}\n【积分详情】消耗积分 ${salePrice}, 剩余积分 ${data.coin - salePrice}`);
+                $.msg($.name, ``, `【京东账号${$.index}】${$.nickName}\n【${giftValue}京豆】兑换成功\n【积分详情】消耗积分 ${salePrice}`);
                 if ($.isNode()) {
-                  allMessage += `【京东账号${$.index}】 ${$.nickName}\n【${giftValue}京豆】兑换成功\n【宠物等级】${data.level}\n【积分详情】消耗积分 ${salePrice}, 剩余积分 ${data.coin - salePrice}${$.index !== cookiesArr.length ? '\n\n' : ''}`
+                  allMessage += `【京东账号${$.index}】 ${$.nickName}\n【${giftValue}京豆】兑换成功\n【积分详情】消耗积分 ${salePrice}${$.index !== cookiesArr.length ? '\n\n' : ''}`
                   // await notify.sendNotify(`${$.name} - 账号${$.index} - ${$.nickName}`, `【京东账号${$.index}】 ${$.nickName}\n【${giftValue}京豆】兑换成功\n【宠物等级】${data.level}\n【积分详情】消耗积分 ${salePrice}, 剩余积分 ${data.coin - salePrice}`);
                 }
               }
@@ -182,7 +195,7 @@ async function joyReward() {
 }
 function getExchangeRewards() {
   let opt = {
-    url: "//jdjoy.jd.com/common/gift/getHomeInfo?reqSource=h5",
+    url: "//jdjoy.jd.com/common/gift/getBeanConfigs?reqSource=h5",
     method: "GET",
     data: {},
     credentials: "include",

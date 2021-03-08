@@ -926,6 +926,32 @@
       "author": "@lxk0301",
       "repo": "https://gitee.com/lxk0301/jd_scripts/tree/master",
       "script": "https://gitee.com/lxk0301/jd_scripts/raw/master/jd_cfd.js"
+    },
+    {
+      "id": "jd_jxd",
+      "name": "京小兑",
+      "keys": [],
+      "settings": [
+        {
+          "id": "jdJxdExchange",
+          "name": "自动把抽奖卷兑换为兑币",
+          "val": false,
+          "type": "boolean",
+          "desc": "自动把抽奖卷兑换为兑币,默认关闭"
+        }
+      ],
+      "author": "@lxk0301",
+      "repo": "https://gitee.com/lxk0301/jd_scripts/tree/master",
+      "scripts":[
+        {
+          "name" : "京小兑",
+          "script" : "https://gitee.com/lxk0301/jd_scripts/raw/master/jd_jxd.js"
+        }
+      ],
+      "icons": [
+        "https://raw.githubusercontent.com/58xinian/icon/master/jd_jxd_mini.png",
+        "https://raw.githubusercontent.com/58xinian/icon/master/jd_jxd.png"
+      ]
     }
   ]
 }

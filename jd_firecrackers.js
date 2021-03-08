@@ -21,7 +21,7 @@ cron "10 8,21 * * *" script-path=https://gitee.com/lxk0301/jd_scripts/raw/master
  */
 const $ = new Env('她的节享京豆');
 const notify = $.isNode() ? require('./sendNotify') : '';
-let notifyBean = 35
+let notifyBean = 15
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 //Node.js用户请在jdCookie.js处填写京东ck;
 //IOS等用户直接用NobyDa的jd cookie
@@ -190,7 +190,7 @@ function doTask(taskId) {
 }
 
 function draw() {
-  let body = `level=2&type=2`
+  let body = `level=1&type=2`
   return new Promise(resolve => {
     $.get(taskUrl('family_draw', body), async (err, resp, data) => {
       try {
