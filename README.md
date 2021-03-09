@@ -120,7 +120,7 @@
     
   + [插件获取京东cookie教程](./backUp/GetJdCookie2.md)
     
-  + 京东APP扫码获取cookie(此种方式获取的cookie有效期为90天)(执行`node getJDCookie.js`即可)
+  + 京东APP扫码获取cookie(此种方式获取的cookie有效期为30天)(执行`node getJDCookie.js`即可)
 
 ### 2. iOS代理软件（QuantumultX, Surge, Loon, 小火箭）
 

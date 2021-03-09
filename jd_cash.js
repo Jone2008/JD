@@ -41,6 +41,7 @@ if ($.isNode()) {
   cookiesArr = [$.getdata('CookieJD'), $.getdata('CookieJD2'), ...jsonParse($.getdata('CookiesJD') || "[]").map(item => item.cookie)].filter(item => !!item);
 }
 const JD_API_HOST = 'https://api.m.jd.com/client.action';
+let allMessage = '';
 !(async () => {
   if (!cookiesArr[0]) {
     $.msg($.name, '【提示】请先获取京东账号一cookie\n直接使用NobyDa的京东签到获取', 'https://bean.m.jd.com/bean/signIndex.action', {"open-url": "https://bean.m.jd.com/bean/signIndex.action"});
@@ -69,6 +70,10 @@ const JD_API_HOST = 'https://api.m.jd.com/client.action';
       }
       await jdCash()
     }
+  }
+  if (allMessage) {
+    if ($.isNode()) await notify.sendNotify($.name, allMessage);
+    $.msg($.name, '', allMessage);
   }
 })()
     .catch((e) => {
@@ -225,11 +230,12 @@ function getReward(source = 1) {
         } else {
           if (safeGet(data)) {
             data = JSON.parse(data);
-            if( data.code === 0 && data.data.bizCode === 0 ){
+            if (data.code === 0 && data.data.bizCode === 0) {
               console.log(`领奖成功，${data.data.result.shareRewardTip}【${data.data.result.shareRewardAmount}】`)
+              allMessage += `京东账号${$.index}${$.nickName}\n领奖成功，${data.data.result.shareRewardTip}【${data.data.result.shareRewardAmount}】${$.index !== cookiesArr.length ? '\n\n' : ''}`;
               // console.log(data.data.result.taskInfos)
-            }else{
-              console.log(`领奖失败，${data.data.bizMsg}`)
+            } else {
+              // console.log(`领奖失败，${data.data.bizMsg}`)
             }
           }
         }

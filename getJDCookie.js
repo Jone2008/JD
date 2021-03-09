@@ -1,5 +1,5 @@
 /**
- * 扫码获取京东cookie，此方式得到的cookie有效期为90天(实际待测试)
+ * 扫码获取京东cookie，此方式得到的cookie有效期为30天
  * @Author: LXK9301 https://github.com/LXK9301
  * @Date: 2021-01-13 12:12:40
  * @Last Modified by: LXK9301
