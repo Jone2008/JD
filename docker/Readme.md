@@ -8,7 +8,7 @@
         2、（由于linux进程限制，父进程无法获取子进程环境变量）在每次脚本运行前，在当前进程先调用 /scripts/docker/auto_help.sh export 把助力码注入到环境变量
 
 + 2021-02-21更新 https://gitee.com/lxk0301/jd_scripts仓库被迫私有，老用户重新更新一下镜像：https://hub.docker.com/r/lxk0301/jd_scripts)(docker-compose.yml的REPO_URL记得修改)后续可同步更新jd_script仓库最新脚本
-+ 2021-02-10更新 docker-compose里面,填写环境变量 SHARE_CODE_FILE=/scripts/logs/sharecode.log, 多账号可实现自己互助(只限sharecode.log日志里面几个活动)
++ 2021-02-10更新 docker-compose里面,填写环境变量 SHARE_CODE_FILE=/scripts/logs/sharecode.log, 多账号可实现自己互助(只限sharecode.log日志里面几个活动),注:已停用,请使用2021-03-9更新
 + 2021-01-22更新 CUSTOM_LIST_FILE 参数支持远程定时任务列表 (⚠️务必确认列表中的任务在仓库里存在)
 + 例1:配置远程crontab_list.sh, 此处借用 shylocks 大佬的定时任务列表, 本仓库不包含列表中的任务代码, 仅作示范
 + CUSTOM_LIST_FILE=https://raw.githubusercontent.com/shylocks/Loon/main/docker/crontab_list.sh
@@ -229,7 +229,6 @@ jd_scripts
 
 |        Name       |      归属      |  属性  | 说明                                                         |
 | :---------------: | :------------: | :----: | ------------------------------------------------------------ |
-| `SHARE_CODE_FILE` | 互助码日志文件 | 非必须 | docker-compose.yml文件下填写`SHARE_CODE_FILE=/scripts/logs/sharecode.log`，其他(群晖)填写对应的互助码日志文路径 |
 | `CRZAY_JOY_COIN_ENABLE` | 是否jd_crazy_joy_coin挂机 | 非必须 | docker-compose.yml文件下填写`CRZAY_JOY_COIN_ENABLE=Y`表示挂机,`CRZAY_JOY_COIN_ENABLE=N`表不挂机 |
 | `DO_NOT_RUN_SCRIPTS` | 不执行的脚本 | 非必须 | 例:docker-compose.yml文件里面填写`DO_NOT_RUN_SCRIPTS=jd_family.js&jd_dreamFactory.js&jd_jxnc.js`, 建议填写完整脚本名,不完整的文件名可能导致其他脚本被禁用 |
 | `ENABLE_AUTO_HELP` | 单容器多账号自动互助 | 非必须 | 例:docker-compose.yml文件里面填写`ENABLE_AUTO_HELP=true` |
