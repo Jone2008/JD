@@ -19,13 +19,13 @@ fi
 # 收集助力码
 collectSharecode(){
     if [ -f ${2} ]; then
-        echo "${1}：清理旧助力码，收集新助力码"
+        echo "${1}：清理 ${logFile} 中的旧助力码，收集新助力码"
         #删除旧助力码
         sed -i '/'"${1}"'/d' ${logFile}
     
         sed -n '/'${1}'.*/'p ${2} |  sed 's/京东账号/京东账号 /g' | sed 's/（/ （/g' | sed 's/】/】 /g' | awk '{print $4,$5,$6,$7}' | sort -gk2  | awk '!a[$2" "$3]++{print}' >>$logFile
     else
-        echo "${1}：${2} 文件不存在,不清理旧助力码"
+        echo "${1}：${2} 文件不存在,不清理 ${logFile} 中的旧助力码"
     fi
     
     
@@ -51,14 +51,16 @@ exportSharecode(){
     
         allSharecode=$(echo ${allSharecode} | awk '{print substr($1,2)}')
     
-        # echo "${1}:${allSharecode}"
+        
 
         #判断合成的助力码长度是否大于账号数，不大于，则可知没有助力码
         if [ ${#allSharecode} -gt ${cookiecount} ]; then
-            echo "${1}：导出助力码"
+            echo "当前进程pid: $$"
+            echo "${1}：注入环境变量"
+            echo "${1}:${allSharecode}"
             export ${3}=${allSharecode}
         else
-            echo "${1}：没有助力码，不导出"
+            echo "没有${1}：不注入环境变量"
         fi
         
     else
@@ -134,19 +136,11 @@ autoHelp "京喜农场好友互助码" "${logDir}/jd_jxnc.log" "JXNC_SHARECODES"
 #京东赚赚
 autoHelp "京东赚赚好友互助码" "${logDir}/jd_jdzz.log" "JDZZ_SHARECODES"
 
-
-
-
-
-
-
-######### 日志打印格式需调整 #########
-
 #口袋书店
 autoHelp "口袋书店好友互助码" "${logDir}/jd_bookshop.log" "BOOKSHOP_SHARECODES"
 
 #领现金
-autoHelp "签到领现金好友互助码" "${logDir}/jd_cash.log" "JD_CASH_SHARECODES"
+autoHelp "领现金好友互助码" "${logDir}/jd_cash.log" "JD_CASH_SHARECODES"
 
 #闪购盲盒
 autoHelp "闪购盲盒好友互助码" "${logDir}/jd_sgmh.log" "JDSGMH_SHARECODES"
