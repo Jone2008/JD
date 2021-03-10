@@ -47,14 +47,14 @@ fi
 
 
 
-echo "第3步判断是否配置了随即延迟参数..."
+echo "第3步判断是否配置了随机延迟参数..."
 if [ $RANDOM_DELAY_MAX ]; then
     if [ $RANDOM_DELAY_MAX -ge 1 ]; then
         echo "已设置随机延迟为 $RANDOM_DELAY_MAX , 设置延迟任务中..."
         sed -i "/\(jd_bean_sign.js\|jd_blueCoin.js\|jd_joy_reward.js\|jd_joy_steal.js\|jd_joy_feedPets.js\|jd_car_exchange.js\)/!s/node/sleep \$((RANDOM % \$RANDOM_DELAY_MAX)); node/g" $mergedListFile
     fi
 else
-    echo "未配置随即延迟对应的环境变量，故不设置延迟任务..."
+    echo "未配置随机延迟对应的环境变量，故不设置延迟任务..."
 fi
 
 echo "第4步判断是否配置自定义shell执行脚本..."
@@ -110,19 +110,30 @@ echo -e "\n# 必须要的默认定时任务请勿删除" >> $mergedListFile
 echo -e "${random_m} ${random_h} * * * docker_entrypoint.sh >> /scripts/logs/default_task.log 2>&1" | tee -a $mergedListFile
 
 
-echo "第7步增加 |ts 任务日志输出时间戳..."
+echo "第7步 自动助力"
+if [ $ENABLE_AUTO_HELP = "true" ]; then
+    echo "开启自动助力"
+    
+    #在所有脚本执行前，先执行助力码导出
+    sed -i 's/node/ . \/scripts\/docker\/auto_help.sh export \&\& node /g' ${mergedListFile}
+else
+    echo "未开启自动助力"
+fi
+
+
+echo "第8步增加 |ts 任务日志输出时间戳..."
 sed -i "/\( ts\| |ts\|| ts\)/!s/>>/\|ts >>/g" $mergedListFile
 
-echo "第8步执行proc_file.sh脚本任务..."
+echo "第9步执行proc_file.sh脚本任务..."
 sh -x /scripts/docker/proc_file.sh
 
-echo "第9步加载最新的定时任务文件..."
+echo "第10步加载最新的定时任务文件..."
 crontab $mergedListFile
 
-echo "第10步将仓库的docker_entrypoint.sh脚本更新至系统/usr/local/bin/docker_entrypoint.sh内..."
+echo "第11步将仓库的docker_entrypoint.sh脚本更新至系统/usr/local/bin/docker_entrypoint.sh内..."
 cat /scripts/docker/docker_entrypoint.sh >/usr/local/bin/docker_entrypoint.sh
 
 echo "发送通知"
-export NOTIFY_CONTENT="2021-02-21更新 https://gitee.com/lxk0301/jd_scripts仓库被迫私有，需重新更新一下镜像：https://hub.docker.com/r/lxk0301/jd_scripts，(注：国内第三方镜像目前可能不是最新请使用hub.docker.com镜像，docker-compose.yml的REPO_URL记得修改)后续可同步更新jd_script仓库最新脚本"
+export NOTIFY_CONTENT="2021-03-10更新 新版docker单容器多账号自动互助.开启方式：docker-compose.yml 中添加环境变量 - ENABLE_AUTO_HELP=true,详见Readme.md"
 cd /scripts/docker
 node notify_docker_user.js
