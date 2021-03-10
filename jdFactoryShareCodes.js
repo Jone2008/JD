@@ -12,10 +12,10 @@ let shareCodes = [
 ]
 
 // 从日志获取互助码
-const logShareCodes = require('./utils/jdShareCodes');
-if (logShareCodes.DDFACTORY_SHARECODES.length > 0 && !process.env.DDFACTORY_SHARECODES) {
-  process.env.DDFACTORY_SHARECODES = logShareCodes.DDFACTORY_SHARECODES.join('&');
-}
+// const logShareCodes = require('./utils/jdShareCodes');
+// if (logShareCodes.DDFACTORY_SHARECODES.length > 0 && !process.env.DDFACTORY_SHARECODES) {
+//   process.env.DDFACTORY_SHARECODES = logShareCodes.DDFACTORY_SHARECODES.join('&');
+// }
 
 // 判断github action里面是否有东东工厂互助码
 if (process.env.DDFACTORY_SHARECODES) {
