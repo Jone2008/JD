@@ -116,13 +116,13 @@ async function joyReward() {
       }
       let giftSaleInfos = 'beanConfigs0';
       let time = new Date($.getExchangeRewardsRes['currentTime']).getHours();
-      if (time >= 23 && time < 7) {
+      if (time >= 0 && time < 8) {
         giftSaleInfos = 'beanConfigs0';
       }
-      if (time >= 7 && time < 15) {
+      if (time >= 8 && time < 16) {
         giftSaleInfos = 'beanConfigs8';
       }
-      if (time >= 15 && time < 23) {
+      if (time >= 16 && time < 24) {
         giftSaleInfos = 'beanConfigs16';
       }
       console.log(`\ndebug场次:${giftSaleInfos}\n`)
