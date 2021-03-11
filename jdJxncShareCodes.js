@@ -27,8 +27,8 @@ if (process.env.JXNC_SHARECODES) {
   } else {
     JxncShareCodes = process.env.JXNC_SHARECODES.split();
   }
-} else if (process.env.JD_COOKIE) {
-  // console.log(`由于您secret里面未提供助力码，故此处运行将会给脚本内置的码进行助力，请知晓！`)
+} else {
+  console.log(`由于您环境变量里面(JXNC_SHARECODES)未提供助力码，故此处运行将会给脚本内置的码进行助力，请知晓！`)
 }
 for (let i = 0; i < JxncShareCodes.length; i++) {
   const index = (i + 1 === 1) ? '' : (i + 1);
