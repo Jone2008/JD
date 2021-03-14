@@ -36,7 +36,9 @@ collectSharecode(){
 exportSharecode(){
     if [ -f ${logFile} ]; then
         #账号数
-        cookiecount=$(echo ${JD_COOKIE} | awk -F '&' '{print NF}')
+        cookiecount=$(echo ${JD_COOKIE} | grep -o pt_key |  grep -c pt_key)
+        echo "cookie个数：${cookiecount}"
+
         # 单个账号助力码
         singleSharecode=$(sed -n '/'${1}'.*/'p ${logFile} | awk '{print $4}' | awk '{T=T"@"$1} END {print T}' |  awk '{print substr($1,2)}')
 #        | awk '{print $2,$4}' | sort -g | uniq
@@ -51,16 +53,14 @@ exportSharecode(){
     
         allSharecode=$(echo ${allSharecode} | awk '{print substr($1,2)}')
     
-        
+        # echo "${1}:${allSharecode}"
 
         #判断合成的助力码长度是否大于账号数，不大于，则可知没有助力码
         if [ ${#allSharecode} -gt ${cookiecount} ]; then
-            echo "当前进程pid: $$"
-            echo "${1}：注入环境变量"
-            echo "${1}:${allSharecode}"
+            echo "${1}：导出助力码"
             export ${3}=${allSharecode}
         else
-            echo "没有${1}：不注入环境变量"
+            echo "${1}：没有助力码，不导出"
         fi
         
     else
@@ -102,7 +102,8 @@ autoHelp(){
 
 ############# 短期活动 #############
 
-
+#环球挑战赛
+autoHelp "环球挑战赛好友互助码" "${logDir}/jd_global.log" "JDGLOBAL_SHARECODES"
 
 
 
@@ -136,11 +137,19 @@ autoHelp "京喜农场好友互助码" "${logDir}/jd_jxnc.log" "JXNC_SHARECODES"
 #京东赚赚
 autoHelp "京东赚赚好友互助码" "${logDir}/jd_jdzz.log" "JDZZ_SHARECODES"
 
+
+
+
+
+
+
+######### 日志打印格式需调整 #########
+
 #口袋书店
 autoHelp "口袋书店好友互助码" "${logDir}/jd_bookshop.log" "BOOKSHOP_SHARECODES"
 
 #领现金
-autoHelp "领现金好友互助码" "${logDir}/jd_cash.log" "JD_CASH_SHARECODES"
+autoHelp "签到领现金好友互助码" "${logDir}/jd_cash.log" "JD_CASH_SHARECODES"
 
 #闪购盲盒
 autoHelp "闪购盲盒好友互助码" "${logDir}/jd_sgmh.log" "JDSGMH_SHARECODES"
