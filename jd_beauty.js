@@ -89,7 +89,7 @@ async function mr() {
   const WebSocket = require('ws')
   let client = new WebSocket(`wss://xinruimz-isv.isvjcloud.com/wss/?token=${$.token}`,null,{
     headers:{
-      'user-agent': '%E6%88%91%E6%98%AF%E7%94%B0%E5%AE%87%E8%88%AA',
+      'user-agent': $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0") : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0"),
     }
   })
   console.log(`wss://xinruimz-isv.isvjcloud.com/wss/?token=${$.token}`)

@@ -58,7 +58,7 @@
 | :--------------------------: | :--------------------------: | :----: | ------------------------------------------------------------ |
 |        `JD_BEAN_STOP`        |      京东多合一签到             | 非必须 | `jd_bean_sign.js`自定义延迟签到,单位毫秒.默认分批并发无延迟，<br>延迟作用于每个签到接口，如填入延迟则切换顺序签到(耗时较长)，<br>如需填写建议输入数字`1`，详见[此处说明](https://github.com/NobyDa/Script/blob/master/JD-DailyBonus/JD_DailyBonus.js#L93) |
 |  `JD_BEAN_SIGN_STOP_NOTIFY`  |      京东多合一签到             | 非必须 | `jd_bean_sign.js`脚本运行后不推送签到结果通知，默认推送，填`true`表示不发送通知 |
-| `JD_BEAN_SIGN_NOTIFY_SIMPLE` |      京东多合一签到             | 非必须 | `jd_bean_sign.js`脚本运行后推送签到结果简洁版通知，<br>默认推送全部签到结果，填`true`表示推送简洁通知，[效果图](./icon/bean_sign_simple.jpg) |
+| `JD_BEAN_SIGN_NOTIFY_SIMPLE` |      京东多合一签到             | 非必须 | `jd_bean_sign.js`脚本运行后推送签到结果简洁版通知，<br>默认推送签到简洁结果，填`true`表示推送简洁通知，[效果图](./icon/bean_sign_simple.jpg) |
 |     `PET_NOTIFY_CONTROL`     |     东东萌宠<br>推送开关     | 非必须 | 控制京东萌宠是否静默运行,<br>`false`为否(发送推送通知消息),`true`为是(即：不发送推送通知消息) |
 |    `FRUIT_NOTIFY_CONTROL`    |     东东农场<br>推送开关     | 非必须 | 控制京东农场是否静默运行,<br>`false`为否(发送推送通知消息),`true`为是(即：不发送推送通知消息) |
 |    `JD_JOY_REWARD_NOTIFY`    |  宠汪汪<br>兑换京豆推送开关  | 非必须 | 控制`jd_joy_reward.js`脚本是否静默运行,<br>`false`为否(发送推送通知消息),`true`为是(即：不发送推送通知消息) |

@@ -6,7 +6,7 @@
 活动入口：各处的签到汇总
 Node.JS专用
 IOS软件用户请使用 https://raw.githubusercontent.com/NobyDa/Script/master/JD-DailyBonus/JD_DailyBonus.js
-更新时间：2021-3-10
+更新时间：2021-3-13
 Modified From github https://github.com/ruicky/jd_sign_bot
  */
 const $ = new Env('京东多合一签到');
@@ -33,6 +33,7 @@ if ($.isNode()) {
     $.msg($.name, '【提示】请先获取cookie\n直接使用NobyDa的京东签到获取', 'https://bean.m.jd.com/bean/signIndex.action', {"open-url": "https://bean.m.jd.com/bean/signIndex.action"});
     return;
   }
+  process.env.JD_BEAN_SIGN_NOTIFY_SIMPLE = 'true'
   await requireConfig();
   // 下载最新代码
   await downFile();
@@ -45,7 +46,6 @@ if ($.isNode()) {
       $.nickName = '';
       await TotalBean();
       console.log(`*****************开始京东账号${$.index} ${$.nickName || $.UserName}京豆签到*******************\n`);
-      console.log(`⚠️⚠️⚠️⚠️目前Bark APP推送通知消息对推送内容长度有限制，如推送通知中包含此推送方式脚本会默认转换成简洁内容推送 ⚠️⚠️⚠️⚠️\n`)
       await changeFile(content);
       await execSign();
     }
@@ -95,7 +95,7 @@ async function execSign() {
       //不管哪个时区,这里得到的都是北京时间的时间戳;
       const UTC8 = new Date().getTime() + new Date().getTimezoneOffset()*60000 + 28800000;
       $.beanSignTime = timeFormat(UTC8);
-      console.log(`脚本执行完毕时间：${$.beanSignTime}`)
+      //console.log(`脚本执行完毕时间：${$.beanSignTime}`)
       if (BarkContent) {
         allMessage += `【京东号 ${$.index}】: ${$.nickName || $.UserName}\n【签到时间】:  ${$.beanSignTime}\n${BarkContent}${$.index !== cookiesArr.length ? '\n\n' : ''}`;
         if (!process.env.JD_BEAN_SIGN_NOTIFY_SIMPLE || (process.env.JD_BEAN_SIGN_NOTIFY_SIMPLE && process.env.JD_BEAN_SIGN_NOTIFY_SIMPLE !== 'true')) {
@@ -104,7 +104,7 @@ async function execSign() {
       }
       //运行完成后，删除下载的文件
       await deleteFile(resultPath);//删除result.txt
-      console.log(`*****************京东账号${$.index} ${$.nickName || $.UserName}京豆签到完成*******************\n`);
+      console.log(`\n\n*****************京东账号${$.index} ${$.nickName || $.UserName}京豆签到完成*******************\n\n`);
     } else {
       console.log(`\nJD_DailyBonus.js文件不存在\n`)
     }

@@ -113,7 +113,7 @@ async function getHome(info = false) {
             data = JSON.parse(data);
             if (data['code'] === '0') {
               const {myLuckyBox, luckyBoxList, rewardBagList} = data.result.data
-              let beanBox = luckyBoxList.filter(vo => vo.boxMaterials.findIndex(bo => bo.title === '京豆') > -1)
+              let beanBox = luckyBoxList.filter(vo => vo.boxMaterials.findIndex(bo => !!bo & bo.title === '京豆') > -1)
               if (beanBox.length) {
                 beanBox = beanBox[0]
                 if (beanBox['orderNo'] !== '' && beanBox['openRecId'] !== '') {
