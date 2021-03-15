@@ -210,6 +210,8 @@ jd_scripts
    
    `docker exec -it jd_scripts /bin/sh -c 'env'`  查看设置的环境变量
    
+   `docker exec -it jd_scripts /bin/sh -c 'crontab -l'` 查看crontab_list列表
+   
    `docker exec -it jd_scripts /bin/sh -c 'git pull'` 手动更新jd_scripts仓库最新脚本
    
    `docker exec -it jd_scripts /bin/sh` 仅进入容器命令
