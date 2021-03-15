@@ -15,13 +15,13 @@ inputs:
   description: This is a function in ${app} application.
   memorySize: 128 # 内存大小，单位MB
   timeout: 900 # 超时时间，单位秒
-  events: # 触发器
-    - timer: #签到
+  events: #触发器
+    - timer: #签到 #手机尚学季
         parameters:
-          name: beansign
+          name: beansign_
           cronExpression: "0 0 0 * * * *"
           enable: true
-          argument: jd_bean_sign
+          argument: jd_bean_sign&jd_xtg
     - timer: #东东超市兑换奖品 #摇京豆 #京东汽车兑换
         parameters:
           name: blueCoin_clublottery_carexchange
