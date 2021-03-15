@@ -15,7 +15,8 @@
 5 7,12,23 * * * node /scripts/jd_global_mh.js >> /scripts/logs/jd_global_mh.log 2>&1
 #环球挑战赛 第二季(活动时间：2021-03-08 至 2021-03-31)
 35 6,22 * * * node /scripts/jd_global.js >> /scripts/logs/jd_global.log 2>&1
-
+#手机尚学季 活动时间：2021年3月15日 00:00:00-2021年3月19日 23:59:59
+0 0 * * * node /scripts/jd_xtg.js >> /scripts/logs/jd_xtg.log 2>&1
 
 ##############长期活动##############
 # 签到
