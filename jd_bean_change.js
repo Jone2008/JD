@@ -291,7 +291,7 @@ function redPacket() {
             t.setDate(t.getDate() + 1)
             t.setHours(0, 0, 0, 0)
             t = parseInt((t - 1) / 1000)
-            for (let vo of data.useRedInfo.redList) {
+            for (let vo of data.useRedInfo.redList || []) {
               if (vo.activityName.includes("京喜")) {
                 $.jxRed += parseFloat(vo.balance)
                 if (vo['endTime'] === t) {
