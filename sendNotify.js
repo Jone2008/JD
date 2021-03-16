@@ -2,7 +2,7 @@
  * @Author: lxk0301 https://gitee.com/lxk0301
  * @Date: 2020-08-19 16:12:40 
  * @Last Modified by: lxk0301
- * @Last Modified time: 2021-3-15 9:52:54
+ * @Last Modified time: 2021-3-16 9:52:54
  */
 const querystring = require("querystring");
 const $ = new Env();
@@ -311,18 +311,18 @@ function tgBotNotify(text, desp) {
     if (TG_BOT_TOKEN && TG_USER_ID) {
       const options = {
         url: `https://${TG_API_HOST}/bot${TG_BOT_TOKEN}/sendMessage`,
-        body: `chat_id=${TG_USER_ID}&text=${text}\n\n${desp}&disable_web_page_preview=true`,
+        body: `chat_id=${TG_USER_ID}&text=${text}\n\n${desp}&disable_web_page_preview=true&parse_mode=Markdown`,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
       }
-      if (process.env.TG_PROXY_HOST && process.env.TG_PROXY_PORT) {
+      if (TG_PROXY_HOST && TG_PROXY_PORT) {
         const tunnel = require("tunnel");
         const agent = {
           https: tunnel.httpsOverHttp({
             proxy: {
-              host: process.env.TG_PROXY_HOST,
-              port: process.env.TG_PROXY_PORT * 1
+              host: TG_PROXY_HOST,
+              port: TG_PROXY_PORT * 1
             }
           })
         }
