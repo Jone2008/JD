@@ -1,5 +1,5 @@
 /*
-超级直播间红包雨 新增3.16日，3.19日红包雨
+超级直播间红包雨 下一场直播时间:03月19日  20:00
 
 脚本兼容: Quantumult X, Surge, Loon, JSBox, Node.js
 ==============Quantumult X==============
@@ -20,10 +20,6 @@ cron "30,31 20-23/1 * * *" script-path=https://gitee.com/lxk0301/jd_scripts/raw/
 const $ = new Env('超级直播间红包雨');
 let allMessage = '';
 let bodyList = {
-  '16': {
-    url: 'https://api.m.jd.com/client.action?functionId=liveActivityV842&uuid=8888888&client=apple&clientVersion=9.4.1&st=1615468726059&sign=60005fa89f99116a2707cb31fb7debac&sv=120',
-    body: 'body=%7B%22liveId%22%3A%223665668%22%7D'
-  },
   '19': {
     url: 'https://api.m.jd.com/client.action?functionId=liveActivityV842&uuid=8888888&client=apple&clientVersion=9.4.1&st=1615900663048&sign=3dfbdf3e3f0e0701c8c4070c14b4f5b0&sv=100',
     body: 'body=%7B%22liveId%22%3A%223704156%22%7D'
@@ -64,7 +60,7 @@ const JD_API_HOST = 'https://api.m.jd.com/api';
       $.log(`本地红包雨配置获取成功`)
     } else{
       $.log(`无法从本地读取配置，请检查运行时间(注：非红包雨时间执行出现此提示请忽略！！！！！！！！！！！)`)
-      $.log(`出现异常提示请忽略。红包雨期间会正常，此脚本提issue打死！！！！！！！！！！！)`)
+      $.log(`下一场直播时间:03月19日  20:00，非红包雨期间出现上面提示请忽略。红包雨期间会正常，此脚本提issue打死！！！！！！！！！！！)`)
       return
     }
   } else{
