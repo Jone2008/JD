@@ -76,7 +76,6 @@ let shareCodes = [ // IOS本地脚本用户这个列表填入你要助力的好�
       //await shareCodesFormat();//格式化助力码
       await jdSuperMarket();
       await showMsg();
-      if (helpAu === true) await helpAuthor();
       // await businessCircleActivity();
     }
   }
@@ -107,6 +106,7 @@ async function jdSuperMarket() {
     await smtgHome();
     await receiveUserUpgradeBlue();
     await Home();
+    if (helpAu === true) await helpAuthor();
   } catch (e) {
     $.logErr(e)
   }
