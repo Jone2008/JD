@@ -291,7 +291,7 @@ async function helpFriendsFeed() {
 function getFriends(currentPage = '1') {
   return new Promise(resolve => {
     let opt = {
-      url: `//jdjoy.jd.com/common/pet/h5/getFriends?itemsPerPage=20&currentPage=${currentPage * 1}&reqSource=h5`,
+      url: `//draw.jdfcloud.com//common/pet/api/getFriends?itemsPerPage=20&currentPage=${currentPage * 1}&reqSource=weapp`,
       // url: `//draw.jdfcloud.com/common/pet/getPetTaskConfig?reqSource=h5`,
       method: "GET",
       data: {},
@@ -304,7 +304,7 @@ function getFriends(currentPage = '1') {
       headers: {
         'Cookie': cookie,
         'reqSource': 'h5',
-        'Host': 'jdjoy.jd.com',
+        'Host': 'draw.jdfcloud.com',
         'Connection': 'keep-alive',
         'Content-Type': 'application/json',
         'Referer': 'https://jdjoy.jd.com/pet/index',
