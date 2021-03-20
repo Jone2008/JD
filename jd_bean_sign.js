@@ -6,7 +6,7 @@
 活动入口：各处的签到汇总
 Node.JS专用
 IOS软件用户请使用 https://raw.githubusercontent.com/NobyDa/Script/master/JD-DailyBonus/JD_DailyBonus.js
-更新时间：2021-3-16
+更新时间：2021-3-20
 推送通知默认简洁模式(多账号只发送一次)。如需详细通知，设置环境变量 JD_BEAN_SIGN_NOTIFY_SIMPLE 为false即可(N账号推送N次通知)。
 Modified From github https://github.com/ruicky/jd_sign_bot
  */
@@ -241,7 +241,12 @@ function downloadUrl(url = 'https://raw.githubusercontent.com/NobyDa/Script/mast
       try {
         if (err) {
           // console.log(`${JSON.stringify(err)}`)
-          console.log(`检测到您当前网络环境不能访问外网,将使用CDN下载JD_DailyBonus.js文件`)
+          console.log(`检测到您当前网络环境不能访问外网,将使用jsdelivr CDN下载JD_DailyBonus.js文件`);
+          await $.http.get({url: `https://purge.jsdelivr.net/gh/NobyDa/Script@master/JD-DailyBonus/JD_DailyBonus.js`, timeout: 10000}).then((resp) => {
+            if (resp.statusCode === 200) {
+              console.log(`JD_DailyBonus.js文件jsdelivr CDN缓存刷新成功`)
+            }
+          });
         } else {
           $.body = data;
         }

@@ -49,6 +49,7 @@
 |      `JXNC_SHARECODES`      |   京喜农场<br>互助码   | 非必须 |             /             | 注意：京喜农场种植种子发生变化的时候，互助码也会变！！<br>每个账号 shareCode 是一个 json，<br>json 需要用单引号包裹且是一行字符串，<br>否则设置环境变量时会出错，<br>示例：'{"smp":"22bdadsfaadsfadse8a",<br>"active":"jdnc_1_btorange210113_2","joinnum":"1"}'，<br>多账单间使用`&`或换行分开。<br>详细说明参见[#Pr202](https://github.com/LXK9301/jd_scripts/pull/202)<br>如果使用`docker-compose`部署就不需要在互助码两端加单引号。详细参见Issues[#I35AG8](https://gitee.com/lxk0301/jd_scripts/issues/I35AG8)|
 |    `JDSGMH_SHARECODES`      |  闪购盲盒<br>互助码  | 非必须 |            10/            | 填写规则和上面类似，或见下方[互助码的填写规则](#互助码的填写规则) |
 |    `JDCFD_SHARECODES`      |  京喜财富岛<br>互助码  | 非必须 |            未知/未知            | 填写规则和上面类似，或见下方[互助码的填写规则](#互助码的填写规则) |
+|    `CITY_SHARECODES`      |  城城领现金<br>互助码  | 非必须 |            未知/未知            | 填写规则和上面类似，或见下方[互助码的填写规则](#互助码的填写规则) |
 
 
 ##### 控制脚本功能环境变量
@@ -88,6 +89,7 @@
 |    `CFD_NOTIFY_CONTROL`      |    京喜财富岛<br>控制是否运行脚本后通知     | 非必须 | 输入`true`为通知,不填则为不通知 |
 |    `JD_JXD_EXCHANGE`      |    京小兑<br>自动把抽奖卷兑换为兑币,默认否     | 非必须 | 输入`true`为自动兑换,不填则为不兑换 |
 |    `JXNC_NOTIFY_LEVEL`      |    京喜农场通知控制<br>推送开关,默认1     | 非必须 | 通知级别 0=只通知成熟;1=本次获得水滴>0;2=任务执行;3=任务执行+未种植种子 |
+|    `JD_CITY_EXCHANGE`      |    城城领现金是否自动抽奖<br>默认关闭     | 非必须 | 建议活动快结束开启，默认关闭，true开启 |
 
 ##### 互助码的填写规则
 
