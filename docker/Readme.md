@@ -1,6 +1,19 @@
 ![Docker Pulls](https://img.shields.io/docker/pulls/lxk0301/jd_scripts?style=for-the-badge)
 ### Usage
 ```diff
++ 2021-03-21更新 增加bot交互，spnode指令，功能是否开启自动根据你的配置判断，详见 https://gitee.com/lxk0301/jd_docker/pulls/18
+ **bot交互启动前置条件为 配置telegram通知，并且未使用自己代理的 TG_API_HOST** 
+ **spnode使用前置条件未启动bot交互**   _（后续可能去掉该限制_ 
+ 使用bot交互+spnode后 后续用户的cookie维护更新只需要更新logs/cookies.conf即可
+ 使用bot交互+spnode后 后续执行脚本命令请使用spnode否者无法使用logs/cookies.conf的cookies执行脚本，定时任务也将自动替换为spnode命令执行
+ 发送/spnode给bot获取可执行脚本的列表，选择对应的按钮执行。(拓展使用：运行指定路径脚本，例：/spnode /scripts/jd_818.js)
+ spnode功能概述示例
+ spnode conc /scripts/jd_bean_change.js 为每个cookie单独执行jd_bean_change脚本（伪并发
+ spnode 1 /scripts/jd_bean_change.js 为logs/cookies.conf文件里面第一行cookie账户单独执行jd_bean_change脚本
+ spnode jd_XXXX /scripts/jd_bean_change.js 为logs/cookies.conf文件里面pt_pin=jd_XXXX的cookie账户单独执行jd_bean_change脚本
+ spnode /scripts/jd_bean_change.js 为logs/cookies.conf所有cookies账户一起执行jd_bean_change脚本
+
+**请仔细阅读并理解上面的内容，使用bot交互默认开启spnode指令功能功能。** 
 + 2021-03-9更新 新版docker单容器多账号自动互助
 +开启方式：docker-compose.yml 中添加环境变量 - ENABLE_AUTO_HELP=true 
 +助力原则：不考虑需要被助力次数与提供助力次数  假设有3个账号，则生成： ”助力码1@助力码2@助力码3&助力码1@助力码2@助力码3&助力码1@助力码2@助力码3“
@@ -209,8 +222,6 @@ jd_scripts
    `docker exec -it jd_scripts /bin/sh -c 'git -C /scripts pull && node /scripts/jd_bean_change.js'`  手动运行一脚本
    
    `docker exec -it jd_scripts /bin/sh -c 'env'`  查看设置的环境变量
-   
-   `docker exec -it jd_scripts /bin/sh -c 'crontab -l'` 查看crontab_list列表
    
    `docker exec -it jd_scripts /bin/sh -c 'git pull'` 手动更新jd_scripts仓库最新脚本
    

@@ -7,6 +7,7 @@ ARG KEY="-----BEGIN OPENSSH PRIVATE KEY-----\nb3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAA
 
 ENV DEFAULT_LIST_FILE=crontab_list.sh \
     CUSTOM_LIST_MERGE_TYPE=append \
+    COOKIES_LIST=/scripts/logs/cookies.list \
     REPO_URL=git@gitee.com:lxk0301/jd_scripts.git \
     REPO_BRANCH=master
 
