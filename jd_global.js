@@ -183,7 +183,7 @@ async function getTask() {
               for (let vo of task) {
                 if (vo['taskName'] === '每日邀请好友') {
                   // console.log(`您的好友助力码为 ${vo['jingCommand']['keyOpenapp'].match(/masterPin":"(.*)","/)[1]}`)
-                  console.log(`\n【京东账号${$.index}（${$.nickName || $.UserName}）的${$.name}好友互助码】${vo['jingCommand']['keyOpenapp'].match(/masterPin":"(.*)","/)[1]}\n`);
+                  console.log(`\n【京东账号${$.index}（${$.UserName}）的${$.name}好友互助码】${vo['jingCommand']['keyOpenapp'].match(/masterPin":"(.*)","/)[1]}\n`);
                   $.invites.push(vo['jingCommand']['keyOpenapp'].match(/masterPin":"(.*)","/)[1]);
                 }
                 if (['70', '50', '30', '40'].includes(vo['taskType'])) {
