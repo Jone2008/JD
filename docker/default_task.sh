@@ -29,7 +29,7 @@ first=\$1
 cmd=\$*
 echo \${cmd/\$1/}
 if [ \$1 == "conc" ]; then
-    for job in \$(paste -d" " -s - <\$COOKIES_LIST); do
+    for job in \$(cat \$COOKIES_LIST | grep -v "#" | paste -s -d ' '); do
         { export JD_COOKIE=\$job && node \${cmd/\$1/}
         }&
     done
@@ -42,7 +42,7 @@ elif [ -n "\$(cat \$COOKIES_LIST  | grep "pt_pin=\$first")" ];then
     { export JD_COOKIE=\$(cat \$COOKIES_LIST | grep "pt_pin=\$first") && node \${cmd/\$1/}
     }&
 else
-    { export JD_COOKIE=\$(cat \$COOKIES_LIST | paste -s -d '&') && node \$*
+    { export JD_COOKIE=\$(cat \$COOKIES_LIST | grep -v "#" | paste -s -d '&') && node \$*
     }&
 fi
 EOF
@@ -232,7 +232,7 @@ echo "第9步执行proc_file.sh脚本任务..."
 sh /scripts/docker/proc_file.sh
 
 echo "第10步加载最新的定时任务文件..."
-if [[ "$1" == "True" && -z "$DISABLE_SPNODE" ]]; then
+if [[ -f /usr/bin/jd_bot && -z "$DISABLE_SPNODE" ]]; then
   echo "bot交互与spnode 前置条件成立，替换任务列表的node指令为spnode"
   sed -i "s/ node / spnode /g" $mergedListFile
   #conc每个cookies独立并行执行脚本示例，cookies数量多使用该功能可能导致内存爆掉，默认不开启 有需求，请在自定义shell里面实现
