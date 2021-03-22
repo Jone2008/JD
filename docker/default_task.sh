@@ -61,7 +61,7 @@ EOF
       echo "cookies.conf文件已经存在跳过,如果需要更新cookie请修改$COOKIES_LIST文件内容"
     else
       echo "环境变量 cookies写入$COOKIES_LIST文件,如果需要更新cookie请修改cookies.conf文件内容"
-      echo $JD_COOKIE | sed "s/\( &\|&\)/\\n/g" >$COOKIES_LIST
+      echo $JD_COOKIE | sed "s/[ &]/\\n/g" | sed "/^$/d" >$COOKIES_LIST
     fi
   fi
 
