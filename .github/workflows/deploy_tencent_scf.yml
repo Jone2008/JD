@@ -40,7 +40,6 @@ jobs:
       JXNC_SHARECODES: ${{ secrets.JXNC_SHARECODES}}
       JDSGMH_SHARECODES: ${{ secrets.JDSGMH_SHARECODES}}
       JDCFD_SHARECODES: ${{ secrets.JDCFD_SHARECODES}}
-      CITY_SHARECODES: ${{ secrets.CITY_SHARECODES}}
       JD_BEAN_STOP: ${{ secrets.JD_BEAN_STOP}}
       JD_BEAN_SIGN_STOP_NOTIFY: ${{ secrets.JD_BEAN_SIGN_STOP_NOTIFY}}
       JD_BEAN_SIGN_NOTIFY_SIMPLE: ${{ secrets.JD_BEAN_SIGN_NOTIFY_SIMPLE}}
@@ -73,7 +72,6 @@ jobs:
       CFD_NOTIFY_CONTROL: ${{ secrets.CFD_NOTIFY_CONTROL}}
       JD_JXD_EXCHANGE: ${{ secrets.JD_JXD_EXCHANGE}}
       JXNC_NOTIFY_LEVEL: ${{ secrets.JXNC_NOTIFY_LEVEL}}
-      JD_CITY_EXCHANGE: ${{ secrets.JD_CITY_EXCHANGE}}
       
     steps:
       - name: Checkout
@@ -128,7 +126,6 @@ jobs:
           if [ $JXNC_SHARECODES ]; then sed -i "/variables/a\      JXNC_SHARECODES: $JXNC_SHARECODES" serverless.yml; fi;
           if [ $JDSGMH_SHARECODES ]; then sed -i "/variables/a\      JDSGMH_SHARECODES: $JDSGMH_SHARECODES" serverless.yml; fi;
           if [ $JDCFD_SHARECODES ]; then sed -i "/variables/a\      JDCFD_SHARECODES: $JDCFD_SHARECODES" serverless.yml; fi;
-          if [ $CITY_SHARECODES ]; then sed -i "/variables/a\      CITY_SHARECODES: $CITY_SHARECODES" serverless.yml; fi;
           if [ $JD_BEAN_STOP ]; then sed -i "/variables/a\      JD_BEAN_STOP: $JD_BEAN_STOP" serverless.yml; fi;
           if [ $JD_BEAN_SIGN_STOP_NOTIFY ]; then sed -i "/variables/a\      JD_BEAN_SIGN_STOP_NOTIFY: $JD_BEAN_SIGN_STOP_NOTIFY" serverless.yml; fi;
           if [ $JD_BEAN_SIGN_NOTIFY_SIMPLE ]; then sed -i "/variables/a\      JD_BEAN_SIGN_NOTIFY_SIMPLE: $JD_BEAN_SIGN_NOTIFY_SIMPLE" serverless.yml; fi;
@@ -161,7 +158,6 @@ jobs:
           if [ $CFD_NOTIFY_CONTROL ]; then sed -i "/variables/a\      CFD_NOTIFY_CONTROL: $CFD_NOTIFY_CONTROL" serverless.yml; fi;
           if [ $JD_JXD_EXCHANGE ]; then sed -i "/variables/a\      JD_JXD_EXCHANGE: $JD_JXD_EXCHANGE" serverless.yml; fi;
           if [ $JXNC_NOTIFY_LEVEL ]; then sed -i "/variables/a\      JXNC_NOTIFY_LEVEL: $JXNC_NOTIFY_LEVEL" serverless.yml; fi;
-          if [ $JD_CITY_EXCHANGE ]; then sed -i "/variables/a\      JD_CITY_EXCHANGE: $JD_CITY_EXCHANGE" serverless.yml; fi;
           cat serverless.yml
           env
 
