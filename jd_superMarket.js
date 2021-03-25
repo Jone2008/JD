@@ -54,7 +54,7 @@ let shareCodes = [ // IOS本地脚本用户这个列表填入你要助力的好�
   for (let i = 0; i < cookiesArr.length; i++) {
     if (cookiesArr[i]) {
       cookie = cookiesArr[i];
-      $.UserName = decodeURIComponent(cookie.match(/pt_pin=(.+?);/) && cookie.match(/pt_pin=(.+?);/)[1])
+      $.UserName = decodeURIComponent(cookie.match(/pt_pin=([^; ]+)(?=;?)/) && cookie.match(/pt_pin=([^; ]+)(?=;?)/)[1])
       $.index = i + 1;
       $.coincount = 0;//收取了多少个蓝币
       $.coinerr = "";
@@ -215,6 +215,8 @@ async function doDailyTask() {
 }
 
 async function receiveGoldCoin() {
+  const options = taskUrl('smtg_newHome', {"shareId":"NhvCboewDl4KLJIZEQcOSY6-HDOplvHeChID78wv70NFtLOIrRmOnfiIA4fYF-QnNYpkkMwaMyAzg7Ac2xx01pm7fmmgOnme6cXRnfn7Iy8kgeInHdZ1ydgqidG81dZbj1xavgze3mWtD011VRZuSw1iX2D6uvtxmaOI1fQ5_Wc","channel":"4"})
+    $.get(options, (err, ersp, data) => {})
   $.goldCoinData = await smtgReceiveCoin({ "type": 0 });
   if ($.goldCoinData.data && $.goldCoinData.data.bizCode === 0) {
     console.log(`领取金币成功${$.goldCoinData.data.result.receivedGold}`)
@@ -978,6 +980,8 @@ function smtgSignList() {
 }
 function smtgHome() {
   return new Promise((resolve) => {
+    const options = taskUrl('smtg_newHome', {"shareId":"NhvCboewDl4KLJIZEQcOSY6-HDOplvHeChID78wv70NFtLOIrRmOnfiIA4fYF-QnNYpkkMwaMyAzg7Ac2xx01pm7fmmgOnme6cXRnfn7Iy8kgeInHdZ1ydgqidG81dZbj1xavgze3mWtD011VRZuSw1iX2D6uvtxmaOI1fQ5_Wc","channel":"4"})
+    $.get(options, (err, ersp, data) => {})
     $.get(taskUrl('smtg_newHome', { "channel": "18" }), (err, resp, data) => {
       try {
         if (err) {

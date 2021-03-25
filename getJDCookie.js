@@ -136,8 +136,8 @@ function formatCookie(headers) {
     pt_pin = pt_pin.substring(pt_pin.indexOf("=") + 1, pt_pin.indexOf(";"))
     const cookie1 = "pt_key=" + pt_key + ";pt_pin=" + pt_pin + ";";
 
-    $.UserName = decodeURIComponent(cookie1.match(/pt_pin=(.+?);/) && cookie1.match(/pt_pin=(.+?);/)[1])
-    $.log(`京东用户：${$.UserName} Cookie获取成功(有效期：${headers['strict-transport-security'].substring("max-age=7776000".indexOf('=') + 1, "max-age=7776000".length)}秒)，cookie如下：`);
+    $.UserName = decodeURIComponent(cookie1.match(/pt_pin=([^; ]+)(?=;?)/) && cookie1.match(/pt_pin=([^; ]+)(?=;?)/)[1])
+    $.log(`京东用户：${$.UserName} Cookie获取成功，cookie如下：`);
     $.log(`\n${cookie1}\n`);
     resolve()
   })

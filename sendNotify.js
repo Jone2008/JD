@@ -28,6 +28,7 @@ let TG_USER_ID = '';
 //tg推送HTTP代理设置(不懂可忽略,telegram机器人通知推送功能中非必填)
 let TG_PROXY_HOST = '';//例如:127.0.0.1(环境变量名:TG_PROXY_HOST)
 let TG_PROXY_PORT = '';//例如:1080(环境变量名:TG_PROXY_PORT)
+let TG_PROXY_AUTH = '';//tg代理配置认证参数
 //Telegram api自建的反向代理地址(不懂可忽略,telegram机器人通知推送功能中非必填),默认tg官方api(环境变量名:TG_API_HOST)
 let TG_API_HOST = 'api.telegram.org'
 // =======================================钉钉机器人通知设置区域===========================================
@@ -101,6 +102,7 @@ if (process.env.TG_BOT_TOKEN) {
 if (process.env.TG_USER_ID) {
   TG_USER_ID = process.env.TG_USER_ID;
 }
+if (process.env.TG_PROXY_AUTH) TG_PROXY_AUTH = process.env.TG_PROXY_AUTH;
 if (process.env.TG_PROXY_HOST) TG_PROXY_HOST = process.env.TG_PROXY_HOST;
 if (process.env.TG_PROXY_PORT) TG_PROXY_PORT = process.env.TG_PROXY_PORT;
 if (process.env.TG_API_HOST) TG_API_HOST = process.env.TG_API_HOST;
@@ -323,7 +325,8 @@ function tgBotNotify(text, desp) {
           https: tunnel.httpsOverHttp({
             proxy: {
               host: TG_PROXY_HOST,
-              port: TG_PROXY_PORT * 1
+              port: TG_PROXY_PORT * 1,
+              proxyAuth: TG_PROXY_AUTH
             }
           })
         }
