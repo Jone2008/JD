@@ -27,6 +27,7 @@ jobs:
       PUSH_PLUS_USER: ${{ secrets.PUSH_PLUS_USER}}
       TG_PROXY_HOST: ${{ secrets.TG_PROXY_HOST}}
       TG_PROXY_PORT: ${{ secrets.TG_PROXY_PORT}}
+      TG_PROXY_AUTH: ${{ secrets.TG_PROXY_AUTH}}
       TG_API_HOST: ${{ secrets.TG_API_HOST}}
       FRUITSHARECODES: ${{ secrets.FRUITSHARECODES}}
       PETSHARECODES: ${{ secrets.PETSHARECODES}}
@@ -113,6 +114,7 @@ jobs:
           if [ $PUSH_PLUS_USER ]; then sed -i "/variables/a\      PUSH_PLUS_USER: $PUSH_PLUS_USER" serverless.yml; fi;
           if [ $TG_PROXY_HOST ]; then sed -i "/variables/a\      TG_PROXY_HOST: $TG_PROXY_HOST" serverless.yml; fi;
           if [ $TG_PROXY_PORT ]; then sed -i "/variables/a\      TG_PROXY_PORT: $TG_PROXY_PORT" serverless.yml; fi;
+          if [ $TG_PROXY_AUTH ]; then sed -i "/variables/a\      TG_PROXY_AUTH: $TG_PROXY_AUTH" serverless.yml; fi;
           if [ $TG_API_HOST ]; then sed -i "/variables/a\      TG_API_HOST: $TG_API_HOST" serverless.yml; fi;
           if [ $FRUITSHARECODES ]; then sed -i "/variables/a\      FRUITSHARECODES: $FRUITSHARECODES" serverless.yml; fi;
           if [ $PETSHARECODES ]; then sed -i "/variables/a\      PETSHARECODES: $PETSHARECODES" serverless.yml; fi;
