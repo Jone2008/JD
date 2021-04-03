@@ -112,6 +112,9 @@ EOF
 
 fi
 
+#echo "暂停更新配置，不要尝试删掉这个文件，你的容器可能会起不来"
+#echo '' >/scripts/logs/pull.lock
+
 echo "定义定时任务合并处理用到的文件路径..."
 defaultListFile="/scripts/docker/$DEFAULT_LIST_FILE"
 echo "默认文件定时任务文件路径为 ${defaultListFile}"
