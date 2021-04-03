@@ -2,7 +2,7 @@
 5G超级盲盒，可抽奖获得京豆，建议在凌晨0点时运行脚本，白天抽奖基本没有京豆，4小时运行一次收集热力值
 活动地址: https://isp5g.m.jd.com
 活动时间：2021-03-19到2021-04-30
-更新时间：2021-03-20 08:55
+更新时间：2021-03-30 12:00
 脚本兼容: QuantumultX, Surge,Loon, JSBox, Node.js
 =================================Quantumultx=========================
 [task_local]
@@ -25,7 +25,7 @@ const notify = $.isNode() ? require('./sendNotify') : '';
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 let jdNotify = true;//是否关闭通知，false打开通知推送，true关闭通知推送
 //IOS等用户直接用NobyDa的jd cookie
-let cookiesArr = [], cookie = '', message;
+let cookiesArr = [], cookie = '', message, allMessage = '';
 if ($.isNode()) {
   Object.keys(jdCookieNode).forEach((item) => {
     cookiesArr.push(jdCookieNode[item])
@@ -76,9 +76,9 @@ $.shareId = [];
       await getAward();//抽奖
     }
   }
-  //ios端22点通知一次
-  if (new Date().getHours() === 22) {
-    $.msg($.name, '', `任务已做完\n抽奖详情查看 https://isp5g.m.jd.com`, {"open-url": "https://isp5g.m.jd.com"});
+  if (allMessage) {
+    if ($.isNode()) await notify.sendNotify($.name, allMessage);
+    $.msg($.name, '', allMessage, {"open-url": "https://isp5g.m.jd.com"})
   }
   await $.http.get({url: `https://code.c-hiang.cn//api/v1/jd/mohe/read/20`, timeout: 10000}).then(async (resp) => {
     if (resp.statusCode === 200) {
@@ -92,7 +92,7 @@ $.shareId = [];
         console.log(`读取邀请码异常:${e}`)
       }
     }
-  });
+  }).catch((e) => console.log(`catch 读取邀请码异常:${e}`));
   for (let v = 0; v < cookiesArr.length; v++) {
     cookie = cookiesArr[v];
     $.index = v + 1;
@@ -261,6 +261,8 @@ function getCoin() {
         }
       } catch (e) {
         $.logErr(e, resp);
+      } finally {
+        resolve();
       }
     })
   })
@@ -412,11 +414,15 @@ async function getAward() {
           console.log(`====抽奖结果====,${JSON.stringify(lotteryRes.data)}`);
           console.log(lotteryRes.data.name);
           console.log(lotteryRes.data.beanNum);
+          if ((lotteryRes.data['prizeId'] && lotteryRes.data['prizeId'] !== '9999') || lotteryRes.data.name !== '未中奖') {
+            message += `抽奖获得：${lotteryRes.data.name}\n`;
+          }
         } else if (lotteryRes.code === 4001) {
           console.log(`抽奖失败,${lotteryRes.msg}`);
           break;
         }
       }
+      if (message) allMessage += `京东账号${$.index} ${$.nickName}\n${message}抽奖详情查看 https://isp5g.m.jd.com/#/myPrize${$.index !== cookiesArr.length ? '\n\n' : ''}`
     } else {
       console.log(`目前热力值${total},不够抽奖`)
     }
@@ -512,12 +518,12 @@ function shareUrl() {
                 console.log(`邀请码提交异常:${e}`)
               }
             }
-          });
+          }).catch((e) => console.log(`catch 邀请码提交异常:${e}`));
         }
       } catch (e) {
         $.logErr(e, resp);
       } finally {
-        resolve(data);
+        resolve();
       }
     })
   })

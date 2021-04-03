@@ -6,7 +6,7 @@
 活动入口：各处的签到汇总
 Node.JS专用
 IOS软件用户请使用 https://raw.githubusercontent.com/NobyDa/Script/master/JD-DailyBonus/JD_DailyBonus.js
-更新时间：2021-3-20
+更新时间：2021-3-27
 推送通知默认简洁模式(多账号只发送一次)。如需详细通知，设置环境变量 JD_BEAN_SIGN_NOTIFY_SIMPLE 为false即可(N账号推送N次通知)。
 Modified From github https://github.com/ruicky/jd_sign_bot
  */
@@ -38,6 +38,11 @@ if ($.isNode()) {
   await requireConfig();
   // 下载最新代码
   await downFile();
+  if (!await fs.existsSync(JD_DailyBonusPath)) {
+    console.log(`\nJD_DailyBonus.js 文件不存在，停止执行${$.name}\n`);
+    await notify.sendNotify($.name, `本次执行${$.name}失败，JD_DailyBonus.js 文件下载异常，详情请查看日志`)
+    return
+  }
   const content = await fs.readFileSync(JD_DailyBonusPath, 'utf8')
   for (let i =0; i < cookiesArr.length; i++) {
     cookie = cookiesArr[i];
@@ -69,46 +74,42 @@ async function execSign() {
     //   console.log('没有提供通知推送，则打印脚本执行日志')
     //   await exec(`${process.execPath} ${JD_DailyBonusPath}`, { stdio: "inherit" });
     // }
-    if (await fs.existsSync(JD_DailyBonusPath)) {
-      await exec(`${process.execPath} ${JD_DailyBonusPath} >> ${resultPath}`);
-      const notifyContent = await fs.readFileSync(resultPath, "utf8");
-      console.log(`👇👇👇👇👇👇👇👇👇👇👇LOG记录👇👇👇👇👇👇👇👇👇👇👇\n${notifyContent}\n👆👆👆👆👆👆👆👆👆LOG记录👆👆👆👆👆👆👆👆👆👆👆`);
-      // await exec("node JD_DailyBonus.js", { stdio: "inherit" });
-      // console.log('执行完毕', new Date(new Date().getTime() + 8 * 3600000).toLocaleDateString())
-      //发送通知
-      let BarkContent = '';
-      if (fs.existsSync(resultPath)) {
-        const barkContentStart = notifyContent.indexOf('【签到概览】')
-        const barkContentEnd = notifyContent.length;
-        if (process.env.JD_BEAN_SIGN_STOP_NOTIFY === 'true') return
-        if (process.env.BARK_PUSH || notify.BARK_PUSH) process.env.JD_BEAN_SIGN_NOTIFY_SIMPLE = 'true';
-        if (process.env.JD_BEAN_SIGN_NOTIFY_SIMPLE === 'true') {
-          if (barkContentStart > -1 && barkContentEnd > -1) {
-            BarkContent = notifyContent.substring(barkContentStart, barkContentEnd);
-          }
-          BarkContent = BarkContent.split('\n\n')[0];
-        } else {
-          if (barkContentStart > -1 && barkContentEnd > -1) {
-            BarkContent = notifyContent.substring(barkContentStart, barkContentEnd);
-          }
+    await exec(`${process.execPath} ${JD_DailyBonusPath} >> ${resultPath}`);
+    const notifyContent = await fs.readFileSync(resultPath, "utf8");
+    console.log(`👇👇👇👇👇👇👇👇👇👇👇LOG记录👇👇👇👇👇👇👇👇👇👇👇\n${notifyContent}\n👆👆👆👆👆👆👆👆👆LOG记录👆👆👆👆👆👆👆👆👆👆👆`);
+    // await exec("node JD_DailyBonus.js", { stdio: "inherit" });
+    // console.log('执行完毕', new Date(new Date().getTime() + 8 * 3600000).toLocaleDateString())
+    //发送通知
+    let BarkContent = '';
+    if (fs.existsSync(resultPath)) {
+      const barkContentStart = notifyContent.indexOf('【签到概览】')
+      const barkContentEnd = notifyContent.length;
+      if (process.env.JD_BEAN_SIGN_STOP_NOTIFY === 'true') return
+      if (process.env.BARK_PUSH || notify.BARK_PUSH) process.env.JD_BEAN_SIGN_NOTIFY_SIMPLE = 'true';
+      if (process.env.JD_BEAN_SIGN_NOTIFY_SIMPLE === 'true') {
+        if (barkContentStart > -1 && barkContentEnd > -1) {
+          BarkContent = notifyContent.substring(barkContentStart, barkContentEnd);
+        }
+        BarkContent = BarkContent.split('\n\n')[0];
+      } else {
+        if (barkContentStart > -1 && barkContentEnd > -1) {
+          BarkContent = notifyContent.substring(barkContentStart, barkContentEnd);
         }
       }
-      //不管哪个时区,这里得到的都是北京时间的时间戳;
-      const UTC8 = new Date().getTime() + new Date().getTimezoneOffset()*60000 + 28800000;
-      $.beanSignTime = timeFormat(UTC8);
-      //console.log(`脚本执行完毕时间：${$.beanSignTime}`)
-      if (BarkContent) {
-        allMessage += `【京东号 ${$.index}】: ${$.nickName || $.UserName}\n【签到时间】:  ${$.beanSignTime}\n${BarkContent}${$.index !== cookiesArr.length ? '\n\n' : ''}`;
-        if (!process.env.JD_BEAN_SIGN_NOTIFY_SIMPLE || (process.env.JD_BEAN_SIGN_NOTIFY_SIMPLE && process.env.JD_BEAN_SIGN_NOTIFY_SIMPLE !== 'true')) {
-          await notify.sendNotify(`${$.name} - 账号${$.index} - ${$.nickName || $.UserName}`, `【签到号 ${$.index}】: ${$.nickName || $.UserName}\n【签到时间】:  ${$.beanSignTime}\n${BarkContent}`);
-        }
-      }
-      //运行完成后，删除下载的文件
-      await deleteFile(resultPath);//删除result.txt
-      console.log(`\n\n*****************京东账号${$.index} ${$.nickName || $.UserName}京豆签到完成*******************\n\n`);
-    } else {
-      console.log(`\nJD_DailyBonus.js文件不存在\n`)
     }
+    //不管哪个时区,这里得到的都是北京时间的时间戳;
+    const UTC8 = new Date().getTime() + new Date().getTimezoneOffset()*60000 + 28800000;
+    $.beanSignTime = timeFormat(UTC8);
+    //console.log(`脚本执行完毕时间：${$.beanSignTime}`)
+    if (BarkContent) {
+      allMessage += `【京东号 ${$.index}】: ${$.nickName || $.UserName}\n【签到时间】:  ${$.beanSignTime}\n${BarkContent}${$.index !== cookiesArr.length ? '\n\n' : ''}`;
+      if (!process.env.JD_BEAN_SIGN_NOTIFY_SIMPLE || (process.env.JD_BEAN_SIGN_NOTIFY_SIMPLE && process.env.JD_BEAN_SIGN_NOTIFY_SIMPLE !== 'true')) {
+        await notify.sendNotify(`${$.name} - 账号${$.index} - ${$.nickName || $.UserName}`, `【签到号 ${$.index}】: ${$.nickName || $.UserName}\n【签到时间】:  ${$.beanSignTime}\n${BarkContent}`);
+      }
+    }
+    //运行完成后，删除下载的文件
+    await deleteFile(resultPath);//删除result.txt
+    console.log(`\n\n*****************京东账号${$.index} ${$.nickName || $.UserName}京豆签到完成*******************\n\n`);
   } catch (e) {
     console.log("京东签到脚本执行异常:" + e);
   }
@@ -145,7 +146,7 @@ async function downFile () {
     await download(url, outPutUrl, options);
     console.log(`JD_DailyBonus.js文件下载完毕\n\n`);
   } catch (e) {
-    console.log("文件下载异常:" + e);
+    console.log("JD_DailyBonus.js 文件下载异常:" + e);
   }
 }
 
@@ -260,14 +261,20 @@ function downloadUrl(url = 'https://raw.githubusercontent.com/NobyDa/Script/mast
 }
 function requireConfig() {
   return new Promise(resolve => {
-    const file = 'jd_bean_sign.js';
-    fs.access(file, fs.constants.W_OK, (err) => {
-      resultPath = err ? '/tmp/result.txt' : resultPath;
-      JD_DailyBonusPath = err ? '/tmp/JD_DailyBonus.js' : JD_DailyBonusPath;
-      outPutUrl = err ? '/tmp/' : outPutUrl;
-      NodeSet = err ? '/tmp/CookieSet.json' : NodeSet;
-      resolve()
-    });
+    // const file = 'jd_bean_sign.js';
+    // fs.access(file, fs.constants.W_OK, (err) => {
+    //   resultPath = err ? '/tmp/result.txt' : resultPath;
+    //   JD_DailyBonusPath = err ? '/tmp/JD_DailyBonus.js' : JD_DailyBonusPath;
+    //   outPutUrl = err ? '/tmp/' : outPutUrl;
+    //   NodeSet = err ? '/tmp/CookieSet.json' : NodeSet;
+    //   resolve()
+    // });
+    //判断是否是云函数环境。原函数跟目录目录没有可写入权限，文件只能放到根目录下虚拟的/temp/文件夹（具有可写入权限）
+    resultPath = process.env.TENCENTCLOUD_RUNENV === 'SCF' ? '/tmp/result.txt' : resultPath;
+    JD_DailyBonusPath = process.env.TENCENTCLOUD_RUNENV === 'SCF' ? '/tmp/JD_DailyBonus.js' : JD_DailyBonusPath;
+    outPutUrl = process.env.TENCENTCLOUD_RUNENV === 'SCF' ? '/tmp/' : outPutUrl;
+    NodeSet = process.env.TENCENTCLOUD_RUNENV === 'SCF' ? '/tmp/CookieSet.json' : NodeSet;
+    resolve()
   })
 }
 function timeFormat(time) {
