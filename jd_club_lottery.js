@@ -2,7 +2,7 @@
 * @Author: LXK9301
 * @Date: 2020-11-03 20:35:07
 * @Last Modified by: LXK9301
-* @Last Modified time: 2021-4-2 22:27:09
+* @Last Modified time: 2021-4-3 9:27:09
 */
 /*
 活动入口：京东APP首页-领京豆-摇京豆/京东APP首页-我的-京东会员-摇京豆
@@ -426,10 +426,13 @@ function welcomeHome() {
           if (data) {
             data = JSON.parse(data);
             if (data['floorList'] && data['floorList'].length) {
-              const jump = data['floorList'].filter(vo => !!vo && vo.type === 'shakeFloorNew')[0]['jump'];
-              if (jump && jump.params && jump['params']['url']) {
-                superShakeBeanConfig['superShakeUlr'] = jump.params.url;
-                console.log(`【超级摇一摇】活动链接：${superShakeBeanConfig['superShakeUlr']}`);
+              const shakeFloorNew = data['floorList'].filter(vo => !!vo && vo.type === 'shakeFloorNew')[0];
+              if (shakeFloorNew) {
+                const jump = shakeFloorNew['jump'];
+                if (jump && jump.params && jump['params']['url']) {
+                  superShakeBeanConfig['superShakeUlr'] = jump.params.url;
+                  console.log(`【超级摇一摇】活动链接：${superShakeBeanConfig['superShakeUlr']}`);
+                }
               }
             }
           }
