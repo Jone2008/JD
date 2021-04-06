@@ -2,7 +2,7 @@
 # @Author    : iouAkira(lof)
 # @mail      : e.akimoto.akira@gmail.com
 # @CreateTime: 2020-11-02
-# @UpdateTime: 2021-03-21
+# @UpdateTime: 2021-03-23
 
 import math
 import os
@@ -40,14 +40,14 @@ def start(update, context):
     if admin_id == str(from_user_id):
         spnode_readme = ""
         if "DISABLE_SPNODE" not in os.environ:
-            spnode_readme = "/spnode 获取可执行脚本的列表，选择对应的按钮执行。(拓展使用：运行指定路径脚本，例：/spnode /scripts/jd_818.js)\n" \
-                            "使用bot交互+spnode后 后续用户的cookie维护更新只需要更新logs/cookies.conf即可\n" \
-                            "使用bot交互+spnode后 后续执行脚本命令请使用spnode否者无法使用logs/cookies.conf的cookies执行脚本，定时任务也将自动替换为spnode命令执行\n" \
-                            "spnode功能概述示例\n" \
+            spnode_readme = "/spnode 获取可执行脚本的列表，选择对应的按钮执行。(拓展使用：运行指定路径脚本，例：/spnode /scripts/jd_818.js)\n\n" \
+                            "使用bot交互+spnode后 后续用户的cookie维护更新只需要更新logs/cookies.list即可\n" \
+                            "使用bot交互+spnode后 后续执行脚本命令请使用spnode否者无法使用logs/cookies.list的cookies执行脚本，定时任务也将自动替换为spnode命令执行\n" \
+                            "spnode功能概述示例\n\n" \
                             "spnode conc /scripts/jd_bean_change.js 为每个cookie单独执行jd_bean_change脚本（伪并发\n" \
-                            "spnode 1 /scripts/jd_bean_change.js 为logs/cookies.conf文件里面第一行cookie账户单独执行jd_bean_change脚本\n" \
-                            "spnode jd_XXXX /scripts/jd_bean_change.js 为logs/cookies.conf文件里面pt_pin=jd_XXXX的cookie账户单独执行jd_bean_change脚本\n" \
-                            "spnode /scripts/jd_bean_change.js 为logs/cookies.conf所有cookies账户一起执行jd_bean_change脚本\n" \
+                            "spnode 1 /scripts/jd_bean_change.js 为logs/cookies.list文件里面第一行cookie账户单独执行jd_bean_change脚本\n" \
+                            "spnode jd_XXXX /scripts/jd_bean_change.js 为logs/cookies.list文件里面pt_pin=jd_XXXX的cookie账户单独执行jd_bean_change脚本\n" \
+                            "spnode /scripts/jd_bean_change.js 为logs/cookies.list所有cookies账户一起执行jd_bean_change脚本\n" \
                             "请仔细阅读并理解上面的内容，使用bot交互默认开启spnode指令功能功能。\n" \
                             "如需____停用___请配置环境变量 -DISABLE_SPNODE=True"
         context.bot.send_message(chat_id=update.effective_chat.id,
@@ -58,7 +58,7 @@ def start(update, context):
                                       "/git 获取可执行git指令列表，选择对应的按钮执行。(拓展使用：运行指定路径脚本，例：/git -C /scripts/ pull)\n" \
                                       "/logs 获取logs下的日志文件列表，选择对应名字可以下载日志文件\n" \
                                       "/env 获取系统环境变量列表。(拓展使用：设置系统环境变量，例：/env export JD_DEBUG=true，环境变量只针对当前bot进程生效) \n" \
-                                      "/bash 执行执行命令。参考：/bash ls -l 未完善不开放使用\n" \
+                                      "/cmd 执行执行命令。参考：/cmd ls -l 涉及目录文件操作请使用绝对路径,部分shell命令开放使用\n" \
                                       "/gen_long_code 长期活动互助码提交消息生成\n" \
                                       "/gen_temp_code 短期临时活动互助码提交消息生成\n" \
                                       "/gen_daily_code 每天变化互助码活动提交消息生成\n\n%s" % spnode_readme)
@@ -81,7 +81,7 @@ def node(update, context):
 
                 out_text = out_bytes.decode('utf-8')
 
-                if len(out_text.split()) > 30:
+                if len(out_text.split()) > 50:
 
                     msg = context.bot.sendMessage(text='```{}```'.format(
                         helpers.escape_markdown(' ↓↓↓ %s 执行结果超长,请查看log ↓↓↓' % cmd)), chat_id=update.effective_chat.id,
@@ -135,14 +135,15 @@ def spnode(update, context):
 
                 out_text = out_bytes.decode('utf-8')
 
-                if len(out_text.split()) > 30:
+                if len(out_text.split()) > 50:
 
                     msg = context.bot.sendMessage(text='```{}```'.format(
                         helpers.escape_markdown(' ↓↓↓ %s 执行结果超长,请查看log ↓↓↓' % cmd)), chat_id=update.effective_chat.id,
                         parse_mode=ParseMode.MARKDOWN_V2)
-
-                    log_name = '%sbot_%s_%s.log' % (
-                        _logs_dir, 'spnode', os.path.splitext(commands[-1])[0])
+                    file_name = re.split(r"\W+", cmd)
+                    if 'js' in file_name:
+                        file_name.remove('js')
+                    log_name = '%sbot_%s_%s.log' % (_logs_dir, 'spnode', file_name[-1])
 
                     with open(log_name, 'a+') as wf:
                         wf.write(out_text)
@@ -167,7 +168,7 @@ def spnode(update, context):
                         cmd))), chat_id=update.effective_chat.id, parse_mode=ParseMode.MARKDOWN_V2)
                 raise
         else:
-            reply_markup = get_reply_markup_btn('node')
+            reply_markup = get_reply_markup_btn('spnode')
             update.message.reply_text(text='```{}```'.format(helpers.escape_markdown(' ↓↓↓ 请选择想要执行的nodejs脚本 ↓↓↓ ')),
                                       reply_markup=reply_markup, parse_mode=ParseMode.MARKDOWN_V2)
     else:
@@ -189,7 +190,7 @@ def git(update, context):
 
                 out_text = out_bytes.decode('utf-8')
 
-                if len(out_text.split()) > 30:
+                if len(out_text.split()) > 50:
 
                     msg = context.bot.sendMessage(text='```{}```'.format(
                         helpers.escape_markdown(' ↓↓↓ %s 执行结果超长,请查看log ↓↓↓' % cmd)), chat_id=update.effective_chat.id,
@@ -257,7 +258,7 @@ def env(update, context):
 
             out_text = out_bytes.decode('utf-8')
 
-            if len(out_text.split()) > 30:
+            if len(out_text.split()) > 50:
 
                 msg = context.bot.sendMessage(text='```{}```'.format(
                     helpers.escape_markdown(' ↓↓↓ %s 执行结果超长,请查看log ↓↓↓' % 'env')), chat_id=update.effective_chat.id,
@@ -327,7 +328,7 @@ def callback_run(update, context):
             out_bytes = subprocess.check_output(
                 query.data, shell=True, timeout=600, stderr=subprocess.STDOUT)
             out_text = out_bytes.decode('utf-8')
-            if len(out_text.split()) > 30:
+            if len(out_text.split()) > 50:
                 context.bot.edit_message_text(text='```{}```'.format(' ↓↓↓ %s 执行结果超长,请查看log ↓↓↓' % query.data),
                                               chat_id=query.message.chat_id,
                                               message_id=query.message.message_id, parse_mode=ParseMode.MARKDOWN_V2)
@@ -378,7 +379,7 @@ def callback_run(update, context):
                 out_bytes = subprocess.check_output(cmd, shell=True, timeout=600,
                                                     stderr=subprocess.STDOUT)
                 out_text = out_bytes.decode('utf-8')
-                if len(out_text.split()) > 30:
+                if len(out_text.split()) > 50:
 
                     context.bot.edit_message_text(text='```{}```'.format(
                         helpers.escape_markdown(' ↓↓↓ %s 执行结果超长,请查看log ↓↓↓' % cmd)),
@@ -484,7 +485,7 @@ def get_reply_markup_btn(cmd_type):
             keyboard_line.append([InlineKeyboardButton(
                 '未从%s获取到任务列表' % crontab_list_file, callback_data='cancel')])
         reply_markup = InlineKeyboardMarkup(keyboard_line)
-    elif cmd_type == 'node':
+    elif cmd_type == 'node' or cmd_type == 'spnode':
         button_list = list(set(get_crontab_list(cmd_type)))
         button_list.sort()
         keyboard_line = []
@@ -550,8 +551,13 @@ def get_crontab_list(cmd_type):
                 else:
                     items = i.split('>>')
                     item_sub = items[0].split()[5:]
-                    if cmd_type == item_sub[0]:
-                        button_list.append(' '.join(item_sub))
+                    # logger.info(item_sub[0])
+                    if cmd_type.find(item_sub[0]) > -1:
+                        if cmd_type == 'spnode':
+                            # logger.info(str(' '.join(item_sub)).replace('node','spnode'))
+                            button_list.append(str(' '.join(item_sub)).replace('node', 'spnode'))
+                        else:
+                            button_list.append(' '.join(item_sub))
                     elif cmd_type == 'crontab_l':
                         button_list.append(items[0])
     except:
@@ -705,6 +711,71 @@ def gen_daily_code(update, context):
                                  text="获取互助码消息生成配置文件失败，请检查%s文件是否存在" % _share_code_conf)
 
 
+def shcmd(update, context):
+    """
+    执行终端命令，超时时间为60，执行耗时或者不退出的指令会报超时异常
+    """
+    if is_admin(update.message.from_user.id):
+        commands = update.message.text.split()
+        commands.remove('/cmd')
+        if len(commands) > 0:
+            support_cmd = ["echo", "ls", "pwd", "cp", "mv", "ps", "wget", "cat", "sed", "git", "apk", "sh",
+                           "docker_entrypoint.sh"]
+            if commands[0] in support_cmd:
+                sp_cmd = ["sh", "docker_entrypoint.sh"]
+                cmd = ' '.join(commands)
+                try:
+                    # 测试发现 subprocess.check_output 执行shell 脚本文件的时候无法正常执行获取返回结果
+                    # 所以 ["sh", "docker_entrypoint.sh"] 指令换为 subprocess.Popen 方法执行
+                    out_text = ""
+                    if commands[0] in sp_cmd:
+                        p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                        while p.poll() is None:
+                            line = p.stdout.readline()
+                            # logger.info(line.decode('utf-8'))
+                            out_text = out_text + line.decode('utf-8')
+                    else:
+                        out_bytes = subprocess.check_output(
+                            cmd, shell=True, timeout=60, stderr=subprocess.STDOUT)
+                        out_text = out_bytes.decode('utf-8')
+
+                    if len(out_text.split('\n')) > 50:
+                        msg = context.bot.sendMessage(text='```{}```'.format(
+                            helpers.escape_markdown(' ↓↓↓ %s 执行结果超长,请查看log ↓↓↓' % cmd)),
+                            chat_id=update.effective_chat.id,
+                            parse_mode=ParseMode.MARKDOWN_V2)
+                        log_name = '%sbot_%s_%s.log' % (_logs_dir, 'cmd', commands[0])
+                        with open(log_name, 'w') as wf:
+                            wf.write(out_text)
+                        msg.reply_document(
+                            reply_to_message_id=msg.message_id, quote=True, document=open(log_name, 'rb'))
+                    else:
+                        context.bot.sendMessage(text='```{}```'.format(
+                            helpers.escape_markdown(' ↓↓↓ %s 执行结果 ↓↓↓ \n\n%s ' % (cmd, out_text))),
+                            chat_id=update.effective_chat.id, parse_mode=ParseMode.MARKDOWN_V2)
+
+                except TimeoutExpired:
+                    context.bot.sendMessage(text='```{}```'.format(helpers.escape_markdown(' →→→ %s 执行超时 ←←← ' % (
+                        cmd))), chat_id=update.effective_chat.id, parse_mode=ParseMode.MARKDOWN_V2)
+                except Exception as e:
+                    context.bot.sendMessage(
+                        text='```{}```'.format(helpers.escape_markdown(' →→→ %s 执行出错，请检查确认命令是否正确 ←←← ' % (
+                            cmd))), chat_id=update.effective_chat.id, parse_mode=ParseMode.MARKDOWN_V2)
+                    logger.error(e)
+            else:
+                update.message.reply_text(
+                    text='```{}```'.format(
+                        helpers.escape_markdown(
+                            f' →→→ {commands[0]}指令不在支持命令范围，请输入其他支持的指令{"|".join(support_cmd)} ←←← ')),
+                    parse_mode=ParseMode.MARKDOWN_V2)
+        else:
+            update.message.reply_text(
+                text='```{}```'.format(helpers.escape_markdown(' →→→ 请在/cmd 后写自己需要执行的指的命令  ←←← ')),
+                parse_mode=ParseMode.MARKDOWN_V2)
+    else:
+        update.message.reply_text(text='此为私人使用bot,不能执行您的指令！')
+
+
 # getSToken请求获取，s_token用于发送post请求是的必须参数
 s_token = ""
 # getSToken请求获取，guid,lsid,lstoken用于组装cookies
@@ -724,7 +795,7 @@ def get_jd_cookie(update, context):
     qr_code_path = genQRCode()
     photo_file = open(qr_code_path, 'rb')
     photo_message = context.bot.send_photo(chat_id=update.effective_chat.id, photo=photo_file,
-                                           caption="请扫描二维码获取Cookie")
+                                           caption="请使用京东APP扫描二维码获取Cookie(二维码有效期：3分钟)")
     photo_file.close()
 
     return_msg = chekLogin()
@@ -880,38 +951,36 @@ def parseJDCookies(headers):
     jd_cookie = f'pt_key={pt_key};pt_pin={pt_pin};'
 
 
-def resp_text(update, context):
-    """
-    监听用户输入的文本消息
-    """
+def saveFile(update, context):
     from_user_id = update.message.from_user.id
     if admin_id == str(from_user_id):
-        msg_text = update.message.text
-        logger.info(msg_text)
-        if str(update.message.text).find("api.m.jd.com/client.action?functionId=liveDrawLotteryV842") > 0:
-            url = re.findall(r"已登陆京东）：(.+?)?$", msg_text)[0]
-            body = re.findall(r"&body=(.+?)&", msg_text)[0]
-            url = url.replace(body, quote(body))
-            logger.info(url)
+        js_file_name = update.message.document.file_name
+        if str(js_file_name).endswith(".js"):
+            save_path = f"{_base_dir}{js_file_name}"
             try:
-                os.putenv('LIVE_LOTTTERY_URL', url)
-                cmd = f'node {_base_dir}jd_live_lottery.js'
-                out_bytes = subprocess.check_output(
-                    cmd, shell=True, timeout=600, stderr=subprocess.STDOUT)
-                out_text = out_bytes.decode('utf-8')
-                context.bot.sendMessage(text='```{}```'.format(
-                    helpers.escape_markdown(' ↓↓↓ %s 执行结果 ↓↓↓ \n\n%s ' % (cmd, out_text))),
-                    chat_id=update.effective_chat.id, parse_mode=ParseMode.MARKDOWN_V2)
-            except TimeoutExpired:
-                context.bot.sendMessage(text='```{}```'.format(helpers.escape_markdown(' →→→ %s 执行超时 ←←← ' % (cmd))),
-                                        chat_id=update.effective_chat.id, parse_mode=ParseMode.MARKDOWN_V2)
+                # logger.info(update.message)
+                file = context.bot.getFile(update.message.document.file_id)
+                file.download(save_path)
+                keyboard_line = [[InlineKeyboardButton('node 执行', callback_data='node %s ' % save_path),
+                                  InlineKeyboardButton('spnode 执行',
+                                                       callback_data='spnode %s' % save_path)],
+                                 [InlineKeyboardButton('取消操作', callback_data='cancel')]]
+
+                reply_markup = InlineKeyboardMarkup(keyboard_line)
+
+                update.message.reply_text(
+                    text='```{}```'.format(
+                        helpers.escape_markdown(' ↓↓↓ %s 上传至/scripts完成，请请选择需要的操作 ↓↓↓ ' % js_file_name)),
+                    reply_markup=reply_markup, parse_mode=ParseMode.MARKDOWN_V2)
+
             except Exception as e:
-                context.bot.sendMessage(
-                    text='```{}```'.format(helpers.escape_markdown(' →→→ %s 执行出错，请检查确认命令是否正确 ←←← ' % (
-                        cmd))), chat_id=update.effective_chat.id, parse_mode=ParseMode.MARKDOWN_V2)
-                raise
-    else:
-        update.message.reply_text(text='此为私人使用bot,不能执行您的指令！')
+                update.message.reply_text(text='```{}```'.format(
+                    helpers.escape_markdown(" →→→ %s js上传至/scripts过程中出错，请重新尝试。 ←←← " % js_file_name)),
+                    parse_mode=ParseMode.MARKDOWN_V2)
+        else:
+            update.message.reply_text(text='```{}```'.format(
+                helpers.escape_markdown(" →→→ 抱歉，暂时只开放上传js文件至/scripts目录 ←←← ")),
+                parse_mode=ParseMode.MARKDOWN_V2)
 
 
 def unknown(update, context):
@@ -921,14 +990,14 @@ def unknown(update, context):
     if admin_id == str(from_user_id):
         spnode_readme = ""
         if "DISABLE_SPNODE" not in os.environ:
-            spnode_readme = "/spnode 获取可执行脚本的列表，选择对应的按钮执行。(拓展使用：运行指定路径脚本，例：/spnode /scripts/jd_818.js)\n" \
-                            "使用bot交互+spnode后 后续用户的cookie维护更新只需要更新logs/cookies.conf即可\n" \
-                            "使用bot交互+spnode后 后续执行脚本命令请使用spnode否者无法使用logs/cookies.conf的cookies执行脚本，定时任务也将自动替换为spnode命令执行\n" \
-                            "spnode功能概述示例\n" \
+            spnode_readme = "/spnode 获取可执行脚本的列表，选择对应的按钮执行。(拓展使用：运行指定路径脚本，例：/spnode /scripts/jd_818.js)\n\n" \
+                            "使用bot交互+spnode后 后续用户的cookie维护更新只需要更新logs/cookies.list即可\n" \
+                            "使用bot交互+spnode后 后续执行脚本命令请使用spnode否者无法使用logs/cookies.list的cookies执行脚本，定时任务也将自动替换为spnode命令执行\n" \
+                            "spnode功能概述示例\n\n" \
                             "spnode conc /scripts/jd_bean_change.js 为每个cookie单独执行jd_bean_change脚本（伪并发\n" \
-                            "spnode 1 /scripts/jd_bean_change.js 为logs/cookies.conf文件里面第一行cookie账户单独执行jd_bean_change脚本\n" \
-                            "spnode jd_XXXX /scripts/jd_bean_change.js 为logs/cookies.conf文件里面pt_pin=jd_XXXX的cookie账户单独执行jd_bean_change脚本\n" \
-                            "spnode /scripts/jd_bean_change.js 为logs/cookies.conf所有cookies账户一起执行jd_bean_change脚本\n" \
+                            "spnode 1 /scripts/jd_bean_change.js 为logs/cookies.list文件里面第一行cookie账户单独执行jd_bean_change脚本\n" \
+                            "spnode jd_XXXX /scripts/jd_bean_change.js 为logs/cookies.list文件里面pt_pin=jd_XXXX的cookie账户单独执行jd_bean_change脚本\n" \
+                            "spnode /scripts/jd_bean_change.js 为logs/cookies.list所有cookies账户一起执行jd_bean_change脚本\n" \
                             "请仔细阅读并理解上面的内容，使用bot交互默认开启spnode指令功能功能。\n" \
                             "如需____停用___请配置环境变量 -DISABLE_SPNODE=True"
         update.message.reply_text(text="⚠️ 您输入了一个错误的指令，请参考说明使用\n" \
@@ -938,7 +1007,7 @@ def unknown(update, context):
                                        "/git 获取可执行git指令列表，选择对应的按钮执行。(拓展使用：运行指定路径脚本，例：/git -C /scripts/ pull)\n" \
                                        "/logs 获取logs下的日志文件列表，选择对应名字可以下载日志文件\n" \
                                        "/env 获取系统环境变量列表。(拓展使用：设置系统环境变量，例：/env export JD_DEBUG=true，环境变量只针对当前bot进程生效) \n" \
-                                       "/bash 执行执行命令。参考：/bash ls -l 未完善不开放使用\n" \
+                                       "/cmd 执行执行命令。参考：/cmd ls -l 涉及目录文件操作请使用绝对路径,部分shell命令开放使用\n" \
                                        "/gen_long_code 长期活动互助码提交消息生成\n" \
                                        "/gen_temp_code 短期临时活动互助码提交消息生成\n" \
                                        "/gen_daily_code 每天变化互助码活动提交消息生成\n\n%s" % spnode_readme,
@@ -991,11 +1060,14 @@ def main():
     # 通过 git 函数 响应 '/git' 命令
     dp.add_handler(CommandHandler('git', git))
 
-    # 通过 logs 函数 响应 '/logs' 命令
+    # 通过 crontab 函数 响应 '/crontab' 命令
     dp.add_handler(CommandHandler('crontab', crontab))
 
     # 通过 logs 函数 响应 '/logs' 命令
     dp.add_handler(CommandHandler('logs', logs))
+
+    # 通过 cmd 函数 响应 '/cmd' 命令
+    dp.add_handler(CommandHandler('cmd', shcmd))
 
     # 通过 callback_run 函数 响应相关按钮命令
     dp.add_handler(CallbackQueryHandler(callback_run))
@@ -1015,11 +1087,14 @@ def main():
     # 通过 get_jd_cookie 函数 响应 '/eikooc_dj_teg' 命令 #别问为啥这么写，有意为之的
     dp.add_handler(CommandHandler('eikooc_dj_teg', get_jd_cookie))
 
+    # 文件监听
+    dp.add_handler(MessageHandler(Filters.document, saveFile))
+
     # 没找到对应指令
     dp.add_handler(MessageHandler(Filters.command, unknown))
 
     # 响应普通文本消息
-    dp.add_handler(MessageHandler(Filters.text, resp_text))
+    # dp.add_handler(MessageHandler(Filters.text, resp_text))
 
     dp.add_error_handler(error)
 
