@@ -542,7 +542,7 @@ function taskurl(url) {
     }
   }
 }
-function updateShareCodesCDN(url = 'https://gitee.com/lxk0301/updateTeam/raw/master/shareCodes/jd_shareCodes.json') {
+function updateShareCodesCDN(url = 'https://cdn.jsdelivr.net/gh/gitupdate/updateTeam@master/shareCodes/jd_shareCodes.json') {
   return new Promise(resolve => {
     $.get({
       url ,
