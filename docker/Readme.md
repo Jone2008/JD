@@ -219,6 +219,8 @@ jd_scripts
 - 目录文件配置好之后在 `jd_scripts`目录执行。  
  `docker-compose up -d` 启动（修改docker-compose.yml后需要使用此命令使更改生效）；  
  `docker-compose logs` 打印日志；  
+ `docker-compose logs -f` 打印日志，-f表示跟随日志；
+ `docker logs -f jd_scripts` 和上面两条相比可以显示汉字；
  `docker-compose pull` 更新镜像；  
  `docker-compose stop` 停止容器；  
  `docker-compose restart` 重启容器；  
@@ -229,6 +231,8 @@ jd_scripts
    `docker exec -it jd_scripts /bin/sh -c 'git -C /scripts pull && node /scripts/jd_bean_change.js'`  手动运行一脚本
    
    `docker exec -it jd_scripts /bin/sh -c 'env'`  查看设置的环境变量
+   
+   `docker exec -it jd_scripts /bin/sh -c 'crontab -l'`  查看已生效的crontab_list定时器任务
    
    `docker exec -it jd_scripts sh -c "docker_entrypoint.sh"` 手动更新jd_scripts仓库最新脚本
    
