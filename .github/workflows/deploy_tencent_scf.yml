@@ -41,14 +41,17 @@ jobs:
       JXNC_SHARECODES: ${{ secrets.JXNC_SHARECODES}}
       JDSGMH_SHARECODES: ${{ secrets.JDSGMH_SHARECODES}}
       JDCFD_SHARECODES: ${{ secrets.JDCFD_SHARECODES}}
+      JDHEALTH_SHARECODES: ${{ secrets.JDHEALTH_SHARECODES}}
       JD_BEAN_STOP: ${{ secrets.JD_BEAN_STOP}}
       JD_BEAN_SIGN_STOP_NOTIFY: ${{ secrets.JD_BEAN_SIGN_STOP_NOTIFY}}
       JD_BEAN_SIGN_NOTIFY_SIMPLE: ${{ secrets.JD_BEAN_SIGN_NOTIFY_SIMPLE}}
       PET_NOTIFY_CONTROL: ${{ secrets.PET_NOTIFY_CONTROL}}
       FRUIT_NOTIFY_CONTROL: ${{ secrets.FRUIT_NOTIFY_CONTROL}}
       CASH_NOTIFY_CONTROL: ${{ secrets.CASH_NOTIFY_CONTROL}}
+      CASH_EXCHANGE: ${{ secrets.CASH_EXCHANGE}}
       DDQ_NOTIFY_CONTROL: ${{ secrets.DDQ_NOTIFY_CONTROL}}
       JDZZ_NOTIFY_CONTROL: ${{ secrets.JDZZ_NOTIFY_CONTROL}}
+      MONEYTREE_NOTIFY_CONTROL: ${{ secrets.MONEYTREE_NOTIFY_CONTROL}}
       JD_JOY_REWARD_NOTIFY: ${{ secrets.JD_JOY_REWARD_NOTIFY}}
       JOY_FEED_COUNT: ${{ secrets.JOY_FEED_COUNT}}
       JOY_HELP_FEED: ${{ secrets.JOY_HELP_FEED}}
@@ -122,18 +125,21 @@ jobs:
           if [ $DDFACTORY_SHARECODES ]; then sed -i "/variables/a\      DDFACTORY_SHARECODES: $DDFACTORY_SHARECODES" serverless.yml; fi;
           if [ $DREAM_FACTORY_SHARE_CODES ]; then sed -i "/variables/a\      DREAM_FACTORY_SHARE_CODES: $DREAM_FACTORY_SHARE_CODES" serverless.yml; fi;
           if [ $JDZZ_SHARECODES ]; then sed -i "/variables/a\      JDZZ_SHARECODES: $JDZZ_SHARECODES" serverless.yml; fi;
+          if [ $MONEYTREE_NOTIFY_CONTROL ]; then sed -i "/variables/a\      MONEYTREE_NOTIFY_CONTROL: $MONEYTREE_NOTIFY_CONTROL" serverless.yml; fi;
           if [ $JDJOY_SHARECODES ]; then sed -i "/variables/a\      JDJOY_SHARECODES: $JDJOY_SHARECODES" serverless.yml; fi;
           if [ $BOOKSHOP_SHARECODES ]; then sed -i "/variables/a\      BOOKSHOP_SHARECODES: $BOOKSHOP_SHARECODES" serverless.yml; fi;
           if [ $JD_CASH_SHARECODES ]; then sed -i "/variables/a\      JD_CASH_SHARECODES: $JD_CASH_SHARECODES" serverless.yml; fi;
           if [ $JXNC_SHARECODES ]; then sed -i "/variables/a\      JXNC_SHARECODES: $JXNC_SHARECODES" serverless.yml; fi;
           if [ $JDSGMH_SHARECODES ]; then sed -i "/variables/a\      JDSGMH_SHARECODES: $JDSGMH_SHARECODES" serverless.yml; fi;
           if [ $JDCFD_SHARECODES ]; then sed -i "/variables/a\      JDCFD_SHARECODES: $JDCFD_SHARECODES" serverless.yml; fi;
+          if [ $JDHEALTH_SHARECODES ]; then sed -i "/variables/a\      JDHEALTH_SHARECODES: $JDHEALTH_SHARECODES" serverless.yml; fi;
           if [ $JD_BEAN_STOP ]; then sed -i "/variables/a\      JD_BEAN_STOP: $JD_BEAN_STOP" serverless.yml; fi;
           if [ $JD_BEAN_SIGN_STOP_NOTIFY ]; then sed -i "/variables/a\      JD_BEAN_SIGN_STOP_NOTIFY: $JD_BEAN_SIGN_STOP_NOTIFY" serverless.yml; fi;
           if [ $JD_BEAN_SIGN_NOTIFY_SIMPLE ]; then sed -i "/variables/a\      JD_BEAN_SIGN_NOTIFY_SIMPLE: $JD_BEAN_SIGN_NOTIFY_SIMPLE" serverless.yml; fi;
           if [ $PET_NOTIFY_CONTROL ]; then sed -i "/variables/a\      PET_NOTIFY_CONTROL: $PET_NOTIFY_CONTROL" serverless.yml; fi;
           if [ $FRUIT_NOTIFY_CONTROL ]; then sed -i "/variables/a\      FRUIT_NOTIFY_CONTROL: $FRUIT_NOTIFY_CONTROL" serverless.yml; fi;
           if [ $CASH_NOTIFY_CONTROL ]; then sed -i "/variables/a\      CASH_NOTIFY_CONTROL: $CASH_NOTIFY_CONTROL" serverless.yml; fi;
+          if [ $CASH_EXCHANGE ]; then sed -i "/variables/a\      CASH_EXCHANGE: $CASH_EXCHANGE" serverless.yml; fi;
           if [ $DDQ_NOTIFY_CONTROL ]; then sed -i "/variables/a\      DDQ_NOTIFY_CONTROL: $DDQ_NOTIFY_CONTROL" serverless.yml; fi;
           if [ $JDZZ_NOTIFY_CONTROL ]; then sed -i "/variables/a\      JDZZ_NOTIFY_CONTROL: $JDZZ_NOTIFY_CONTROL" serverless.yml; fi;
           if [ $JD_JOY_REWARD_NOTIFY ]; then sed -i "/variables/a\      JD_JOY_REWARD_NOTIFY: $JD_JOY_REWARD_NOTIFY" serverless.yml; fi;
