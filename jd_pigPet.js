@@ -2,7 +2,7 @@
  * @Author: LXK9301 https://github.com/LXK9301
  * @Date: 2020-11-10 14:07:07 
  * @Last Modified by: LXK9301
- * @Last Modified time: 2020-11-23 12:27:16
+ * @Last Modified time: 2021-4-26 12:27:16
  */
 /*
 活动入口：京东金融养猪猪
@@ -16,21 +16,21 @@
 ===============Quantumultx===============
 [task_local]
 #京东金融养猪猪
-12 * * * * https://gitee.com/lxk0301/jd_scripts/raw/master/jd_pigPet.js, tag=京东金融养猪猪, img-url=https://raw.githubusercontent.com/58xinian/icon/master/jdyz.png, enabled=true
+12 0-23/6 * * * https://gitee.com/lxk0301/jd_scripts/raw/master/jd_pigPet.js, tag=京东金融养猪猪, img-url=https://raw.githubusercontent.com/58xinian/icon/master/jdyz.png, enabled=true
 
 ================Loon==============
 [Script]
-cron "12 * * * *" script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_pigPet.js, tag=京东金融养猪猪
+cron "12 0-23/6 * * *" script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_pigPet.js, tag=京东金融养猪猪
 
 ===============Surge=================
-京东金融养猪猪 = type=cron,cronexp="12 * * * *",wake-system=1,timeout=3600,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_pigPet.js
+京东金融养猪猪 = type=cron,cronexp="12 0-23/6 * * *",wake-system=1,timeout=3600,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_pigPet.js
 
 ============小火箭=========
-京东金融养猪猪 = type=cron,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_pigPet.js, cronexpr="12 * * * *", timeout=3600, enable=true
+京东金融养猪猪 = type=cron,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_pigPet.js, cronexpr="12 0-23/6 * * *", timeout=3600, enable=true
  */
 
 const $ = new Env('金融养猪');
-let cookiesArr = [], cookie = '';
+let cookiesArr = [], cookie = '', allMessage = '';
 const JD_API_HOST = 'https://ms.jr.jd.com/gw/generic/uc/h5/m';
 const MISSION_BASE_API = `https://ms.jr.jd.com/gw/generic/mission/h5/m`;
 const notify = $.isNode() ? require('./sendNotify') : '';
@@ -68,6 +68,10 @@ if ($.isNode()) {
       await jdPigPet();
     }
   }
+  if (allMessage && new Date().getHours() % 6 === 0) {
+    if ($.isNode()) await notify.sendNotify($.name, allMessage);
+    $.msg($.name, '', allMessage);
+  }
 })()
     .catch((e) => {
       $.log('', `❌ ${$.name}, 失败! 原因: ${e}!`, '')
@@ -76,16 +80,20 @@ if ($.isNode()) {
       $.done();
     })
 async function jdPigPet() {
-  await pigPetLogin();
-  if (!$.hasPig) return
-  await pigPetSignIndex();
-  await pigPetSign();
-  await pigPetOpenBox();
-  await pigPetLotteryIndex();
-  await pigPetLottery();
-  await pigPetMissionList();
-  await missions();
-  await pigPetUserBag();
+  try {
+    await pigPetLogin();
+    if (!$.hasPig) return
+    await pigPetSignIndex();
+    await pigPetSign();
+    await pigPetOpenBox();
+    await pigPetLotteryIndex();
+    await pigPetLottery();
+    await pigPetMissionList();
+    await missions();
+    await pigPetUserBag();
+  } catch (e) {
+    $.logErr(e)
+  }
 }
 async function pigPetLottery() {
   if ($.currentCount > 0) {
@@ -244,6 +252,10 @@ function pigPetLogin() {
                 $.hasPig = data.resultData.resultData.hasPig;
                 if (!$.hasPig) {
                   console.log(`\n京东账号${$.index} ${$.nickName} 未开启养猪活动,请手动去京东金融APP开启此活动\n`)
+                  return
+                }
+                if (data.resultData.resultData.wished) {
+                  allMessage += `京东账号${$.index} ${$.nickName || $.UserName}\n${data.resultData.resultData.wishAward.name}已可兑换${$.index !== cookiesArr.length ? '\n\n' : ''}`
                 }
               } else {
                 console.log(`Login其他情况：${JSON.stringify(data)}`)

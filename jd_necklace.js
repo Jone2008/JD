@@ -2,7 +2,7 @@
  * @Author: lxk0301 https://gitee.com/lxk0301
  * @Date: 2020-11-20 11:42:03 
  * @Last Modified by: lxk0301
- * @Last Modified time: 2021-3-25 12:27:14
+ * @Last Modified time: 2021-4-25 12:27:14
  */
 /*
 点点券，可以兑换无门槛红包（1元，5元，10元，100元，部分红包需抢购）
@@ -366,12 +366,12 @@ async function doAppTask(type = '3') {
     "childActivityUrl": "openapp.jdmobile%3a%2f%2fvirtual%3fparams%3d%7b%5c%22category%5c%22%3a%5c%22jump%5c%22%2c%5c%22des%5c%22%3a%5c%22couponCenter%5c%22%7d",
     "pageClickKey": "CouponCenter",
     "lat": "",
-    "taskId": "necklace_142",
+    "taskId": "necklace_187",
     "lng": "",
   }
   if (type === '4') {
     await $.wait(15000);
-    body['taskId'] = 'necklace_143';
+    body['taskId'] = 'necklace_188';
   }
   await $.wait(15500);
   await getCcTaskList('reportCcTask', body, type);
@@ -382,8 +382,8 @@ function getCcTaskList(functionId, body, type = '3') {
     if (functionId === 'getCcTaskList') {
       url = `https://api.m.jd.com/client.action?functionId=${functionId}&body=${escape(JSON.stringify(body))}&uuid=8888888&client=apple&clientVersion=9.4.1&st=1614320848090&sign=d3259c0c19f6c792883485ae65f8991c&sv=111`
     }
-    if (type === '3' && functionId === 'reportCcTask') url = `https://api.m.jd.com/client.action?functionId=${functionId}&body=${escape(JSON.stringify(body))}&uuid=8888888&client=apple&clientVersion=9.4.1&st=1615862880029&sign=65a8c7e54009ef2139bfe9fc6acd4390&sv=112`
-    if (type === '4' && functionId === 'reportCcTask') url = `https://api.m.jd.com/client.action?functionId=${functionId}&body=${escape(JSON.stringify(body))}&uuid=8888888&client=apple&clientVersion=9.4.1&st=1615863447055&sign=d920e1397e0ed2de3c4abd123c523268&sv=122`
+    if (type === '3' && functionId === 'reportCcTask') url = `https://api.m.jd.com/client.action?functionId=${functionId}&body=${escape(JSON.stringify(body))}&uuid=8888888&client=apple&clientVersion=9.4.1&st=1619362241008&sign=a731e69df875e90ba3c865432625bfab&sv=122`
+    if (type === '4' && functionId === 'reportCcTask') url = `https://api.m.jd.com/client.action?functionId=${functionId}&body=${escape(JSON.stringify(body))}&uuid=8888888&client=apple&clientVersion=9.4.1&st=1619361713027&sign=c45f3955a83aeb927b7b1bbd8445526a&sv=121`
     // if (functionId === 'reportCcTask') {
     //   url = `https://api.m.jd.com/client.action?functionId=${functionId}&body=${escape(JSON.stringify(body))}&uuid=8888888&client=apple&clientVersion=9.4.1&st=1614320901023&sign=26e637ba072ddbcfa44c5273ef928696&sv=111`
     // }

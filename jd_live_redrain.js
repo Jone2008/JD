@@ -1,7 +1,7 @@
 /*
 超级直播间红包雨
-下一场直播时间:04月02日  20:00 https://h5.m.jd.com/dev/3pbY8ZuCx4ML99uttZKLHC2QcAMn/live.html?id=3804885
-下一场直播时间:04月06日  20:00
+下一场超级直播间时间:04月28日  20:00，直播间地址：https://h5.m.jd.com/dev/3pbY8ZuCx4ML99uttZKLHC2QcAMn/live.html?id=3932303
+下一场超级直播间时间:04月23日  20:00，直播间地址：https://h5.m.jd.com/dev/3pbY8ZuCx4ML99uttZKLHC2QcAMn/live.html?id=3934999
 脚本兼容: Quantumult X, Surge, Loon, JSBox, Node.js
 ==============Quantumult X==============
 [task_local]
@@ -19,19 +19,20 @@ cron "0,30,31 20-23/1 * * *" script-path=https://gitee.com/lxk0301/jd_scripts/ra
 超级直播间红包雨 = type=cron,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_live_redrain.js, cronexpr="0,30,31 20-23/1 * * *", timeout=3600, enable=true
 */
 const $ = new Env('超级直播间红包雨');
-let allMessage = '';
+let allMessage = '', id = 'RRA2cUocg5uYEyuKpWNdh4qE4NW1bN2';
 let bodyList = {
-  "2": {
-    "url": "https://api.m.jd.com/client.action?functionId=liveActivityV946&uuid=8888888&client=apple&clientVersion=9.4.1&st=1617325217027&sign=a164d2ff76cf8d0f32b6f51487b0335f&sv=102",
-    "body": "body=%7B%22liveId%22%3A%223804885%22%7D"
+  "7": {
+    "url": "https://api.m.jd.com/client.action?functionId=liveActivityV946&uuid=8888888&client=apple&clientVersion=9.4.1&st=1619679150030&sign=df50035617ddc934be4b882ba1fa092c&sv=101",
+    "body": "body=%7B%22liveId%22%3A%224033765%22%7D"
   },
-  "6": {
-    "url": "https://api.m.jd.com/client.action?functionId=liveActivityV946&uuid=8888888&client=apple&clientVersion=9.4.1&st=1617325216041&sign=e725cf0ce846f0ad6b0761b3c3c56c42&sv=111",
-    "body": "body=%7B%22liveId%22%3A%223820176%22%7D"
+  "30": {
+    "url": "https://api.m.jd.com/client.action?functionId=liveActivityV946&uuid=8888888&client=apple&clientVersion=9.4.1&st=1619679152042&sign=f6a21b76b113cb62be882dbd62edade7&sv=122",
+    "body": "body=%7B%22liveId%22%3A%224010816%22%7D"
   }
 }
-let ids = {
-  
+let ids = {}
+for (let i = 0; i < 24; i++) {
+  ids[i] = id;
 }
 const notify = $.isNode() ? require('./sendNotify') : '';
 //Node.js用户请在jdCookie.js处填写京东ck;
@@ -54,13 +55,13 @@ const JD_API_HOST = 'https://api.m.jd.com/api';
     $.msg($.name, '【提示】请先获取京东账号一cookie\n直接使用NobyDa的京东签到获取', 'https://bean.m.jd.com/', {"open-url": "https://bean.m.jd.com/"});
     return;
   }
-  console.log('下一场直播时间:04月02日  20:00 https://h5.m.jd.com/dev/3pbY8ZuCx4ML99uttZKLHC2QcAMn/live.html?id=3804885\n' +
-      '下一场直播时间:04月06日  20:00')
+  console.log('下一场超级直播间时间:05月07日  20:00，直播间地址：https://h5.m.jd.com/dev/3pbY8ZuCx4ML99uttZKLHC2QcAMn/live.html?id=4033765\n' +
+      '下一场超级直播间时间:04月30日  20:00，直播间地址：https://h5.m.jd.com/dev/3pbY8ZuCx4ML99uttZKLHC2QcAMn/live.html?id=4010816')
   await getRedRain();
 
   let nowTs = new Date().getTime()
   if (!($.st <= nowTs && nowTs < $.ed)) {
-    $.log(`远程红包雨配置获取错误，从本地读取配置`)
+    $.log(`\n远程红包雨配置获取错误，从本地读取配置`)
     let hour = (new Date().getUTCHours() + 8) %24
     if (ids[hour]){
       $.activityId = ids[hour]

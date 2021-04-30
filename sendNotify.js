@@ -151,7 +151,7 @@ if (process.env.PUSH_PLUS_USER) {
  * @param author 作者仓库等信息  例：`本脚本免费使用 By：https://gitee.com/lxk0301/jd_docker`
  * @returns {Promise<unknown>}
  */
-async function sendNotify(text, desp, params = {}, author = '\n\n本脚本免费使用 By：https://gitee.com/lxk0301/jd_docker') {
+async function sendNotify(text, desp, params = {}, author = '\n\n本脚本免费使用 By：https://github.com/wisz2021/jd_docker/blob/main/githubAction.md') {
   //提供6种通知
   desp += author;//增加作者信息，防止被贩卖等
   await Promise.all([

@@ -322,7 +322,7 @@ async function petTask() {
           const body = {
             "marketLink": scanMarketItem.marketLink,
             "taskType": "ScanMarket",
-            "reqSource": "weapp"
+            //"reqSource": "weapp"
           };
           const scanMarketRes = await scanMarket('scan', body);
           console.log(`逛会场-${scanMarketItem.marketName}结果::${JSON.stringify(scanMarketRes)}`)
@@ -462,7 +462,7 @@ function scanMarket(type, body, cType = 'application/json') {
     const reqSource = 'weapp';
     let opt = {
       // url: "//jdjoy.jd.com/common/pet/getPetTaskConfig?reqSource=h5",
-      url: `//draw.jdfcloud.com/common/pet/${type}?reqSource=h5`,
+      url: `//draw.jdfcloud.com/common/pet/${type}?reqSource=weapp`,
       method: "POST",
       data: body,
       credentials: "include",
