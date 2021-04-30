@@ -88,8 +88,7 @@ autoHelp() {
 
 ############# 短期活动 #############
 
-#环球挑战赛
-autoHelp "京东手机狂欢城好友互助码" "${logDir}/jd_carnivalcity.log" "JD818_SHARECODES"
+
 
 ############# 长期活动 #############
 
@@ -130,3 +129,6 @@ autoHelp "签到领现金好友互助码" "${logDir}/jd_cash.log" "JD_CASH_SHARE
 
 #闪购盲盒
 autoHelp "闪购盲盒好友互助码" "${logDir}/jd_sgmh.log" "JDSGMH_SHARECODES"
+
+#东东健康社区
+autoHelp "东东健康社区好友互助码" "${logDir}/jd_health.log" "JDHEALTH_SHARECODES"
