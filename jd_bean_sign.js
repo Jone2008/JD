@@ -6,7 +6,7 @@
 活动入口：各处的签到汇总
 Node.JS专用
 IOS软件用户请使用 https://raw.githubusercontent.com/NobyDa/Script/master/JD-DailyBonus/JD_DailyBonus.js
-更新时间：2021-4-9
+更新时间：2021-5-6
 推送通知默认简洁模式(多账号只发送一次)。如需详细通知，设置环境变量 JD_BEAN_SIGN_NOTIFY_SIMPLE 为false即可(N账号推送N次通知)。
 Modified From github https://github.com/ruicky/jd_sign_bot
  */
@@ -84,16 +84,16 @@ async function execSign() {
     if (fs.existsSync(resultPath)) {
       const barkContentStart = notifyContent.indexOf('【签到概览】')
       const barkContentEnd = notifyContent.length;
-      if (process.env.JD_BEAN_SIGN_STOP_NOTIFY === 'true') return
-      if (process.env.BARK_PUSH || notify.BARK_PUSH) process.env.JD_BEAN_SIGN_NOTIFY_SIMPLE = 'true';
-      if (process.env.JD_BEAN_SIGN_NOTIFY_SIMPLE === 'true') {
-        if (barkContentStart > -1 && barkContentEnd > -1) {
-          BarkContent = notifyContent.substring(barkContentStart, barkContentEnd);
-        }
-        BarkContent = BarkContent.split('\n\n')[0];
-      } else {
-        if (barkContentStart > -1 && barkContentEnd > -1) {
-          BarkContent = notifyContent.substring(barkContentStart, barkContentEnd);
+      if (process.env.JD_BEAN_SIGN_STOP_NOTIFY !== 'true') {
+        if (process.env.JD_BEAN_SIGN_NOTIFY_SIMPLE === 'true') {
+          if (barkContentStart > -1 && barkContentEnd > -1) {
+            BarkContent = notifyContent.substring(barkContentStart, barkContentEnd);
+          }
+          BarkContent = BarkContent.split('\n\n')[0];
+        } else {
+          if (barkContentStart > -1 && barkContentEnd > -1) {
+            BarkContent = notifyContent.substring(barkContentStart, barkContentEnd);
+          }
         }
       }
     }

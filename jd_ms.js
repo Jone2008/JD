@@ -1,8 +1,8 @@
 /*
  * @Author: shylocks https://github.com/shylocks
  * @Date: 2021-01-13 22:01:41
- * @Last Modified by:   shylocks
- * @Last Modified time: 2021-01-13 22:11:41
+ * @Last Modified by:   star
+ * @Last Modified time: 2021-05-22 8:55:00
  */
 /*
 京东秒秒币
@@ -155,6 +155,7 @@ function getTaskList() {
                 if($.risk) break
                 if (vo['completionCnt'] < vo['assignmentTimesLimit']) {
                   if (vo['assignmentType'] === 1) {
+                    if(vo['ext'][vo['ext']['extraType']].length === 0) continue;
                     for (let i = vo['completionCnt']; i < vo['assignmentTimesLimit']; ++i) {
                       console.log(`去做${vo['assignmentName']}任务：${i + 1}/${vo['assignmentTimesLimit']}`)
                       let body = {

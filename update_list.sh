@@ -21,11 +21,11 @@ perl -i -ne "{print unless $StartLine .. eof}" "$FileReadme"
 cd $WorkDir
 Sheet=$SheetHead
 for ((i=0; i<${#JsList[*]}; i++)); do
-  Name=$(grep "new Env" ${JsList[i]} | awk -F "'|\"" '{print $2}' | head -1)
-  Entry=$(grep -E "^ *活动入口" ${JsList[i]} | awk -F "：|: " '{print $2}' | head -1)
-  [[ -z $Entry ]] || [[ $Entry == 暂无 ]] && Entry=$(grep -E "^ *活动地址" ${JsList[i]} | awk -F "：|: " '{print $2}' | head -1)
-  [[ $Entry == http* ]] && Entry="[活动地址]($Entry)"
-  Raw="$UrlRaw${JsList[i]}"
-  Sheet="$Sheet\n|$(($i + 1))|[${JsList[i]}]($Raw)|$Name|$Entry|"
+    Name=$(grep "new Env" ${JsList[i]} | awk -F "'|\"" '{print $2}' | head -1)
+    Entry=$(grep -E "^ *活动入口" ${JsList[i]} | awk -F "：|: " '{print $2}' | head -1)
+    [[ -z $Entry ]] || [[ $Entry == 暂无 ]] && Entry=$(grep -E "^ *活动地址" ${JsList[i]} | awk -F "：|: " '{print $2}' | head -1)
+    [[ $Entry == http* ]] && Entry="[活动地址]($Entry)"
+    Raw="$UrlRaw${JsList[i]}"
+    Sheet="$Sheet\n|$(($i + 1))|[${JsList[i]}]($Raw)|$Name|$Entry|"
 done
 echo -e "$Sheet\n$Tail" >> $FileReadme

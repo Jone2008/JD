@@ -2,13 +2,12 @@
  * @Author: lxk0301 https://gitee.com/lxk0301
  * @Date: 2020-11-27 09:19:21
  * @Last Modified by: lxk0301
- * @Last Modified time: 2021-4-27 16:58:02
+ * @Last Modified time: 2021-5-21 17:58:02
  */
 /*
-赚京豆脚本，一：签到(一周签到可获得30京豆)，二：做任务 天天领京豆(加速领京豆)、三：赚京豆-瓜分京豆
+赚京豆脚本，一：做任务 天天领京豆(加速领京豆)、三：赚京豆-瓜分京豆
 活动入口：赚京豆(微信小程序)-赚京豆-签到领京豆
 更新地址：https://gitee.com/lxk0301/jd_scripts/raw/master/jd_syj.js
-签到(一周签到可获得30京豆)参考github@jidesheng6修改而来
 已支持IOS双京东账号, Node.js支持N个京东账号
 脚本兼容: QuantumultX, Surge, Loon, 小火箭，JSBox, Node.js
 ============Quantumultx===============
@@ -52,7 +51,7 @@ const JD_API_HOST = 'https://api.m.jd.com/api';
     $.msg($.name, '【提示】请先获取京东账号一cookie\n直接使用NobyDa的京东签到获取', 'https://bean.m.jd.com/bean/signIndex.action', {"open-url": "https://bean.m.jd.com/bean/signIndex.action"});
     return;
   }
-  await getAuthorShareCode('http://qr6pzoy01.hn-bkt.clouddn.com/jd_zz.json');
+  await getAuthorShareCode('https://a.nz.lu/jd_zz.json');
   await getAuthorShareCode('https://raw.githubusercontent.com/gitupdate/updateTeam/master/shareCodes/jd_zz.json');
   await getRandomCode();
   for (let i = 0; i < cookiesArr.length; i++) {
@@ -119,7 +118,7 @@ function showMsg() {
 }
 async function main() {
   try {
-    await userSignIn();//赚京豆-签到领京豆
+    // await userSignIn();//赚京豆-签到领京豆
     await vvipTask();//赚京豆-加速领京豆
     await distributeBeanActivity();//赚京豆-瓜分京豆
     await showMsg();
@@ -211,20 +210,27 @@ function pg_channel_page_data() {
                   const { activityExistFlag, redPacketOpenFlag, redPacketRewardTakeFlag, beanAmountTakeMinLimit, currActivityBeanAmount  } = floorInfo['floorData']['userActivityInfo'];
                   if (activityExistFlag) {
                     if (!redPacketOpenFlag) {
-                      console.log(`做任务 天天领京豆 活动未开启，现在去开启此活动\n`)
+                      console.log(`【做任务 天天领京豆】 活动未开启，现在去开启此活动\n`)
                       await openRedPacket($.token);
                     } else {
-                      console.log(`做任务 天天领京豆 累计到${beanAmountTakeMinLimit}京豆可领取到京东账户 ${currActivityBeanAmount}/${beanAmountTakeMinLimit}`)
                       if (currActivityBeanAmount < beanAmountTakeMinLimit) $.vvipFlag = true;
                       if (redPacketRewardTakeFlag) {
-                        console.log(`做任务 天天领京豆 200京豆已领取`);
+                        console.log(`【做任务 天天领京豆】 ${beanAmountTakeMinLimit}京豆已领取`);
                       } else {
-                        //领取200京豆
-                        await pg_interact_interface_invoke($.token);
+                        if (currActivityBeanAmount >= beanAmountTakeMinLimit) {
+                          //领取200京豆
+                          console.log(`【做任务 天天领京豆】 累计到${beanAmountTakeMinLimit}京豆可领取到京东账户\n【做任务 天天领京豆】当前进度：${currActivityBeanAmount}/${beanAmountTakeMinLimit}`)
+                          console.log(`【做任务 天天领京豆】 当前已到领取京豆条件。开始领取京豆\n`);
+                          await pg_interact_interface_invoke($.token);
+                        } else {
+                          console.log(`【做任务 天天领京豆】 累计到${beanAmountTakeMinLimit}京豆可领取到京东账户\n【做任务 天天领京豆】当前进度：${currActivityBeanAmount}/${beanAmountTakeMinLimit}`)
+                          console.log(`【做任务 天天领京豆】 当前未达到领取京豆条件。开始做任务\n`);
+                          await pg_channel_page_data();
+                        }
                       }
                     }
                   } else {
-                    console.log(`200京豆活动已下线`)
+                    console.log(`【做任务 天天领京豆】 活动已下线`)
                   }
                 }
               }
@@ -269,11 +275,11 @@ function vvipscdp_raffle_auto_send_bean() {
             data = JSON.parse(data);
             if (data['success']) {
               if (data.data && data.data['sendBeanAmount']) {
-                console.log(`获得${data.data['sendBeanAmount']}京豆`)
+                console.log(`【做任务 天天领京豆】 送成功：获得${data.data['sendBeanAmount']}京豆`)
                 $.rewardBeanNum += data.data['sendBeanAmount'];
               }
             } else {
-              console.log("【做任务 天天领京豆】 " + data.message)
+              console.log("【做任务 天天领京豆】 送京异常：" + data.message)
             }
           }
         }
@@ -480,11 +486,11 @@ function pg_interact_interface_invoke(floorToken) {
           if (safeGet(data)) {
             data = JSON.parse(data);
             if (data['success']) {
-              console.log(`${data['data']['rewardBeanAmount']}京豆领取成功`);
+              console.log(`【做任务 天天领京豆】${data['data']['rewardBeanAmount']}京豆领取成功`);
               $.rewardBeanNum += data['data']['rewardBeanAmount'];
               message += `${message ? '\n' : ''}【做任务 天天领京豆】${$.rewardBeanNum}京豆`;
             } else {
-              console.log(data.message)
+              console.log(`【做任务 天天领京豆】${data.message}`);
             }
           }
         }
@@ -541,7 +547,7 @@ function openRedPacket(floorToken) {
 //================赚京豆开团===========
 async function distributeBeanActivity() {
   try {
-    $.tuan = null
+    $.tuan = ''
     $.hasOpen = false;
     $.assistStatus = 0;
     await getUserTuanInfo()
@@ -552,10 +558,11 @@ async function distributeBeanActivity() {
     }
     if ($.tuan && $.tuan.hasOwnProperty('assistedPinEncrypted') && $.assistStatus !== 3) {
       $.tuanList.push($.tuan);
+      const code = Object.assign($.tuan, {"time": Date.now()});
       $.http.post({
-        url: `https://code.c-hiang.cn/autocommit/zuan/insert`,
+        url: `http://go.chiang.fun/autocommit`,
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(Object.assign($.tuan, {"time": Date.now()})),
+        body: JSON.stringify({ "act": "zuan", code }),
         timeout: 30000
       }).then((resp) => {
         if (resp.statusCode === 200) {
@@ -563,17 +570,15 @@ async function distributeBeanActivity() {
             let { body } = resp;
             body = JSON.parse(body);
             if (body['code'] === 200) {
-              console.log(`\n【京东账号${$.index}（${$.nickName || $.UserName}）的赚京豆开团好友互助码提交成功\n`)
-            } else if (body['code'] === 400) {
-              console.log(`赚京豆团邀请码提交失败:${JSON.stringify(body)}\n`)
+              console.log(`\n【京东账号${$.index}（${$.nickName || $.UserName}）的【赚京豆-瓜分京豆】好友互助码提交成功\n`)
             } else {
-              console.log(`赚京豆团邀请码提交失败:${JSON.stringify(body)}\n`)
+              console.log(`【赚京豆-瓜分京豆】邀请码提交失败:${JSON.stringify(body)}\n`)
             }
           } catch (e) {
-            console.log(`赚京豆团邀请码提交异常:${e}`)
+            console.log(`【赚京豆-瓜分京豆】邀请码提交异常:${e}`)
           }
         }
-      }).catch((e) => console.log(`catch 赚京豆团邀请码提交异常:${e}`));
+      }).catch((e) => console.log(`【赚京豆-瓜分京豆】邀请码提交异常:${e}`));
     }
   } catch (e) {
     $.logErr(e);
@@ -586,7 +591,8 @@ function helpFriendTuan(body) {
       "assistStartRecordId": body['assistStartRecordId'],
       "channel": body['channel'],
     }
-    $.get(taskUrl("vvipclub_distributeBean_assist", data), async (err, resp, data) => {
+    delete body['time'];
+    $.get(taskTuanUrl("vvipclub_distributeBean_assist", body), async (err, resp, data) => {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
@@ -618,7 +624,7 @@ function helpFriendTuan(body) {
 function getUserTuanInfo() {
   let body = {"paramData": {"channel": "FISSION_BEAN"}}
   return new Promise(resolve => {
-    $.get(taskUrl("distributeBeanActivityInfo", body), async (err, resp, data) => {
+    $.get(taskTuanUrl("distributeBeanActivityInfo", body), async (err, resp, data) => {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
@@ -650,7 +656,7 @@ function getUserTuanInfo() {
               $.canStartNewAssist = data['data']['canStartNewAssist'];
             } else {
               $.tuan = true;//活动火爆
-              console.log(`获取【赚京豆(微信小程序)-瓜分京豆】活动信息失败 ${JSON.stringify(data)}\n`)
+              console.log(`赚京豆(微信小程序)-瓜分京豆】获取【活动信息失败 ${JSON.stringify(data)}\n`)
             }
           }
         }
@@ -666,7 +672,7 @@ function getUserTuanInfo() {
 function openTuan() {
   let body = {"activityIdEncrypted": $.tuanActId, "channel": "FISSION_BEAN"}
   return new Promise(resolve => {
-    $.get(taskUrl("vvipclub_distributeBean_startAssist", body), async (err, resp, data) => {
+    $.get(taskTuanUrl("vvipclub_distributeBean_startAssist", body), async (err, resp, data) => {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
@@ -693,7 +699,7 @@ function openTuan() {
 function getAuthorShareCode(url) {
   return new Promise(resolve => {
     const options = {
-      url: `${url}?${new Date()}`, "timeout": 10000, headers: {
+      url: `${url}?${Date.now()}`, "timeout": 10000, headers: {
         "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1 Edg/87.0.4280.88"
       }
     };
@@ -724,12 +730,13 @@ function getAuthorShareCode(url) {
   })
 }
 async function getRandomCode() {
-  await $.http.get({url: `https://code.c-hiang.cn/api/v1/jd/zuan/read/${randomCount}`, timeout: 10000}).then(async (resp) => {
+  await $.http.get({url: `http://go.chiang.fun/read/zuan/${randomCount}`, timeout: 10000}).then(async (resp) => {
     if (resp.statusCode === 200) {
       try {
         let { body } = resp;
         body = JSON.parse(body);
         if (body && body['code'] === 200) {
+          console.log(`随机取【赚京豆-瓜分京豆】${randomCount}个邀请码成功\n`);
           $.body = body['data'];
           $.body1 = [];
           $.body.map(item => {
@@ -737,10 +744,10 @@ async function getRandomCode() {
           })
         }
       } catch (e) {
-        console.log(`读取邀请码异常:${e}`)
+        console.log(`随机取【赚京豆-瓜分京豆】${randomCount}个邀请码异常:${e}`);
       }
     }
-  }).catch((e) => console.log(`catch 读取邀请码异常:${e}`));
+  }).catch((e) => console.log(`随机取【赚京豆-瓜分京豆】${randomCount}个邀请码异常:${e}`));
 }
 //======================赚京豆开团===========END=====
 function taskUrl(function_id, body = {}) {
@@ -760,7 +767,22 @@ function taskUrl(function_id, body = {}) {
   }
 }
 
-
+function taskTuanUrl(function_id, body = {}) {
+  return {
+    url: `${JD_API_HOST}?functionId=${function_id}&body=${escape(JSON.stringify(body))}&appid=swat_miniprogram&osVersion=5.0.0&clientVersion=3.1.3&fromType=wxapp&timestamp=${new Date().getTime() + new Date().getTimezoneOffset() * 60 * 1000 + 8 * 60 * 60 * 1000}`,
+    headers: {
+      "Accept": "*/*",
+      "Accept-Encoding": "gzip, deflate, br",
+      "Accept-Language": "zh-cn",
+      "Connection": "keep-alive",
+      "Content-Type": "application/x-www-form-urlencoded",
+      "Host": "api.m.jd.com",
+      "Referer": "https://servicewechat.com/wxa5bf5ee667d91626/108/page-frame.html",
+      "Cookie": cookie,
+      "User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.4.4;14.3;network/4g;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1"),
+    }
+  }
+}
 
 function TotalBean() {
   return new Promise(async resolve => {

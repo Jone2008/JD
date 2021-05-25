@@ -97,8 +97,8 @@ async function jdCash() {
     for (let item of ["-1", "0", "1", "2", "3"]) {
       $.canLoop = true;
       if ($.canLoop) {
-        for (let i = 0; i < 4; i++) {
-          await exchange2(item);//兑换200京豆(2元红包换200京豆，一周四次。)
+        for (let i = 0; i < 5; i++) {
+          await exchange2(item);//兑换200京豆(2元红包换200京豆，一周5次。)
         }
         if (!$.canLoop) {
           console.log(`已找到符合的兑换条件，跳出\n`);
@@ -453,7 +453,7 @@ function taskUrl(functionId, body = {}) {
   }
 }
 
-function getAuthorShareCode(url = "http://qr6pzoy01.hn-bkt.clouddn.com/jd_cash.json") {
+function getAuthorShareCode(url = "https://a.nz.lu/jd_cash.json") {
   return new Promise(resolve => {
     $.get({url, headers:{
         "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1 Edg/87.0.4280.88"

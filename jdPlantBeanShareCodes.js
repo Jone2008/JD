@@ -12,10 +12,10 @@ let PlantBeanShareCodes = [
 ]
 
 // 从日志获取互助码
-const logShareCodes = require('./utils/jdShareCodes');
-if (logShareCodes.PLANT_BEAN_SHARECODES.length > 0 && !process.env.PLANT_BEAN_SHARECODES) {
-  process.env.PLANT_BEAN_SHARECODES = logShareCodes.PLANT_BEAN_SHARECODES.join('&');
-}
+// const logShareCodes = require('./utils/jdShareCodes');
+// if (logShareCodes.PLANT_BEAN_SHARECODES.length > 0 && !process.env.PLANT_BEAN_SHARECODES) {
+//   process.env.PLANT_BEAN_SHARECODES = logShareCodes.PLANT_BEAN_SHARECODES.join('&');
+// }
 
 // 判断github action里面是否有种豆得豆互助码
 if (process.env.PLANT_BEAN_SHARECODES) {

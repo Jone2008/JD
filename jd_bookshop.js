@@ -281,6 +281,7 @@ function getActContent(info = false, shareUuid = '') {
               if (!$.userInfo.bookStore) {
                 $.exit = true
                 console.log(`京东账号${$.index}尚未开启口袋书店，请手动开启`)
+                console.log('\n提示：从五月份开始，需要手动进入一下活动页面。不然即使是开启了这个活动。跑脚本也提示未开启活动\n')
                 return
               }
               $.actorUuid = $.userInfo.actorUuid
