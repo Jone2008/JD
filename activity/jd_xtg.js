@@ -244,7 +244,6 @@ async function JD_XTG(flag = false) {
         await doTask("product", item2["productId"], 2);
       }
     }
-    //付定金 TODO
     // for (let item3 of orderSkuList) {
     //   await doTask('order', item3['skuId'], 1);
     //   await doTask('order', item3['skuId'], 2);

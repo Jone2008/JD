@@ -852,7 +852,7 @@ function updateShareCodes(url = 'https://raw.githubusercontent.com/LXK9301/updat
     })
   })
 }
-function updateShareCodesCDN(url = 'https://gitee.com/lxk0301/updateTeam/raw/master/shareCodes/jd_shareCodes.json') {
+function updateShareCodesCDN(url = 'https://cdn.jsdelivr.net/gh/gitupdate/updateTeam@master/shareCodes/jd_shareCodes.json') {
   return new Promise(resolve => {
     //https://cdn.jsdelivr.net/gh/LXK9301/updateTeam@master/jd_shareCodes.json
     $.get({url , headers:{"User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('../USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.4.4;14.3;network/4g;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1")}}, async (err, resp, data) => {
