@@ -6,6 +6,7 @@ if [ -n "$1" ]; then
   run_cmd=$1
 fi
 
+(
 if [ -f "/scripts/logs/pull.lock" ]; then
   echo "存在更新锁定文件，跳过git pull操作..."
 else
@@ -18,6 +19,7 @@ else
   echo "npm install 安装最新依赖"
   npm install --prefix /scripts
 fi
+) || exit 0
 
 # 默认启动telegram交互机器人的条件
 # 确认容器启动时调用的docker_entrypoint.sh
