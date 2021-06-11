@@ -1,23 +1,23 @@
 /*
 5G超级盲盒，可抽奖获得京豆，建议在凌晨0点时运行脚本，白天抽奖基本没有京豆，4小时运行一次收集热力值
 活动地址: https://isp5g.m.jd.com
-活动时间：2021-03-19到2021-04-30
-更新时间：2021-04-26 12:00
+活动时间：2021-06-2到2021-07-31
+更新时间：2021-06-3 12:00
 脚本兼容: QuantumultX, Surge,Loon, JSBox, Node.js
 =================================Quantumultx=========================
 [task_local]
 #5G超级盲盒
-0 0,1-23/3 * * * https://gitee.com/lxk0301/jd_scripts/raw/master/jd_mohe.js, tag=5G超级盲盒, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/Color/jd.png, enabled=true
+0 0,1-23/3 * * * jd_mohe.js, tag=5G超级盲盒, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/Color/jd.png, enabled=true
 
 =================================Loon===================================
 [Script]
-cron "0 0,1-23/3 * * *" script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_mohe.js,tag=5G超级盲盒
+cron "0 0,1-23/3 * * *" script-path=jd_mohe.js,tag=5G超级盲盒
 
 ===================================Surge================================
-5G超级盲盒 = type=cron,cronexp="0 0,1-23/3 * * *",wake-system=1,timeout=3600,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_mohe.js
+5G超级盲盒 = type=cron,cronexp="0 0,1-23/3 * * *",wake-system=1,timeout=3600,script-path=jd_mohe.js
 
 ====================================小火箭=============================
-5G超级盲盒 = type=cron,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_mohe.js, cronexpr="0 0,1-23/3 * * *", timeout=3600, enable=true
+5G超级盲盒 = type=cron,script-path=jd_mohe.js, cronexpr="0 0,1-23/3 * * *", timeout=3600, enable=true
  */
 const $ = new Env('5G超级盲盒');
 const notify = $.isNode() ? require('./sendNotify') : '';
@@ -43,10 +43,10 @@ $.shareId = [];
     $.msg($.name, '【提示】请先获取京东账号一cookie\n直接使用NobyDa的京东签到获取', 'https://bean.m.jd.com/bean/signIndex.action', {"open-url": "https://bean.m.jd.com/bean/signIndex.action"});
     return;
   }
-  if ($.time('yyyy-MM-dd') === '2021-05-01') {
-    $.msg($.name, '活动已结束', `请禁用或删除脚本`);
-    return
-  }
+  console.log('5G超级盲盒，可抽奖获得京豆，建议在凌晨0点时运行脚本，白天抽奖基本没有京豆，4小时运行一次收集热力值\n' +
+      '活动地址: https://isp5g.m.jd.com\n' +
+      '活动时间：2021-06-2到2021-07-31\n' +
+      '更新时间：2021-06-3 12:00');
   await updateShareCodesCDN()
   for (let i = 0; i < cookiesArr.length; i++) {
     if (cookiesArr[i]) {
@@ -393,7 +393,7 @@ async function getAward() {
           console.log(`====抽奖结果====,${JSON.stringify(lotteryRes.data)}`);
           console.log(lotteryRes.data.name);
           console.log(lotteryRes.data.beanNum);
-          if ((lotteryRes.data['prizeId'] && lotteryRes.data['prizeId'] !== '9999') || lotteryRes.data.name !== '未中奖') {
+          if (lotteryRes.data['prizeId'] && (lotteryRes.data['type'] !== '99' && lotteryRes.data['type'] !== '3' && lotteryRes.data['type'] !== '8'  && lotteryRes.data['type'] !== '9')) {
             message += `抽奖获得：${lotteryRes.data.name}\n`;
           }
         } else if (lotteryRes.code === 4001) {
@@ -470,10 +470,10 @@ function shareUrl() {
     }
     $.get(options, async (err, resp, data) => {
       try {
-        // console.log('好友邀请码', data)
+        console.log('好友邀请码', data)
         data = JSON.parse(data);
         if (data['code'] === 5000) {
-          console.log(`重新运行一次脚本即可获取好友邀请码`)
+          console.log(`尝试多次运行脚本即可获取好友邀请码`)
         }
         // console.log('homeGoBrowse', data)
         if (data['code'] === 200) {

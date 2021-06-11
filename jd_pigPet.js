@@ -1,10 +1,5 @@
 /*
- * @Author: LXK9301 https://github.com/LXK9301
- * @Date: 2020-11-10 14:07:07 
- * @Last Modified by: LXK9301
- * @Last Modified time: 2021-5-19 12:27:16
- */
-/*
+Last Modified time: 2021-5-19 12:27:16
 活动入口：京东金融养猪猪
 一键开完所有的宝箱功能。耗时70秒
 大转盘抽奖
@@ -16,17 +11,17 @@
 ===============Quantumultx===============
 [task_local]
 #京东金融养猪猪
-12 0-23/6 * * * https://gitee.com/lxk0301/jd_scripts/raw/master/jd_pigPet.js, tag=京东金融养猪猪, img-url=https://raw.githubusercontent.com/58xinian/icon/master/jdyz.png, enabled=true
+12 0-23/6 * * * jd_pigPet.js, tag=京东金融养猪猪, img-url=https://raw.githubusercontent.com/58xinian/icon/master/jdyz.png, enabled=true
 
 ================Loon==============
 [Script]
-cron "12 0-23/6 * * *" script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_pigPet.js, tag=京东金融养猪猪
+cron "12 0-23/6 * * *" script-path=jd_pigPet.js, tag=京东金融养猪猪
 
 ===============Surge=================
-京东金融养猪猪 = type=cron,cronexp="12 0-23/6 * * *",wake-system=1,timeout=3600,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_pigPet.js
+京东金融养猪猪 = type=cron,cronexp="12 0-23/6 * * *",wake-system=1,timeout=3600,script-path=jd_pigPet.js
 
 ============小火箭=========
-京东金融养猪猪 = type=cron,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_pigPet.js, cronexpr="12 0-23/6 * * *", timeout=3600, enable=true
+京东金融养猪猪 = type=cron,script-path=jd_pigPet.js, cronexpr="12 0-23/6 * * *", timeout=3600, enable=true
  */
 
 const $ = new Env('金融养猪');

@@ -90,7 +90,7 @@ async function accountCheck() {
   }
   let client = new WebSocket(`wss://xinruimz-isv.isvjcloud.com/wss/?token=${$.token}`, null, {
     headers: {
-      'user-agent': "jdapp;android;9.5.0;5.1.1;8363331303230333330383934363-73D2138356239366237373730303;network/wifi;model/vivo X7;addressid/4092959325;aid/e3378926a846c4f7;oaid/;osVer/22;appBuild/87697;partner/vivo;eufv/1;jdSupportDarkMode/0;Mozilla/5.0 (Linux; Android 5.1.1; vivo X7 Build/LMY47V; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/66.0.3359.126 MQQBrowser/6.2 TBS/044942 Mobile Safari/537.36",
+      'user-agent': $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;10.0.2;14.3;network/4g;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1"),
     }
   });
   client.onopen = async () => {
@@ -151,7 +151,7 @@ async function mr() {
   $.needs = []
   let client = new WebSocket(`wss://xinruimz-isv.isvjcloud.com/wss/?token=${$.token}`,null,{
     headers:{
-      'user-agent': "jdapp;android;9.5.0;5.1.1;8363331303230333330383934363-73D2138356239366237373730303;network/wifi;model/vivo X7;addressid/4092959325;aid/e3378926a846c4f7;oaid/;osVer/22;appBuild/87697;partner/vivo;eufv/1;jdSupportDarkMode/0;Mozilla/5.0 (Linux; Android 5.1.1; vivo X7 Build/LMY47V; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/66.0.3359.126 MQQBrowser/6.2 TBS/044942 Mobile Safari/537.36",
+      'user-agent': $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;10.0.2;14.3;network/4g;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1"),
     }
   })
   console.log(`wss://xinruimz-isv.isvjcloud.com/wss/?token=${$.token}`)
@@ -358,7 +358,7 @@ async function mr() {
           }
           break
         case "material_produce_v2":
-          console.log(`【${vo.data.position}】上开始生产${vo?.data?.material_name}`)
+          console.log(`【${vo?.data?.position}】上开始生产${vo?.data?.material_name}`)
           client.send(`{"msg":{"type":"action","args":{},"action":"to_employee"}}`)
           $.pos.push(vo.data.position)
           break
@@ -446,6 +446,7 @@ async function mr() {
           }
           break
         case "product_producing":
+          // console.log('product_producing', vo);
           if (vo.code === '200' || vo.code === 200) {
             for (let product of vo.data) {
               if (product.num === product.produce_num) {
@@ -497,9 +498,14 @@ async function mr() {
           }
           break
         case "to_exchange":
-          console.log(`兑换${vo.data.coins/-100}京豆成功;${JSON.stringify(vo)}`)
+          if (vo?.data) {
+            console.log(`兑换${vo?.data?.coins/-100}京豆成功;${JSON.stringify(vo)}`)
+          } else {
+            console.log(`兑换京豆失败：${JSON.stringify(vo)}`)
+          }
           break
         case "get_produce_material":
+          console.log('get_produce_material', vo?.msg);
           $.material = vo.data
           break
         case "to_employee":
@@ -595,7 +601,7 @@ function getToken() {
       'Accept-Language': 'zh-cn',
       'Content-Type': 'application/json;charset=utf-8',
       'Origin': 'https://xinruimz-isv.isvjcloud.com',
-      'User-Agent': "jdapp;android;9.5.2;10;2353932316161666-6313563383338363;network/wifi;model/EVR-AL00;addressid/4032588137;aid/2592aaaf61e38386;oaid/1d53eb96-e090-4538-ab6f-0e5e3d4664b7;osVer/29;appBuild/87971;partner/huawei;eufv/1;jdSupportDarkMode/0;Mozilla/5.0 (Linux; Android 10; EVR-AL00 Build/HUAWEIEVR-AL00; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/77.0.3865.120 MQQBrowser/6.2 TBS/045230 Mobile Safari/537.36",
+      'User-Agent': $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;10.0.2;14.3;network/4g;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1"),
       'Referer': 'https://xinruimz-isv.isvjcloud.com/logined_jd/',
       'Authorization': 'Bearer undefined',
       'Cookie': `IsvToken=${$.isvToken};`
@@ -611,7 +617,7 @@ function getToken() {
           if (safeGet(data)) {
             data = JSON.parse(data);
             $.token = data.access_token
-            console.log(`$.token ${$.token}`)
+            console.log(`【$.token】 ${$.token}`)
           }
         }
       } catch (e) {
@@ -643,7 +649,7 @@ function TotalBean() {
         "Connection": "keep-alive",
         "Cookie": cookie,
         "Referer": "https://wqs.jd.com/my/jingdou/my.shtml?sceneval=2",
-        "User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : "jdapp;iPhone;9.4.4;14.3;network/4g;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1") : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.4.4;14.3;network/4g;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1")
+        "User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;10.0.2;14.3;network/4g;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1"),
       }
     }
     $.post(options, (err, resp, data) => {

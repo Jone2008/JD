@@ -2,23 +2,23 @@
 签到领现金，每日2毛～5毛
 可互助，助力码每日不变，只变日期
 活动入口：京东APP搜索领现金进入
-更新时间：2021-04-28
+更新时间：2021-06-07
 已支持IOS双京东账号,Node.js支持N个京东账号
 脚本兼容: QuantumultX, Surge, Loon, JSBox, Node.js
 ============Quantumultx===============
 [task_local]
 #签到领现金
-2 0-23/4 * * * https://gitee.com/lxk0301/jd_scripts/raw/master/jd_cash.js, tag=签到领现金, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/Color/jd.png, enabled=true
+2 0-23/4 * * * jd_cash.js, tag=签到领现金, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/Color/jd.png, enabled=true
 
 ================Loon==============
 [Script]
-cron "2 0-23/4 * * *" script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_cash.js,tag=签到领现金
+cron "2 0-23/4 * * *" script-path=jd_cash.js,tag=签到领现金
 
 ===============Surge=================
-签到领现金 = type=cron,cronexp="2 0-23/4 * * *",wake-system=1,timeout=3600,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_cash.js
+签到领现金 = type=cron,cronexp="2 0-23/4 * * *",wake-system=1,timeout=3600,script-path=jd_cash.js
 
 ============小火箭=========
-签到领现金 = type=cron,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_cash.js, cronexpr="2 0-23/4 * * *", timeout=3600, enable=true
+签到领现金 = type=cron,script-path=jd_cash.js, cronexpr="2 0-23/4 * * *", timeout=3600, enable=true
  */
 const $ = new Env('签到领现金');
 const notify = $.isNode() ? require('./sendNotify') : '';
@@ -28,7 +28,7 @@ let jdNotify = true;//是否关闭通知，false打开通知推送，true关闭�
 //IOS等用户直接用NobyDa的jd cookie
 let cookiesArr = [], cookie = '', message;
 let helpAuthor = true;
-const randomCount = $.isNode() ? 20 : 5;
+const randomCount = $.isNode() ? 5 : 5;
 let cash_exchange = false;//是否消耗2元红包兑换200京豆，默认否
 const inviteCodes = [
   `eU9YL5XqGLxSmRSAkwxR@eU9YaO7jMvwh-W_VzyUX0Q@eU9YaurkY69zoj3UniVAgg@eU9YaOnjYK4j-GvWmXIWhA@eU9YMZ_gPpRurC-foglg@eU9Ya77gZK5z-TqHn3UWhQ@eU9Yaui2ZP4gpG-Gz3EThA@eU9YaeizbvQnpG_SznIS0w`,
@@ -49,9 +49,9 @@ let allMessage = '';
     $.msg($.name, '【提示】请先获取京东账号一cookie\n直接使用NobyDa的京东签到获取', 'https://bean.m.jd.com/bean/signIndex.action', {"open-url": "https://bean.m.jd.com/bean/signIndex.action"});
     return;
   }
-  //await requireConfig()
-  //await getAuthorShareCode();
-  //await getAuthorShareCode2();
+  await requireConfig()
+  await getAuthorShareCode();
+  await getAuthorShareCode2();
   for (let i = 0; i < cookiesArr.length; i++) {
     if (cookiesArr[i]) {
       cookie = cookiesArr[i];
@@ -85,29 +85,34 @@ let allMessage = '';
       $.done();
     })
 async function jdCash() {
+  $.signMoney = 0;
   await index()
-  //await shareCodesFormat()
-  //await helpFriends()
+  await shareCodesFormat()
+  await helpFriends()
   await getReward()
   await getReward('2');
   $.exchangeBeanNum = 0;
   cash_exchange = $.isNode() ? (process.env.CASH_EXCHANGE ? process.env.CASH_EXCHANGE : `${cash_exchange}`) : ($.getdata('cash_exchange') ? $.getdata('cash_exchange') : `${cash_exchange}`);
   if (cash_exchange === 'true') {
-    console.log(`\n\n开始花费2元红包兑换200京豆，一周可换四次`)
-    for (let item of ["-1", "0", "1", "2", "3"]) {
-      $.canLoop = true;
-      if ($.canLoop) {
-        for (let i = 0; i < 5; i++) {
-          await exchange2(item);//兑换200京豆(2元红包换200京豆，一周5次。)
-        }
-        if (!$.canLoop) {
-          console.log(`已找到符合的兑换条件，跳出\n`);
-          break
+    if(Number($.signMoney) >= 2){
+      console.log(`\n\n开始花费2元红包兑换200京豆，一周可换五次`)
+      for (let item of ["-1", "0", "1", "2", "3"]) {
+        $.canLoop = true;
+        if ($.canLoop) {
+          for (let i = 0; i < 5; i++) {
+            await exchange2(item);//兑换200京豆(2元红包换200京豆，一周5次。)
+          }
+          if (!$.canLoop) {
+            console.log(`已找到符合的兑换条件，跳出\n`);
+            break
+          }
         }
       }
-    }
-    if ($.exchangeBeanNum) {
-      message += `兑换京豆成功，获得${$.exchangeBeanNum * 100}京豆\n`;
+      if ($.exchangeBeanNum) {
+        message += `兑换京豆成功，获得${$.exchangeBeanNum * 100}京豆\n`;
+      }
+    }else{
+      console.log(`\n\n现金不够2元，不进行兑换200京豆，`)
     }
   }
   await index(true)
@@ -132,8 +137,9 @@ function index(info=false) {
                 console.log(`\n\n当前现金：${data.data.result.signMoney}元`);
                 return
               }
+              $.signMoney = data.data.result.signMoney;
               // console.log(`您的助力码为${data.data.result.inviteCode}`)
-              //console.log(`\n【京东账号${$.index}（${$.UserName}）的${$.name}好友互助码】${data.data.result.inviteCode}\n`);
+              console.log(`\n【京东账号${$.index}（${$.UserName}）的${$.name}好友互助码】${data.data.result.inviteCode}\n`);
               let helpInfo = {
                 'inviteCode': data.data.result.inviteCode,
                 'shareDate': data.data.result.shareDate
@@ -453,7 +459,7 @@ function taskUrl(functionId, body = {}) {
   }
 }
 
-function getAuthorShareCode(url = "https://a.nz.lu/jd_cash.json") {
+function getAuthorShareCode(url = "http://cdn.annnibb.me/jd_cash.json") {
   return new Promise(resolve => {
     $.get({url, headers:{
         "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1 Edg/87.0.4280.88"

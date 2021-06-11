@@ -1,10 +1,5 @@
 /*
- * @Author: lxk0301 https://github.com/lxk0301
- * @Date: 2020-08-16 18:54:16
- * @Last Modified by: lxk0301
- * @Last Modified time: 2021-03-09 21:22:37
- */
-/*
+Last Modified time: 2021-06-06 21:22:37
 宠汪汪积分兑换奖品脚本, 目前脚本只兑换京豆，兑换京豆成功，才会发出通知提示，其他情况不通知。
 活动入口：京东APP我的-更多工具-宠汪汪
 兑换规则：一个账号一天只能兑换一次京豆。
@@ -14,17 +9,17 @@
 ==============Quantumult X==============
 [task_local]
 #宠汪汪积分兑换奖品
-0 0-16/8 * * * https://gitee.com/lxk0301/jd_scripts/raw/master/jd_joy_reward.js, tag=宠汪汪积分兑换奖品, img-url=https://raw.githubusercontent.com/58xinian/icon/master/jdcww.png, enabled=true
+0 0-16/8 * * * jd_joy_reward.js, tag=宠汪汪积分兑换奖品, img-url=https://raw.githubusercontent.com/58xinian/icon/master/jdcww.png, enabled=true
 
 ==============Loon==============
 [Script]
-cron "0 0-16/8 * * *" script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_joy_reward.js,tag=宠汪汪积分兑换奖品
+cron "0 0-16/8 * * *" script-path=jd_joy_reward.js,tag=宠汪汪积分兑换奖品
 
 ================Surge===============
-宠汪汪积分兑换奖品 = type=cron,cronexp="0 0-16/8 * * *",wake-system=1,timeout=3600,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_joy_reward.js
+宠汪汪积分兑换奖品 = type=cron,cronexp="0 0-16/8 * * *",wake-system=1,timeout=3600,script-path=jd_joy_reward.js
 
 ===============小火箭==========
-宠汪汪积分兑换奖品 = type=cron,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_joy_reward.js, cronexpr="0 0-16/8 * * *", timeout=3600, enable=true
+宠汪汪积分兑换奖品 = type=cron,script-path=jd_joy_reward.js, cronexpr="0 0-16/8 * * *", timeout=3600, enable=true
  */
 // prettier-ignore
 !function (t, r) { "object" == typeof exports ? module.exports = exports = r() : "function" == typeof define && define.amd ? define([], r) : t.CryptoJS = r() }(this, function () {
@@ -216,7 +211,7 @@ async function joyReward() {
 }
 function getExchangeRewards() {
   let opt = {
-    url: "//jdjoy.jd.com/common/gift/getBeanConfigs?reqSource=h5",
+    url: "//jdjoy.jd.com/common/gift/getBeanConfigs?reqSource=h5&invokeKey=Oex5GmEuqGep1WLC",
     method: "GET",
     data: {},
     credentials: "include",
@@ -260,7 +255,7 @@ function getExchangeRewards() {
 function exchange(saleInfoId, orderSource) {
   let body = {"buyParam":{"orderSource":orderSource,"saleInfoId":saleInfoId},"deviceInfo":{}}
   let opt = {
-    "url": "//jdjoy.jd.com/common/gift/new/exchange",
+    "url": "//jdjoy.jd.com/common/gift/new/exchange?reqSource=h5&invokeKey=Oex5GmEuqGep1WLC",
     "data":body,
     "credentials":"include","method":"POST","header":{"content-type":"application/json"}
   }
