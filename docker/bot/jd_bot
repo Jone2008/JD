@@ -77,7 +77,7 @@ def node(update, context):
             try:
 
                 out_bytes = subprocess.check_output(
-                    cmd, shell=True, timeout=600, stderr=subprocess.STDOUT)
+                    cmd, shell=True, timeout=3600, stderr=subprocess.STDOUT)
 
                 out_text = out_bytes.decode('utf-8')
 
