@@ -59,7 +59,6 @@ if (process.env.JD_COOKIE) {
     cookieCount = process.env.JD_COOKIE.split('\n').length;
   }
 }
-cookieCount = cookieCount === 1 ? 0 : cookieCount; // 只有一个帐号时，获取日志互助码没什么用
 
 for (let key in shareCodesMap) {
   exports[key] = [];
