@@ -1,10 +1,4 @@
 /*
- * @Author: LXK9301 https://github.com/LXK9301
- * @Date: 2020-11-03 09:25:47
- * @Last Modified by: LXK9301
- * @Last Modified time: 2020-11-23 12:27:07
- */
-/*
 京东手机狂欢城活动，每日可获得30+以上京豆（其中20京豆是往期奖励，需第一天参加活动后，第二天才能拿到）
 活动时间10.21日-11.12日结束，活动23天，保底最少可以拿到690京豆
 活动地址: https://rdcseason.m.jd.com/#/index
@@ -22,12 +16,12 @@
 ===================quantumultx================
 [task_local]
 #京东手机狂欢城
-0 0-18/6 * * * https://gitee.com/lxk0301/jd_scripts/raw/master/jd_818.js, tag=京东手机狂欢城, enabled=true
+0 0-18/6 * * * jd_818.js, tag=京东手机狂欢城, enabled=true
 =====================Loon================
 [Script]
-cron "0 0-18/6 * * *" script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_818.js, tag=京东手机狂欢城
+cron "0 0-18/6 * * *" script-path=jd_818.js, tag=京东手机狂欢城
 ====================Surge================
-京东手机狂欢城 = type=cron,cronexp=0 0-18/6 * * *,wake-system=1,timeout=3600,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_818.js
+京东手机狂欢城 = type=cron,cronexp=0 0-18/6 * * *,wake-system=1,timeout=3600,script-path=jd_818.js
  */
 const $ = new Env('京东手机狂欢城');
 
@@ -833,10 +827,8 @@ function getListRank() {
     })
   })
 }
-function updateShareCodes(url = 'https://raw.githubusercontent.com/LXK9301/updateTeam/master/jd_shareCodes.json') {
+function updateShareCodes(url = 'https://raw.githubusercontent.com/xxxx/updateTeam/master/jd_shareCodes.json') {
   return new Promise(resolve => {
-    //https://cdn.jsdelivr.net/gh/LXK9301/updateTeam@master/jd_shareCodes.json
-    //https://raw.githubusercontent.com/LXK9301/updateTeam/master/jd_shareCodes.json
     $.get({url}, async (err, resp, data) => {
       try {
         if (err) {
@@ -854,7 +846,6 @@ function updateShareCodes(url = 'https://raw.githubusercontent.com/LXK9301/updat
 }
 function updateShareCodesCDN(url = 'https://cdn.jsdelivr.net/gh/gitupdate/updateTeam@master/shareCodes/jd_shareCodes.json') {
   return new Promise(resolve => {
-    //https://cdn.jsdelivr.net/gh/LXK9301/updateTeam@master/jd_shareCodes.json
     $.get({url , headers:{"User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('../USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.4.4;14.3;network/4g;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1")}}, async (err, resp, data) => {
       try {
         if (err) {
