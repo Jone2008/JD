@@ -46,7 +46,7 @@ const JD_API_HOST = 'https://api.m.jd.com/api';
     $.msg($.name, '【提示】请先获取京东账号一cookie\n直接使用NobyDa的京东签到获取', 'https://bean.m.jd.com/bean/signIndex.action', {"open-url": "https://bean.m.jd.com/bean/signIndex.action"});
     return;
   }
-  await getAuthorShareCode('http://cdn.annnibb.me/jd_zz.json');
+  // await getAuthorShareCode('http://cdn.annnibb.me/jd_zz.json');
   await getAuthorShareCode('https://raw.githubusercontent.com/gitupdate/updateTeam/master/shareCodes/jd_zz.json');
   await getRandomCode();
   for (let i = 0; i < cookiesArr.length; i++) {
